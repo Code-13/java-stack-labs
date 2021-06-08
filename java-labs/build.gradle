@@ -1,0 +1,10 @@
+group 'io.github.code13.javastack.javalabs'
+
+configure(subprojects) {
+  group 'io.github.code13.javastack.javalabs'
+
+  dependencies {
+    implementation 'org.apache.commons:commons-lang3'
+  }
+
+}

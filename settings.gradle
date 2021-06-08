@@ -1,0 +1,11 @@
+rootProject.name = 'java-stack-labs'
+
+/*
+include all java-labs
+*/
+file("$rootDir/java-labs").eachDirMatch(~/java-.*/) {
+  include "java-labs:${it.name}"
+}
+
+include 'springboot-labs'
+
