@@ -7,5 +7,9 @@ file("$rootDir/java-labs").eachDirMatch(~/java-.*/) {
   include "java-labs:${it.name}"
 }
 
+include 'prettier-libs'
+include 'prettier-libs:vavr'
+findProject(':prettier-libs:vavr')?.name = 'vavr'
+
 include 'springboot-labs'
 
