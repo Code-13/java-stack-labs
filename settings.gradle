@@ -13,3 +13,4 @@ findProject(':prettier-libs:vavr')?.name = 'vavr'
 
 include 'springboot-labs'
 
+include 'concurrency-masters'

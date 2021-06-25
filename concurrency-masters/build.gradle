@@ -1,0 +1,5 @@
+group 'io.github.code13.javastack.cm'
+
+dependencies {
+  implementation 'org.junit.jupiter:junit-jupiter'
+}
