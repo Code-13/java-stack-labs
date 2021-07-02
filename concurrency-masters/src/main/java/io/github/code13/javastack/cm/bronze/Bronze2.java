@@ -14,7 +14,7 @@
  *     limitations under the License.
  */
 
-package io.github.code13.javastack.cm.bronze1;
+package io.github.code13.javastack.cm.bronze;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
