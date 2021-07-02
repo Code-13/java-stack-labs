@@ -66,11 +66,15 @@ class Bronze3 {
       private int blood = 100;
 
       public int decreaseBlood() {
-        if (blood <= 0) {
-          throw new RuntimeException("血量已经为空");
+        if (isAlive()) {
+          blood = blood - 3;
+          return blood;
         }
-        blood = blood - 3;
         return blood;
+      }
+
+      public boolean isAlive() {
+        return blood > 0;
       }
     }
 
