@@ -14,25 +14,48 @@
  *     limitations under the License.
  */
 
+/*
+ *     Copyright 2021-present the original author or authors.
+ *
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ */
+
 package io.github.code13.javastack.javalabs.ap.processor;
 
 import io.github.code13.javastack.javalabs.ap.annotation.Factory;
 import io.github.code13.javastack.javalabs.ap.annotation.FactoryAnnotatedClass;
 import io.github.code13.javastack.javalabs.ap.annotation.FactoryGroupedClasses;
-
-import javax.annotation.processing.*;
-import javax.lang.model.SourceVersion;
-import javax.lang.model.element.*;
-import javax.lang.model.type.TypeKind;
-import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
-import javax.tools.Diagnostic;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.Filer;
+import javax.annotation.processing.Messager;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Elements;
+import javax.lang.model.util.Types;
+import javax.tools.Diagnostic;
 
 /**
  * @author <a href="https://github.com/Code-13/">code13</a>
@@ -75,7 +98,10 @@ public class FactoryAnnotationProcessor extends AbstractProcessor {
     // 检查被注解为@Factory的元素是否是一个类
     for (Element annotatedElement : roundEnv.getElementsAnnotatedWith(Factory.class)) {
       if (annotatedElement.getKind() != ElementKind.CLASS) {
-        error(annotatedElement, "Only classes can be annotated with @%s", Factory.class.getSimpleName());
+        error(
+            annotatedElement,
+            "Only classes can be annotated with @%s",
+            Factory.class.getSimpleName());
         // 退出处理
         return true;
       }
@@ -89,7 +115,8 @@ public class FactoryAnnotationProcessor extends AbstractProcessor {
           return true;
         }
 
-        FactoryGroupedClasses factoryClass = factoryClasses.get(annotatedClass.getQualifiedFactoryGroupName());
+        FactoryGroupedClasses factoryClass =
+            factoryClasses.get(annotatedClass.getQualifiedFactoryGroupName());
         if (factoryClasses == null) {
           String qualifiedGroupName = annotatedClass.getQualifiedFactoryGroupName();
           factoryClass = new FactoryGroupedClasses(qualifiedGroupName);
@@ -122,23 +149,31 @@ public class FactoryAnnotationProcessor extends AbstractProcessor {
     TypeElement classElement = item.getTypeElement();
 
     if (!classElement.getModifiers().contains(Modifier.PUBLIC)) {
-      error(classElement, "The class %s is not public.", classElement.getQualifiedName().toString());
+      error(
+          classElement, "The class %s is not public.", classElement.getQualifiedName().toString());
       return false;
     }
 
     if (classElement.getModifiers().contains(Modifier.ABSTRACT)) {
-      error(classElement, "The class %s is abstract. You can't annotate abstract classes with @%",
-        classElement.getQualifiedName().toString(), Factory.class.getSimpleName());
+      error(
+          classElement,
+          "The class %s is abstract. You can't annotate abstract classes with @%",
+          classElement.getQualifiedName().toString(),
+          Factory.class.getSimpleName());
       return false;
     }
 
-    TypeElement supperClassElement = elementUtils.getTypeElement(item.getQualifiedFactoryGroupName());
+    TypeElement supperClassElement =
+        elementUtils.getTypeElement(item.getQualifiedFactoryGroupName());
 
     if (supperClassElement.getKind() == ElementKind.INTERFACE) {
       if (!classElement.getInterfaces().contains(supperClassElement.asType())) {
-        error(classElement, "The class %s annotated with @%s must implement the interface %s",
-          classElement.getQualifiedName().toString(), Factory.class.getSimpleName(),
-          item.getQualifiedFactoryGroupName());
+        error(
+            classElement,
+            "The class %s annotated with @%s must implement the interface %s",
+            classElement.getQualifiedName().toString(),
+            Factory.class.getSimpleName(),
+            item.getQualifiedFactoryGroupName());
         return false;
       }
     } else {
@@ -148,9 +183,12 @@ public class FactoryAnnotationProcessor extends AbstractProcessor {
 
         if (superclassType.getKind() == TypeKind.NONE) {
           // 到达了基本类型(java.lang.Object), 所以退出
-          error(classElement, "The class %s annotated with @%s must inherit from %s",
-            classElement.getQualifiedName().toString(), Factory.class.getSimpleName(),
-            item.getQualifiedFactoryGroupName());
+          error(
+              classElement,
+              "The class %s annotated with @%s must inherit from %s",
+              classElement.getQualifiedName().toString(),
+              Factory.class.getSimpleName(),
+              item.getQualifiedFactoryGroupName());
           return false;
         }
 
@@ -165,24 +203,23 @@ public class FactoryAnnotationProcessor extends AbstractProcessor {
     for (Element enclosedElement : classElement.getEnclosedElements()) {
       if (enclosedElement.getKind() == ElementKind.CONSTRUCTOR) {
         ExecutableElement constructorElement = (ExecutableElement) enclosedElement;
-        if (constructorElement.getParameters().isEmpty() && constructorElement.getModifiers().contains(Modifier.PUBLIC)) {
+        if (constructorElement.getParameters().isEmpty()
+            && constructorElement.getModifiers().contains(Modifier.PUBLIC)) {
           return true;
         }
       }
     }
 
     // 没有找到默认构造函数
-    error(classElement, "The class %s must provide an public empty default constructor",
-      classElement.getQualifiedName().toString());
+    error(
+        classElement,
+        "The class %s must provide an public empty default constructor",
+        classElement.getQualifiedName().toString());
 
     return false;
   }
 
   private void error(Element e, String msg, Object... args) {
-    messager.printMessage(
-      Diagnostic.Kind.ERROR,
-      String.format(msg, args),
-      e);
+    messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);
   }
-
 }

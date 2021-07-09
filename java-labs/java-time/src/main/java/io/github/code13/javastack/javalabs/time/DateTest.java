@@ -14,20 +14,40 @@
  *     limitations under the License.
  */
 
+/*
+ *     Copyright 2021-present the original author or authors.
+ *
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ */
+
 package io.github.code13.javastack.javalabs.time;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import java.time.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.MonthDay;
+import java.time.Year;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.TemporalAdjusters;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 /**
  * 日期类
- * <p>
- * 日期时间 API 提供四个专门处理日期信息的类，不考虑时间或时区。类名建议使用这些类：LocalDate，YearMonth，MonthDay 和 Year。
+ *
+ * <p>日期时间 API 提供四个专门处理日期信息的类，不考虑时间或时区。类名建议使用这些类：LocalDate，YearMonth，MonthDay 和 Year。
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2021/6/15 12:10
@@ -35,10 +55,7 @@ import java.time.temporal.TemporalAdjusters;
 @DisplayName("日期类：LocalDate，YearMonth，MonthDay 和 Year")
 class DateTest {
 
-  /**
-   * 一个 LocalDate 代表 年月日的 ISO 日历，表示没有时间的日期是有用的。
-   * 您可以使用 LocalDate 跟踪重大事件， 例如出生日期或结婚日期。
-   */
+  /** 一个 LocalDate 代表 年月日的 ISO 日历，表示没有时间的日期是有用的。 您可以使用 LocalDate 跟踪重大事件， 例如出生日期或结婚日期。 */
   @DisplayName("LocalDate")
   static class LocalDateTest {
 
@@ -73,9 +90,8 @@ class DateTest {
       LocalDate nextWed = date.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
       System.out.printf("For the date of %s, the next Wednesday is %s.%n", date, nextWed);
 
-      //For the date of 2000-11-20, the next Wednesday is 2000-11-22.
+      // For the date of 2000-11-20, the next Wednesday is 2000-11-22.
     }
-
   }
 
   @DisplayName("YearMonth 类代表一个特定的一年中的月份")
@@ -95,7 +111,6 @@ class DateTest {
       // 2012-02: 366  // 返回该年有多少天
       System.out.printf("%s: %d%n", date, date.lengthOfYear());
     }
-
   }
 
   @DisplayName("某月的一天")
@@ -104,14 +119,13 @@ class DateTest {
     @Test
     @DisplayName("使用 MonthDay.isValidYear 方法来确定 2 月 29 日是否对 2010 年有效")
     void test1() {
-      //2 月29号
+      // 2 月29号
       MonthDay date = MonthDay.of(Month.FEBRUARY, 29);
       // 对于 2010 年是否是有效的时间
       boolean validLeapYear = date.isValidYear(2010);
 
       System.out.println(validLeapYear);
     }
-
   }
 
   @DisplayName("Year: 代表一年")
@@ -123,7 +137,5 @@ class DateTest {
       boolean leap = Year.of(2021).isLeap();
       System.out.println(leap);
     }
-
   }
-
 }

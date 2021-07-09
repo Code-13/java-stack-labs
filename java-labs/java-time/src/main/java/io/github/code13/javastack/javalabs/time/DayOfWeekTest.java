@@ -14,15 +14,30 @@
  *     limitations under the License.
  */
 
-package io.github.code13.javastack.javalabs.time;
+/*
+ *     Copyright 2021-present the original author or authors.
+ *
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ */
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+package io.github.code13.javastack.javalabs.time;
 
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Arrays;
 import java.util.Locale;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 /**
  * 指定一周中的几天
@@ -35,8 +50,7 @@ import java.util.Locale;
 class DayOfWeekTest {
 
   /**
-   * DayOfWeek 由七个常量形容一周的日子：星期一至星期日。
-   * DayOfWeek 常量的整数值范围从 1（星期一）到 7（星期日）。
+   * DayOfWeek 由七个常量形容一周的日子：星期一至星期日。 DayOfWeek 常量的整数值范围从 1（星期一）到 7（星期日）。
    * 使用定义的常量（DayOfWeek.FRIDAY）使您的代码更具可读性。
    */
   @Test
@@ -44,13 +58,13 @@ class DayOfWeekTest {
   void test1() {
     Arrays.stream(DayOfWeek.values()).forEachOrdered(System.out::println);
 
-    //MONDAY
-    //TUESDAY
-    //WEDNESDAY
-    //THURSDAY
-    //FRIDAY
-    //SATURDAY
-    //SUNDAY
+    // MONDAY
+    // TUESDAY
+    // WEDNESDAY
+    // THURSDAY
+    // FRIDAY
+    // SATURDAY
+    // SUNDAY
   }
 
   @Test
@@ -71,5 +85,4 @@ class DayOfWeekTest {
     // 星期一
     System.out.println(dow.getDisplayName(TextStyle.SHORT, locale));
   }
-
 }

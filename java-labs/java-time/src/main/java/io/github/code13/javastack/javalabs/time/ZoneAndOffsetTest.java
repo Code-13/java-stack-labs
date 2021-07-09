@@ -14,18 +14,40 @@
  *     limitations under the License.
  */
 
+/*
+ *     Copyright 2021-present the original author or authors.
+ *
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ */
+
 package io.github.code13.javastack.javalabs.time;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import java.time.*;
+import java.time.DateTimeException;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author <a href="https://github.com/Code-13/">code13</a>
@@ -65,18 +87,16 @@ class ZoneAndOffsetTest {
         }
       }
     }
-
   }
 
   /**
-   * 你什么时候使用 OffsetDateTime 而不是 ZonedDateTime？
-   * 如果您正在编写复杂的软件， 该软件根据地理位置对自己的日期和时间计算规则进行建模，或者将时间戳存储在仅跟踪格林威治/ UTC 时间的绝对偏移量的数据库中，
-   * 则可能需要使用 OffsetDateTime。另外，XML 和其他网络格式将日期时间传输定义为 OffsetDateTime 或 OffsetTime。
+   * 你什么时候使用 OffsetDateTime 而不是 ZonedDateTime？ 如果您正在编写复杂的软件，
+   * 该软件根据地理位置对自己的日期和时间计算规则进行建模，或者将时间戳存储在仅跟踪格林威治/ UTC 时间的绝对偏移量的数据库中， 则可能需要使用 OffsetDateTime。另外，XML
+   * 和其他网络格式将日期时间传输定义为 OffsetDateTime 或 OffsetTime。
    */
-
   @DisplayName("java.time.ZonedDateTime")
   static class ZonedDateTimeTest {
-    //实际上，结合了 LocalDateTime 与类 了 zoneid 类。它用于表示具有时区（地区/城市，如欧洲/巴黎）的完整日期（年，月，日）和时间（小时，分钟，秒，纳秒）。
+    // 实际上，结合了 LocalDateTime 与类 了 zoneid 类。它用于表示具有时区（地区/城市，如欧洲/巴黎）的完整日期（年，月，日）和时间（小时，分钟，秒，纳秒）。
 
     @Test
     @DisplayName("ZonedDateTime 示例")
@@ -101,8 +121,8 @@ class ZoneAndOffsetTest {
       // Flight is 10 hours and 50 minutes, or 650 minutes
       ZoneId arrivingZone = ZoneId.of("Asia/Tokyo");
       // 使用美国洛杉矶出发的时间，然后换算成东京的时区，返回该时区对应的时间
-      ZonedDateTime arrival = departure.withZoneSameInstant(arrivingZone)
-        .plusMinutes(650); // 在该时区的基础上加650分钟
+      ZonedDateTime arrival =
+          departure.withZoneSameInstant(arrivingZone).plusMinutes(650); // 在该时区的基础上加650分钟
 
       try {
         String out2 = arrival.format(format);
@@ -123,8 +143,8 @@ class ZoneAndOffsetTest {
   }
 
   /**
-   * 结合了 LocalDateTime 与类 ZoneOffset 类。
-   * 它用于表示格林威治/ UTC 时间的偏移量 （+/-小时：分钟，例如 +06：00 或-）的整个日期（年，月，日）和时间（小时，分钟，秒，纳秒）08:00）。
+   * 结合了 LocalDateTime 与类 ZoneOffset 类。 它用于表示格林威治/ UTC 时间的偏移量 （+/-小时：分钟，例如 +06：00
+   * 或-）的整个日期（年，月，日）和时间（小时，分钟，秒，纳秒）08:00）。
    */
   @DisplayName("java.time.OffsetDateTime")
   static class OffsetDateTimeTest {
@@ -137,10 +157,11 @@ class ZoneAndOffsetTest {
 
       OffsetDateTime offsetDate = OffsetDateTime.of(localDate, offset);
 
-      OffsetDateTime lastThursday = offsetDate.with(TemporalAdjusters.lastInMonth(DayOfWeek.THURSDAY));
-      System.out.printf("The last Thursday in July 2013 is the %sth.%n", lastThursday.getDayOfMonth());
+      OffsetDateTime lastThursday =
+          offsetDate.with(TemporalAdjusters.lastInMonth(DayOfWeek.THURSDAY));
+      System.out.printf(
+          "The last Thursday in July 2013 is the %sth.%n", lastThursday.getDayOfMonth());
     }
-
   }
 
   /**
@@ -174,9 +195,6 @@ class ZoneAndOffsetTest {
       // 2018-05-01T00:00+04:00[Asia/Yerevan]
       // 只是改变了时区
       d1.withZoneSameLocal(ZoneId.of("Asia/Yerevan"));
-
     }
-
   }
-
 }

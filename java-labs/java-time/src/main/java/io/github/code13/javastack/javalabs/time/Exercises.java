@@ -14,17 +14,38 @@
  *     limitations under the License.
  */
 
+/*
+ *     Copyright 2021-present the original author or authors.
+ *
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ */
+
 package io.github.code13.javastack.javalabs.time;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import java.time.*;
+import java.time.DayOfWeek;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
 import java.util.Locale;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 /**
  * 问题与练习
@@ -51,7 +72,7 @@ class Exercises {
   @Test
   @DisplayName("ZoneId 和 ZoneOffset 有什么区别？")
   void test3() {
-    //ZoneId 中包含了 ZoneOffset
+    // ZoneId 中包含了 ZoneOffset
   }
 
   @Test
@@ -69,13 +90,14 @@ class Exercises {
   void test5() {
     int year = 2021;
     Arrays.stream(Month.values())
-      .map(month -> LocalDate.of(year, month.getValue(), 1))
-      .forEach(date -> {
-        Month month = date.getMonth();
-        String displayNameMonth = month.getDisplayName(TextStyle.FULL, Locale.getDefault());
-        System.out.printf("%s: %d days%n", displayNameMonth, date.lengthOfMonth());
-        System.out.format("%3s %3s%n", displayNameMonth, date.lengthOfMonth());
-      });
+        .map(month -> LocalDate.of(year, month.getValue(), 1))
+        .forEach(
+            date -> {
+              Month month = date.getMonth();
+              String displayNameMonth = month.getDisplayName(TextStyle.FULL, Locale.getDefault());
+              System.out.printf("%s: %d days%n", displayNameMonth, date.lengthOfMonth());
+              System.out.format("%3s %3s%n", displayNameMonth, date.lengthOfMonth());
+            });
   }
 
   @Test
@@ -84,7 +106,8 @@ class Exercises {
     int m = 6;
     Month month = Month.of(m);
 
-    LocalDate date = Year.now().atMonth(month).atDay(1).with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY));
+    LocalDate date =
+        Year.now().atMonth(month).atDay(1).with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY));
 
     Month mi = date.getMonth();
     System.out.printf("%s的星期一有以下几天:%n", month.getDisplayName(TextStyle.FULL, Locale.getDefault()));
@@ -104,11 +127,13 @@ class Exercises {
     int day = 13;
     LocalDate date = Year.now().atMonth(m).atDay(day);
 
-    Boolean query = date.query(temporal -> {
-      int dayOfMonth = temporal.get(ChronoField.DAY_OF_MONTH);
-      int dayOfWeek = temporal.get(ChronoField.DAY_OF_WEEK);
-      return dayOfMonth == 13 && dayOfWeek == 5;
-    });
+    Boolean query =
+        date.query(
+            temporal -> {
+              int dayOfMonth = temporal.get(ChronoField.DAY_OF_MONTH);
+              int dayOfWeek = temporal.get(ChronoField.DAY_OF_WEEK);
+              return dayOfMonth == 13 && dayOfWeek == 5;
+            });
 
     System.out.println(query);
   }
@@ -117,14 +142,17 @@ class Exercises {
   @DisplayName("找一年中是13号又是星期5的日期")
   void test8() {
     int year = 2021;
-    LocalDate date = Year.of(year).atMonth(1).atDay(1).with(TemporalAdjusters.firstInMonth(DayOfWeek.FRIDAY));
+    LocalDate date =
+        Year.of(year).atMonth(1).atDay(1).with(TemporalAdjusters.firstInMonth(DayOfWeek.FRIDAY));
     int targetYear = date.getYear();
     while (targetYear == year) {
-      Boolean query = date.query(temporal -> {
-        int dayOfMonth = temporal.get(ChronoField.DAY_OF_MONTH);
-        int dayOfWeek = temporal.get(ChronoField.DAY_OF_WEEK);
-        return dayOfMonth == 13 && dayOfWeek == 5;
-      });
+      Boolean query =
+          date.query(
+              temporal -> {
+                int dayOfMonth = temporal.get(ChronoField.DAY_OF_MONTH);
+                int dayOfWeek = temporal.get(ChronoField.DAY_OF_WEEK);
+                return dayOfMonth == 13 && dayOfWeek == 5;
+              });
 
       if (query) {
         System.out.println(date);
@@ -134,5 +162,4 @@ class Exercises {
       targetYear = date.getYear();
     }
   }
-
 }

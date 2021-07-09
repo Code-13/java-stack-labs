@@ -14,6 +14,22 @@
  *     limitations under the License.
  */
 
+/*
+ *     Copyright 2021-present the original author or authors.
+ *
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ */
+
 package io.github.code13.javastack.cm.bronze;
 
 import org.junit.jupiter.api.DisplayName;
@@ -49,36 +65,31 @@ class Bronze4 {
   @DisplayName("synchronized的四种用法")
   void test2() {
     class Master {
-      //主宰的初始血量
+      // 主宰的初始血量
       private int blood = 100;
 
-      //每次被击打后血量减5
+      // 每次被击打后血量减5
       public synchronized int decreaseBlood() {
         blood = blood - 5;
         return blood;
       }
 
-      //通过血量判断主宰是否还存活
+      // 通过血量判断主宰是否还存活
       public boolean isAlive() {
         return blood > 0;
       }
     }
-
   }
 
   /**
-   * Java中的synchronized关键字用于解决多线程访问共享资源时的同步，以解决线程干扰和内存一致性问题；
-   * 你可以通过 代码块（code block） 或者 方法（method） 来使用synchronized关键字；
-   * synchronized的原理基于对象中的锁，当线程需要进入synchronized修饰的方法或代码块时，它需要先获得锁并在执行结束后释放它；
-   * 当线程进入非静态（non-static）同步方法时，它获得的是对象实例（Object level）的锁。而线程进入静态同步方法时，它所获得的是类实例（Class level）的锁，两者没有必然关系；
-   * 如果synchronized中使用的对象是null，将会抛出NullPointerException错误；
-   * synchronized对方法的性能有一定影响，因为线程要等待获取锁；
-   * 使用synchronized时尽量使用代码块，而不是整个方法，以免阻塞整个方法；
+   * Java中的synchronized关键字用于解决多线程访问共享资源时的同步，以解决线程干扰和内存一致性问题； 你可以通过 代码块（code block） 或者 方法（method）
+   * 来使用synchronized关键字； synchronized的原理基于对象中的锁，当线程需要进入synchronized修饰的方法或代码块时，它需要先获得锁并在执行结束后释放它；
+   * 当线程进入非静态（non-static）同步方法时，它获得的是对象实例（Object level）的锁。而线程进入静态同步方法时，它所获得的是类实例（Class
+   * level）的锁，两者没有必然关系； 如果synchronized中使用的对象是null，将会抛出NullPointerException错误；
+   * synchronized对方法的性能有一定影响，因为线程要等待获取锁； 使用synchronized时尽量使用代码块，而不是整个方法，以免阻塞整个方法；
    * 尽量不要使用String类型和原始类型作为参数。这是因为，JVM在处理字符串、原始类型时会对它们进行优化。比如，你原本是想对不同的字符串进行加锁，然而JVM认为它们是同一个，很显然这不是你想要的结果。
    */
   @Test
   @DisplayName("synchronized小结")
-  void test3() {
-  }
-
+  void test3() {}
 }
