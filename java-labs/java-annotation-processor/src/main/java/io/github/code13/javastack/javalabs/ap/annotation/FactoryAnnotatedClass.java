@@ -76,13 +76,13 @@ public class FactoryAnnotatedClass {
     }
   }
 
-  /** 获取在{@link Factory#id()}中指定的id return the id */
+  /** 获取在{@link Factory#id()}中指定的id return the id. */
   public String getId() {
     return id;
   }
 
   /**
-   * 获取在{@link Factory#type()}指定的类型合法全名
+   * 获取在{@link Factory#type()}指定的类型合法全名.
    *
    * @return qualified name
    */
@@ -91,7 +91,7 @@ public class FactoryAnnotatedClass {
   }
 
   /**
-   * 获取在 {@link Factory#type()} 中指定的类型的简单名字
+   * 获取在 {@link Factory#type()} 中指定的类型的简单名字.
    *
    * @return qualified name
    */
@@ -99,7 +99,7 @@ public class FactoryAnnotatedClass {
     return simpleTypeName;
   }
 
-  /** 获取被@Factory注解的原始元素 */
+  /** 获取被@Factory注解的原始元素. */
   public TypeElement getTypeElement() {
     return annotatedClassElement;
   }

@@ -47,9 +47,9 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Factory {
 
-  /** 工厂的名字 */
+  /** 工厂的名字. */
   Class<?> type();
 
-  /** 用来表示生成哪个对象的唯一id */
+  /** 用来表示生成哪个对象的唯一id. */
   String id();
 }

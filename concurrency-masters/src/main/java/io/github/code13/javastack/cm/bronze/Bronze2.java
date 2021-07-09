@@ -36,6 +36,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
+ * 并发王者课-青铜2：本来面目-如何简单认识Java中的线程.
+ *
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2021/7/2 09:04
  */

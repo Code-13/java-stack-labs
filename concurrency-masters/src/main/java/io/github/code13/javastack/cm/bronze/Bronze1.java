@@ -38,7 +38,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * 并发王者课-青铜1：牛刀小试-如何创建线程之初体验
+ * 并发王者课-青铜1：牛刀小试-如何创建线程之初体验.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2021/6/23 17:10

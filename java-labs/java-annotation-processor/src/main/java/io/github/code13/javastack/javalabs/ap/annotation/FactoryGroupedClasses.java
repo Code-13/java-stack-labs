@@ -50,7 +50,7 @@ import javax.lang.model.util.Elements;
  */
 public class FactoryGroupedClasses {
 
-  /** 将被添加到生成的工厂类的名字中 */
+  /** 将被添加到生成的工厂类的名字中. */
   private static final String SUFFIX = "Factory";
 
   private String qualifiedClassName;

@@ -39,7 +39,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * 并发王者课-青铜3：兴利除弊-如何理解多线程的安全问题
+ * 并发王者课-青铜3：兴利除弊-如何理解多线程的安全问题.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2021/7/2 09:41
