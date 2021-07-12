@@ -57,7 +57,7 @@ class Bronze4 {
      * 内存一致性错误（Memory Consistency Errors）：当不同的线程对应为相同数据的视图不一致时，将发生内存一致性错误。内存一致性错误的原因很复杂，幸运的是，我们不需要详细了解这些原因，所需要的只是避免它们的策略。
      *
      * 从竞态的角度讲，线程干扰对应的是Read-modify-write，而内存一致性错误对应的则是Check-then-act。
-     * 结合锁和synchronized的概念可以理解为，锁是多线程安全的基础机制，而synchronized是锁机制的一种实现。
+     * 结合锁和synchronized的概念可以理解为，锁是多线程安全的基础机制，而synchronized是锁机制的一种实现.
      */
   }
 
@@ -87,7 +87,7 @@ class Bronze4 {
    * 当线程进入非静态（non-static）同步方法时，它获得的是对象实例（Object level）的锁。而线程进入静态同步方法时，它所获得的是类实例（Class
    * level）的锁，两者没有必然关系； 如果synchronized中使用的对象是null，将会抛出NullPointerException错误；
    * synchronized对方法的性能有一定影响，因为线程要等待获取锁； 使用synchronized时尽量使用代码块，而不是整个方法，以免阻塞整个方法；
-   * 尽量不要使用String类型和原始类型作为参数。这是因为，JVM在处理字符串、原始类型时会对它们进行优化。比如，你原本是想对不同的字符串进行加锁，然而JVM认为它们是同一个，很显然这不是你想要的结果。
+   * 尽量不要使用String类型和原始类型作为参数。这是因为，JVM在处理字符串、原始类型时会对它们进行优化。比如，你原本是想对不同的字符串进行加锁，然而JVM认为它们是同一个，很显然这不是你想要的结果.
    */
   @Test
   @DisplayName("synchronized小结")
