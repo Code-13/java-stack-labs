@@ -70,7 +70,8 @@ class Gold1 {
                   System.out.println("t1 持有 B");
                 }
               }
-            });
+            },
+            "Thread-dead-1");
 
     var t2 =
         new Thread(
@@ -88,7 +89,8 @@ class Gold1 {
                   System.out.println("t2 持有 A");
                 }
               }
-            });
+            },
+            "Thread-dead-1");
 
     t1.start();
     t2.start();
