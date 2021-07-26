@@ -40,12 +40,13 @@ class Platinum6 {
   /*
    * JUC中的Condition是以接口的形式出现，并定义了一些核心方法：
    *
-   * await()：让当前线程进入等待，直到收到信号或者被中断； await(long time, TimeUnit
-   * unit)：让当前线程进入等待，直到收到信号或者被中断，或者到达指定的等待超时时间； awaitNanos(long
-   * nanosTimeout)：让当前线程进入等待，直到收到信号或者被中断，或者到达指定的等待超时时间，只是在时间单位上和上一个方法有所区别；
-   * awaitUninterruptibly(）：让当前线程进入等待，直到收到信号。注意，这个方法对中断是不敏感的； awaitUntil(Date
-   * deadline)：让当前线程进入等待，直到收到信号或者被中断，或者到达截止时间； signal()：随机唤醒一个线程； signalAll()：唤醒所有等待的线程。
-   *
+   * await()：让当前线程进入等待，直到收到信号或者被中断；
+   * await(long time, TimeUnit unit)：让当前线程进入等待，直到收到信号或者被中断，或者到达指定的等待超时时间；
+   * awaitNanos(long nanosTimeout)：让当前线程进入等待，直到收到信号或者被中断，或者到达指定的等待超时时间，只是在时间单位上和上一个方法有所区别；
+   * awaitUninterruptibly(）：让当前线程进入等待，直到收到信号。注意，这个方法对中断是不敏感的；
+   * awaitUntil(Date deadline)：让当前线程进入等待，直到收到信号或者被中断，或者到达截止时间；
+   * signal()：随机唤醒一个线程；
+   * signalAll()：唤醒所有等待的线程。
    *
    * 相较于原生的通知与等待，它的能力明显增强了很多，比如awaitUninterruptibly()和awaitUntil()。另外，Condition竟然是可以唤醒指定线程的，这就很有意思.
    */
