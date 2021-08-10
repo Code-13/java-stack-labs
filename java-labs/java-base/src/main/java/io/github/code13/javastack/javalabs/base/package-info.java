@@ -14,6 +14,12 @@
  *     limitations under the License.
  */
 
-dependencies {
-    implementation 'org.junit.jupiter:junit-jupiter'
-}
+/**
+ * package-info.
+ *
+ * <p>java.base
+ *
+ * @author <a href="https://github.com/Code-13/">code13</a>
+ * @date 2021/8/10 14:25
+ */
+package io.github.code13.javastack.javalabs.base;

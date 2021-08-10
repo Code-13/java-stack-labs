@@ -14,6 +14,34 @@
  *     limitations under the License.
  */
 
-dependencies {
-    implementation 'org.junit.jupiter:junit-jupiter'
+package io.github.code13.javastack.javalabs.base;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+/**
+ * StringTest.
+ *
+ * @author <a href="https://github.com/Code-13/">code13</a>
+ * @date 2021/8/10 16:25
+ */
+@DisplayName("java.lang.string")
+class StringTest {
+
+  @Test
+  @DisplayName("字符串测试")
+  void test1() {
+
+    String a = "Programming";
+    String b = new String("Programming");
+    String c = "Program" + "ming";
+
+    System.out.println(a == b);
+    System.out.println(a == c);
+
+    System.out.println(a.equals(b));
+    System.out.println(a.equals(c));
+
+    System.out.println(a.intern() == b.intern());
+  }
 }
