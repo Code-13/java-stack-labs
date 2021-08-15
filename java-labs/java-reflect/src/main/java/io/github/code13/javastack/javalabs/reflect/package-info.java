@@ -14,14 +14,12 @@
  *     limitations under the License.
  */
 
-group 'io.github.code13.javastack.javalabs'
-
-configure(subprojects) {
-    group 'io.github.code13.javastack.javalabs'
-
-    dependencies {
-        implementation 'org.apache.commons:commons-lang3'
-        implementation 'org.junit.jupiter:junit-jupiter'
-    }
-
-}
+/**
+ * package-info.
+ *
+ * <p>反射与内省
+ *
+ * @author <a href="https://github.com/Code-13/">code13</a>
+ * @date 2021/8/15 14:20
+ */
+package io.github.code13.javastack.javalabs.reflect;
