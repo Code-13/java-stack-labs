@@ -14,24 +14,17 @@
  *     limitations under the License.
  */
 
-rootProject.name = 'java-stack-labs'
+package io.github.code13.javastack.cm.diamond;
 
-/*
-include all java-labs
-*/
-file("$rootDir/java-labs").eachDirMatch(~/java-.*/) {
-    include "java-labs:${it.name}"
-}
+import org.junit.jupiter.api.DisplayName;
 
-include 'prettier-libs'
-include 'prettier-libs:vavr'
-findProject(':prettier-libs:vavr')?.name = 'vavr'
-
-include 'springboot-labs'
-
-include 'concurrency-masters'
-
-include 'jvm'
-include 'jvm:mat'
-findProject(':jvm:mat')?.name = 'mat'
-
+/**
+ * Diamond1.
+ *
+ * <p>钻石1 线程池
+ *
+ * @author <a href="https://github.com/Code-13/">code13</a>
+ * @date 2021/8/15 14:44
+ */
+@DisplayName("王者并发课-钻石1：明心见性-如何由表及里精通线程池设计与原理")
+class Diamond1 {}

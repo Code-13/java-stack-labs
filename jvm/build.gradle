@@ -1,0 +1,9 @@
+group 'io.github.code13.javastack.jvm'
+
+configure(subprojects) {
+    group 'io.github.code13.javastack.jvm'
+
+    dependencies {
+    }
+
+}
