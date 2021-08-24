@@ -24,7 +24,6 @@ ext {
     jsoupVersion = "1.13.1"
     zxingVersion = "3.4.1"
     lombokVersion = "1.18.20"
-    findbugsVersion = "3.0.2"
 }
 
 configure(subprojects) {
@@ -59,13 +58,11 @@ configure(subprojects) {
         compileOnly "org.projectlombok:lombok:$lombokVersion"
         annotationProcessor "org.projectlombok:lombok:$lombokVersion"
         testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
-        compileOnly "com.google.code.findbugs:jsr305:$findbugsVersion"
-        testCompileOnly "com.google.code.findbugs:jsr305:$findbugsVersion"
         testCompileOnly "org.projectlombok:lombok:$lombokVersion"
         testCompileOnly "org.springframework:spring-test"
         testImplementation "org.slf4j:slf4j-api"
-        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+        testImplementation 'org.junit.jupiter:junit-jupiter-api'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     }
 
     test {
