@@ -16,14 +16,27 @@
 
 ext {
     javaVersion = JavaVersion.VERSION_11
-    springBootVersion = '2.5.0'
+    springBootVersion = '2.5.4'
     springCloudVersion = '2020.0.3'
+    checkerQualVersion = '3.17.0'
+    mybatisPlusVersion = '3.4.3.2'
     knife4jVersion = "3.0.2"
     swaggerAnnotationsVersion = "1.5.22"
     druidVersion = "1.2.6"
     jsoupVersion = "1.13.1"
     zxingVersion = "3.4.1"
     lombokVersion = "1.18.20"
+}
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+    }
 }
 
 configure(subprojects) {
@@ -33,6 +46,7 @@ configure(subprojects) {
 
 configure(subprojects) {
     apply plugin: "java-library"
+    apply plugin: "io.spring.dependency-management"
     sourceCompatibility = "$javaVersion"
     targetCompatibility = "$javaVersion"
     tasks.withType(JavaCompile) {
@@ -50,11 +64,28 @@ configure(subprojects) {
         mavenCentral()
     }
 
+    dependencyManagement {
+        imports {
+            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.5.4'
+            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2020.0.3'
+        }
+        dependencies {
+            dependencySet(group: "com.baomidou", version: '3.4.3.2') {
+                entry "mybatis-plus-boot-starter"
+                entry "mybatis-plus-core"
+                entry "mybatis-plus-extension"
+                entry "mybatis-plus-annotation"
+            }
+        }
+    }
+
     dependencies {
-        implementation platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
-        implementation platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+
+        implementation "org.checkerframework:checker-qual:$checkerQualVersion"
+
         compileOnly "org.slf4j:slf4j-api"
         compileOnly "jakarta.servlet:jakarta.servlet-api"
+
         compileOnly "org.projectlombok:lombok:$lombokVersion"
         annotationProcessor "org.projectlombok:lombok:$lombokVersion"
         testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"

@@ -14,26 +14,17 @@
  *     limitations under the License.
  */
 
-rootProject.name = 'java-stack-labs'
+DROP TABLE IF EXISTS billionaires;
 
-/*
-include all java-labs
-*/
-file("$rootDir/java-labs").eachDirMatch(~/java-.*/) {
-    include "java-labs:${it.name}"
-}
+CREATE TABLE billionaires
+(
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(250) NOT NULL,
+    last_name  VARCHAR(250) NOT NULL,
+    career     VARCHAR(250) DEFAULT NULL
+);
 
-include 'prettier-libs'
-include 'prettier-libs:vavr'
-findProject(':prettier-libs:vavr')?.name = 'vavr'
-
-include 'springboot-labs'
-
-include 'concurrency-masters'
-
-include 'jvm'
-include 'jvm:mat'
-findProject(':jvm:mat')?.name = 'mat'
-include 'prettier-libs:mybatis-plus'
-findProject(':prettier-libs:mybatis-plus')?.name = 'mybatis-plus'
-
+INSERT INTO billionaires (first_name, last_name, career)
+VALUES ('Aliko', 'Dangote', 'Billionaire Industrialist'),
+       ('Bill', 'Gates', 'Billionaire Tech Entrepreneur'),
+       ('Folrunsho', 'Alakija', 'Billionaire Oil Magnate');

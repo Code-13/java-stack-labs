@@ -14,26 +14,12 @@
  *     limitations under the License.
  */
 
-rootProject.name = 'java-stack-labs'
-
-/*
-include all java-labs
-*/
-file("$rootDir/java-labs").eachDirMatch(~/java-.*/) {
-    include "java-labs:${it.name}"
-}
-
-include 'prettier-libs'
-include 'prettier-libs:vavr'
-findProject(':prettier-libs:vavr')?.name = 'vavr'
-
-include 'springboot-labs'
-
-include 'concurrency-masters'
-
-include 'jvm'
-include 'jvm:mat'
-findProject(':jvm:mat')?.name = 'mat'
-include 'prettier-libs:mybatis-plus'
-findProject(':prettier-libs:mybatis-plus')?.name = 'mybatis-plus'
-
+/**
+ * package-info.
+ *
+ * <p>mybatis-plus
+ *
+ * @author <a href="https://github.com/Code-13/">code13</a>
+ * @date 2021/8/27 12:33
+ */
+package io.github.code13.javastack.libs.mbplus;
