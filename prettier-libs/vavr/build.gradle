@@ -16,5 +16,5 @@
 
 dependencies {
     implementation 'org.junit.jupiter:junit-jupiter'
-    implementation 'io.vavr:vavr:0.10.3'
+    implementation 'io.vavr:vavr'
 }

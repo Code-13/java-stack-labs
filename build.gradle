@@ -16,14 +16,6 @@
 
 ext {
     javaVersion = JavaVersion.VERSION_11
-    springBootVersion = '2.5.4'
-    springCloudVersion = '2020.0.3'
-    checkerQualVersion = '3.17.0'
-    mybatisPlusVersion = '3.4.3.2'
-    knife4jVersion = "3.0.2"
-    swaggerAnnotationsVersion = "1.5.22"
-    druidVersion = "1.2.6"
-    jsoupVersion = "1.13.1"
     zxingVersion = "3.4.1"
     lombokVersion = "1.18.20"
 }
@@ -45,13 +37,14 @@ configure(subprojects) {
 }
 
 configure(subprojects) {
+
     apply plugin: "java-library"
     apply plugin: "io.spring.dependency-management"
     sourceCompatibility = "$javaVersion"
     targetCompatibility = "$javaVersion"
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
-        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        options.compilerArgs << "-parameters" << "-Xlint:unchecked" << "-Xlint:deprecation"
     }
 
     repositories {
@@ -70,18 +63,46 @@ configure(subprojects) {
             mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2020.0.3'
         }
         dependencies {
+            dependency 'org.checkerframework:checker-qual:3.17.0'
+
             dependencySet(group: "com.baomidou", version: '3.4.3.2') {
                 entry "mybatis-plus-boot-starter"
                 entry "mybatis-plus-core"
                 entry "mybatis-plus-extension"
                 entry "mybatis-plus-annotation"
             }
+            dependency 'com.alibaba:druid-spring-boot-starter:1.2.6'
+            dependency 'io.vavr:vavr:0.10.4'
+
+            dependencySet(group: "org.mapstruct", version: '1.4.2.Final') {
+                entry "mapstruct"
+                entry "mapstruct-processor"
+            }
+
+            dependency 'commons-io:commons-io:2.11.0'
+            dependency 'org.apache.commons:commons-collections4:4.4'
+            dependency 'commons-beanutils:commons-beanutils:1.9.4'
+            dependency 'commons-fileupload:commons-fileupload:1.4'
+            dependency 'commons-net:commons-net:3.8.0'
+
+            dependency 'cn.hutool:hutool-all:5.7.7'
+            dependency 'org.jsoup:jsoup:1.14.1'
+            dependency 'org.reflections:reflections:0.9.12'
+            dependency 'com.googlecode.libphonenumber:libphonenumber:8.12.31'
+            dependency 'org.locationtech.spatial4j:spatial4j:0.8'
+
+            dependencySet(group: "org.redisson", version: "3.16.0") {
+                entry "redisson"
+                entry "redisson-spring-boot-starter"
+                entry "redisson-mybatis"
+                entry "redisson-spring-data-25"
+            }
+
         }
     }
 
     dependencies {
-
-        implementation "org.checkerframework:checker-qual:$checkerQualVersion"
+        implementation "org.checkerframework:checker-qual"
 
         compileOnly "org.slf4j:slf4j-api"
         compileOnly "jakarta.servlet:jakarta.servlet-api"
