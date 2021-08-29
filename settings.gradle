@@ -26,6 +26,10 @@ file("$rootDir/java-labs").eachDirMatch(~/java-.*/) {
 include 'prettier-libs'
 include 'prettier-libs:vavr'
 findProject(':prettier-libs:vavr')?.name = 'vavr'
+include 'prettier-libs:mybatis-plus'
+findProject(':prettier-libs:mybatis-plus')?.name = 'mybatis-plus'
+include 'prettier-libs:jsqlparser'
+findProject(':prettier-libs:jsqlparser')?.name = 'jsqlparser'
 
 include 'springboot-labs'
 
@@ -34,6 +38,4 @@ include 'concurrency-masters'
 include 'jvm'
 include 'jvm:mat'
 findProject(':jvm:mat')?.name = 'mat'
-include 'prettier-libs:mybatis-plus'
-findProject(':prettier-libs:mybatis-plus')?.name = 'mybatis-plus'
 
