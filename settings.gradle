@@ -40,4 +40,7 @@ include 'concurrency-masters'
 include 'jvm'
 include 'jvm:mat'
 findProject(':jvm:mat')?.name = 'mat'
+include 'books'
+include 'books:modern-java-in-action'
+findProject(':books:modern-java-in-action')?.name = 'modern-java-in-action'
 
