@@ -34,6 +34,8 @@ include 'prettier-libs:okhttp'
 findProject(':prettier-libs:okhttp')?.name = 'okhttp'
 include 'prettier-libs:zxing'
 findProject(':prettier-libs:zxing')?.name = 'zxing'
+include 'prettier-libs:spatial4j'
+findProject(':prettier-libs:spatial4j')?.name = 'spatial4j'
 
 include 'springboot-labs'
 
