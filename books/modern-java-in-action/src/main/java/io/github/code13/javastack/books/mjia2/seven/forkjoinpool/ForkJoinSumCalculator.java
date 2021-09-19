@@ -14,7 +14,7 @@
  *     limitations under the License.
  */
 
-package io.github.code13.javastack.books.mjia2.seven;
+package io.github.code13.javastack.books.mjia2.seven.forkjoinpool;
 
 import java.util.concurrent.RecursiveTask;
 

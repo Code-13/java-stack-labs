@@ -14,7 +14,7 @@
  *     limitations under the License.
  */
 
-package io.github.code13.javastack.books.mjia2.seven;
+package io.github.code13.javastack.books.mjia2.seven.parallelstream;
 
 import java.util.concurrent.TimeUnit;
 import java.util.stream.LongStream;

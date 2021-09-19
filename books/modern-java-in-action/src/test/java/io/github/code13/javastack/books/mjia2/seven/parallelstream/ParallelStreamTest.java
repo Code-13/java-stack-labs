@@ -14,36 +14,38 @@
  *     limitations under the License.
  */
 
-package io.github.code13.javastack.books.mjia2.seven;
+package io.github.code13.javastack.books.mjia2.seven.parallelstream;
 
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ForkJoinTask;
-import java.util.stream.LongStream;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * ForkJoinSumCalculatorTest.
+ * ParallelStreamTest.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @date 2021/9/14 17:52
+ * @date 2021/9/19 14:09
  */
-class ForkJoinSumCalculatorTest {
+class ParallelStreamTest {
 
-  private static final long THRESHOLD = 10000000L;
+  private static final org.slf4j.Logger LOGGER =
+      org.slf4j.LoggerFactory.getLogger(ParallelStreamTest.class);
+
+  private ParallelStream parallelStream;
 
   @BeforeEach
-  void setUp() {}
-
-  @AfterEach
-  void tearDown() {}
+  public void before() {
+    parallelStream = new ParallelStream();
+  }
 
   @Test
-  void compute() {
-    long[] longs = LongStream.rangeClosed(1L, THRESHOLD).toArray();
-    ForkJoinTask<Long> forkJoinSumCalculator = new ForkJoinSumCalculator(longs);
-    Long invoke = ForkJoinPool.commonPool().invoke(forkJoinSumCalculator);
-    System.out.println(invoke);
+  public void parallelSum() {
+    int n = 10;
+    long start = System.currentTimeMillis();
+    long l = parallelStream.parallelSum(n);
+    long end = System.currentTimeMillis();
+    LOGGER.info("耗时为: {}", end - start);
+    LOGGER.info("结果为:{}", l);
+    Assertions.assertTrue(true);
   }
 }
