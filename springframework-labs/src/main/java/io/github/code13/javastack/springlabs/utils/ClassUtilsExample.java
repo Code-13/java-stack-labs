@@ -16,6 +16,8 @@
 
 package io.github.code13.javastack.springlabs.utils;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -191,6 +193,125 @@ class ClassUtilsExample {
   @DisplayName("boolean isCglibProxy(Object object)是否为Cglib代理对象")
   void isCglibProxy() {
 
+  }
+  
+  @Test
+  @DisplayName("""
+      Class<?> getUserClass(Object instance)
+      返回给定实例对应的类型，如果实例是Cglib代理后的对象，则返回代理的目标对象类型
+      """)
+  void getUserClass() {
+    print(ClassUtils.getUserClass("Hello"));
+  }
+  
+  @Test
+  @DisplayName("""
+      boolean matchesTypeName(Class<?> clazz, @Nullable String typeName)
+      判断给定class和类型名称是否匹配
+      """)
+  void matchesTypeName() {
+    print(ClassUtils.matchesTypeName(String.class, "java.lang.String")); // true
+  }
+  
+  @Test
+  @DisplayName("String getShortName(Class<?> clazz)返回类名")
+  void getShortName() {
+    print(ClassUtils.getShortName(String.class)); // String
+  }
+
+  @Test
+  @DisplayName("String getShortNameAsProperty(Class<?> clazz)返回首字母小写的类名，如果是内部类的话，则去掉外部类名")
+  void getShortNameAsProperty() {
+    print(ClassUtils.getShortNameAsProperty(String.class)); // string
+
+    class A {
+      class B {
+      }
+    }
+
+    print(ClassUtils.getShortNameAsProperty(String.class)); // b
+  }
+  
+  @Test
+  @DisplayName("String getClassFileName(Class<?> clazz)返回类名+.class")
+  void getClassFileName() {
+    print(ClassUtils.getShortNameAsProperty(String.class)); // String.class
+  }
+
+  @Test
+  @DisplayName("String getPackageName(Class<?> clazz)返回包名")
+  void getPackageName() {
+    print(ClassUtils.getShortNameAsProperty(String.class)); // java.lang
+  }
+
+  @Test
+  @DisplayName("String getQualifiedName(Class<?> clazz)返回全限定类名，如果是数组类型则末尾加[]")
+  void getQualifiedName() {
+    print(ClassUtils.getQualifiedName(String.class));
+    print(ClassUtils.getQualifiedName(String[].class));
+  }
+
+  @Test
+  @DisplayName("String getQualifiedMethodName(Method method)获取方法的全限定名")
+  void getQualifiedMethodName() throws NoSuchMethodException {
+    print(ClassUtils.getQualifiedMethodName(
+        ClassUtils.class.getDeclaredMethod("getQualifiedMethodName", Method.class
+        )));
+  }
+
+  @Test
+  @DisplayName("boolean hasConstructor(Class<?> clazz, Class<?>... paramTypes)判断给定类型是否有给定类型参数构造器")
+  void hasConstructor() {
+    print(ClassUtils.hasConstructor(String.class, String.class));
+    print(ClassUtils.hasConstructor(String.class, Object.class));
+  }
+
+  @Test
+  @DisplayName("""
+      <T> Constructor<T> getConstructorIfAvailable(Class<T> clazz, Class<?>... paramTypes)
+      返回给定类型的给定参数类型构造器，没有的话返回null
+      """)
+  void getConstructorIfAvailable() {
+    Constructor<String> constructorIfAvailable =
+        ClassUtils.getConstructorIfAvailable(String.class, String.class);
+    print(constructorIfAvailable != null);
+    print(constructorIfAvailable.toString());
+  }
+
+  @Test
+  @DisplayName("boolean hasMethod(Class<?> clazz, Method method)判断给定类型是否有指定的方法")
+  void hasMethod() throws NoSuchMethodException {
+    Method hasMethod = ClassUtils.class.getDeclaredMethod("hasMethod", Class.class, Method.class);
+    print(ClassUtils.hasMethod(ClassUtils.class, hasMethod)); // true
+  }
+
+  @Test
+  @DisplayName("""
+      Method getMethod(Class<?> clazz, String methodName, @Nullable Class<?>... paramTypes)
+      从指定类型中找指定方法，没找到抛IllegalStateException异常
+      """)
+  void getMethod() {
+    ClassUtils.getMethod(ClassUtils.class, "hello", String.class);
+  }
+
+  @Test
+  @DisplayName("""
+      int getMethodCountForName(Class<?> clazz, String methodName)
+      从指定类型中通过方法名称查找该方法个数（重写、重载、非public的都算）
+      """)
+  void getMethodCountForName() {
+    print(ClassUtils.getMethodCountForName(ClassUtils.class, "hasMethod")); // 2
+  }
+  
+  @Test
+  @DisplayName("""
+      Method getStaticMethod(Class<?> clazz, String methodName, Class<?>... args)
+      获取给定类型的静态方法，如果该方法不是静态的或者没有这个方法，则返回null
+      """)
+  void getStaticMethod() {
+    Method method = ClassUtils.getStaticMethod(ClassUtils.class, "getDefaultClassLoader");
+    print(method != null);
+    print(method.getReturnType());
   }
   
   private static void print(Object value) {
