@@ -106,7 +106,7 @@ class ClassUtilsExample {
 
   @Test
   @DisplayName("""
-      Class<?> resolvePrimitiveIfNecessary(Class<?> clazz) 
+      Class<?> resolvePrimitiveIfNecessary(Class<?> clazz)
       如果给定类是原始类，则返回对应包装类，否则直接返回给定类
       """)
   void resolvePrimitiveIfNecessary() {
