@@ -73,13 +73,13 @@ configure(subprojects) {
 
     dependencyManagement {
         imports {
-            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.5.4'
-            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2020.0.3'
+            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.5.5'
+            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2020.0.4'
         }
         dependencies {
             dependency 'org.checkerframework:checker-qual:3.18.0'
 
-            dependencySet(group: "com.baomidou", version: '3.4.3.3') {
+            dependencySet(group: "com.baomidou", version: '3.4.3.4') {
                 entry "mybatis-plus-boot-starter"
                 entry "mybatis-plus-core"
                 entry "mybatis-plus-extension"
