@@ -39,6 +39,7 @@ findProject(':prettier-libs:spatial4j')?.name = 'spatial4j'
 include 'prettier-libs:log4j2'
 findProject(':prettier-libs:log4j2')?.name = 'log4j2'
 
+include 'springframework-labs'
 include 'springboot-labs'
 
 include 'concurrency-masters'
@@ -46,6 +47,7 @@ include 'concurrency-masters'
 include 'jvm'
 include 'jvm:mat'
 findProject(':jvm:mat')?.name = 'mat'
+
 include 'books'
 include 'books:modern-java-in-action'
 findProject(':books:modern-java-in-action')?.name = 'modern-java-in-action'
