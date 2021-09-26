@@ -38,6 +38,8 @@ include 'prettier-libs:spatial4j'
 findProject(':prettier-libs:spatial4j')?.name = 'spatial4j'
 include 'prettier-libs:log4j2'
 findProject(':prettier-libs:log4j2')?.name = 'log4j2'
+include 'prettier-libs:logback'
+findProject(':prettier-libs:logback')?.name = 'logback'
 
 include 'springframework-labs'
 include 'springboot-labs'
