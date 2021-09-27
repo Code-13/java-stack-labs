@@ -21,12 +21,21 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.redisson.api.GeoEntry;
+import org.redisson.api.GeoPosition;
+import org.redisson.api.GeoUnit;
+import org.redisson.api.RBinaryStream;
 import org.redisson.api.RBucket;
+import org.redisson.api.RGeo;
 import org.redisson.api.RedissonClient;
+import org.redisson.api.geo.GeoSearchArgs;
 
 /**
  * Redisson 分布式对象.
@@ -158,6 +167,98 @@ class DistributedObjectsRunner {
 
       var v2 = bucket.get();
       assertNull(v2);
+    }
+
+    @Test
+    @DisplayName("buckets")
+    void buckets() {
+      var buckets = redissonClient.getBuckets();
+
+      var vMap = new HashMap<String, String>(4);
+      vMap.put("Bucket1", "1");
+      vMap.put("Bucket2", "2");
+      vMap.put("Bucket3", "3");
+      buckets.set(vMap);
+
+      var map = buckets.<String>get("Bucket1", "Bucket2", "Bucket3");
+      assertEquals(vMap, map);
+    }
+  }
+
+  /**
+   * Redisson的分布式RBinaryStream Java对象同时提供了InputStream接口和OutputStream接口的实现. 流的最大容量受Redis主节点的内存大小限制.
+   */
+  @DisplayName("二进制流（Binary Stream）")
+  static class BinaryStreamRunner {
+
+    static RBinaryStream stream;
+
+    @BeforeAll
+    static void setup() {
+      stream = redissonClient.getBinaryStream("anyStream");
+    }
+
+    @Test
+    @DisplayName("Binary Stream")
+    void stream() throws IOException {
+      byte[] bytes = {1, 1, 1, 1};
+      stream.set(bytes);
+
+      var in = stream.getInputStream();
+      byte[] readBuffer = new byte[512];
+      in.read(readBuffer);
+
+      var out = stream.getOutputStream();
+      byte[] contentToWrite = {2, 2, 2, 2};
+      out.write(contentToWrite);
+    }
+  }
+
+  /**
+   * Redisson的分布式RGeo Java对象是一种专门用来储存与地理位置有关的对象桶。除了同步接口外，还提供了异步（Async）、反射式（Reactive）和RxJava2标准的接口.
+   */
+  @DisplayName("地理空间对象桶（Geospatial Bucket）")
+  static class GeospatialBucketRunner {
+
+    static RGeo<String> geo;
+
+    @BeforeAll
+    static void setup() {
+      geo = redissonClient.getGeo("GeoTest");
+    }
+
+    @Test
+    @DisplayName("Geospatial")
+    void geo() {
+      geo.delete();
+
+      geo.add(
+          new GeoEntry(13.361389, 38.115556, "Palermo"),
+          new GeoEntry(15.087269, 37.502669, "Catania"));
+
+      geo.add(37.618423, 55.751244, "Moscow");
+
+      Double distance = geo.dist("Palermo", "Catania", GeoUnit.METERS);
+
+      System.out.println(distance);
+
+      Map<String, GeoPosition> positions = geo.pos("test2", "Palermo", "test3", "Catania", "test1");
+
+      System.out.println(positions);
+
+      var search = geo.search(GeoSearchArgs.from(15, 37).radius(200, GeoUnit.KILOMETERS));
+      System.out.println(search);
+
+      var search1 = geo.search(GeoSearchArgs.from(15, 37).radius(200, GeoUnit.KILOMETERS).count(1));
+      System.out.println(search1);
+
+      var searchWithDistance =
+          geo.searchWithDistance(GeoSearchArgs.from(15, 37).radius(200, GeoUnit.KILOMETERS));
+      System.out.println(searchWithDistance);
+
+      var searchWithPosition =
+          geo.searchWithPosition(GeoSearchArgs.from(15, 37).radius(200, GeoUnit.KILOMETERS));
+      System.out.println(searchWithPosition);
     }
   }
 
