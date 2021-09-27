@@ -32,7 +32,7 @@ import org.redisson.api.RedissonClient;
  * @date 2021/9/27 15:23
  */
 @DisplayName("RateLimiter")
-public class RateLimiterRunner {
+class RateLimiterRunner {
 
   static RedissonClient redissonClient;
 
