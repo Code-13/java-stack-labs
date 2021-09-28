@@ -42,6 +42,8 @@ include 'prettier-libs:logback'
 findProject(':prettier-libs:logback')?.name = 'logback'
 include 'prettier-libs:redisson'
 findProject(':prettier-libs:redisson')?.name = 'redisson'
+include 'prettier-libs:javafaker'
+findProject(':prettier-libs:javafaker')?.name = 'javafaker'
 
 include 'springframework-labs'
 include 'springboot-labs'
