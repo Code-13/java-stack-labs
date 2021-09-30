@@ -22,6 +22,8 @@ include all java-labs
 file("$rootDir/java-labs").eachDirMatch(~/java-.*/) {
     include "java-labs:${it.name}"
 }
+include 'java-labs:jdk-new-api-features'
+findProject(':java-labs:jdk-new-api-features')?.name = 'jdk-new-api-features'
 
 include 'prettier-libs'
 include 'prettier-libs:vavr'
