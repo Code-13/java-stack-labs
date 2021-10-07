@@ -124,7 +124,7 @@ public class SpringCache {
   }
 
   @RestController
-  public class CacheController {
+  public static class CacheController {
 
     private static final Logger logger = LoggerFactory.getLogger(CacheController.class);
 
