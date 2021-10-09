@@ -59,4 +59,7 @@ findProject(':jvm:mat')?.name = 'mat'
 include 'books'
 include 'books:modern-java-in-action'
 findProject(':books:modern-java-in-action')?.name = 'modern-java-in-action'
+include 'prettier-frameworks'
+include 'prettier-frameworks:netty4.x'
+findProject(':prettier-frameworks:netty4.x')?.name = 'netty4.x'
 
