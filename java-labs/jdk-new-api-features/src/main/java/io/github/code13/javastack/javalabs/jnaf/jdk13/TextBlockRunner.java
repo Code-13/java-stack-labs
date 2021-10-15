@@ -16,6 +16,8 @@
 
 package io.github.code13.javastack.javalabs.jnaf.jdk13;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -47,16 +49,16 @@ public class TextBlockRunner {
   @DisplayName("Text Block for JSON")
   void testTextBlockJson() {
 
-    //    String json =
-    //        """
-    //            {
-    //                "id": "1",
-    //                "ip": "192.168.1.1",
-    //                "port":"1883"
-    //            }
-    //            """;
-    //
-    //    System.out.println(json);
+    String json =
+        """
+            {
+                "id": "1",
+                "ip": "192.168.1.1",
+                "port":"1883"
+            }
+            """;
+
+    System.out.println(json);
   }
 
   @Test
@@ -65,15 +67,15 @@ public class TextBlockRunner {
     //  以开始分隔符的行终止符后的第一个字符开始
     //  以结束分隔符的第一个双引号之前的最后一个字符结束
 
-    //    String text1 = """
-    //        abc""";
-    //
-    //    String text2 = """
-    //        abc
-    //        """;
-    //
-    //    assertEquals(text1.length(), 3);
-    //    assertEquals(text2.length(), 4);
+    String text1 = """
+        abc""";
+
+    String text2 = """
+        abc
+        """;
+
+    assertEquals(text1.length(), 3);
+    assertEquals(text2.length(), 4);
   }
 
   @Test
@@ -84,14 +86,14 @@ public class TextBlockRunner {
   @DisplayName("转义字符")
   void test3() {
 
-    //    String json =
-    //        """
-    //            {
-    //                "id": "1",\n
-    //                "ip": "192.168.1.1",\n
-    //                "port":"1883"\n
-    //            }\n
-    //            """;
+    String json =
+        """
+            {
+                "id": "1",\n
+                "ip": "192.168.1.1",\n
+                "port":"1883"\n
+            }\n
+            """;
 
   }
 
@@ -99,14 +101,14 @@ public class TextBlockRunner {
   @DisplayName("可以使用双引号")
   void test4() {
 
-    //    String json =
-    //        """
-    //            {
-    //                "id": "1",\n
-    //                "ip": "192.168.1.1",\n
-    //                "port":"1883"\n
-    //            }\n
-    //            """;
+    String json =
+        """
+            {
+                "id": "1",\n
+                "ip": "192.168.1.1",\n
+                "port":"1883"\n
+            }\n
+            """;
 
   }
 
@@ -114,16 +116,16 @@ public class TextBlockRunner {
   @DisplayName("可以使用三引号")
   void test5() {
 
-    //    String json  = """
-    //                String json =
-    //                    \"""
-    //                        {
-    //                            "id": "1",
-    //                            "ip": "192.168.1.1",
-    //                            "port":"1883"
-    //                        }
-    //                        \""";
-    //        """;
+    String json  = """
+                String json =
+                    \"""
+                        {
+                            "id": "1",
+                            "ip": "192.168.1.1",
+                            "port":"1883"
+                        }
+                        \""";
+        """;
   }
 
   @Test
