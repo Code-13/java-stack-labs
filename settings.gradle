@@ -50,6 +50,8 @@ include 'prettier-libs:protostuff'
 findProject(':prettier-libs:protostuff')?.name = 'protostuff'
 include 'prettier-libs:mockito'
 findProject(':prettier-libs:mockito')?.name = 'mockito'
+include 'prettier-libs:objenesis'
+findProject(':prettier-libs:objenesis')?.name = 'objenesis'
 
 include 'springframework-labs'
 include 'springboot-labs'
