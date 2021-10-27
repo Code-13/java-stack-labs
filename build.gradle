@@ -39,8 +39,11 @@ configure(subprojects) {
 
     apply plugin: "java-library"
     apply plugin: "io.spring.dependency-management"
+    apply plugin: "idea"
+
     sourceCompatibility = "$javaVersion"
     targetCompatibility = "$javaVersion"
+
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
         options.compilerArgs << "-parameters" << "-Xlint:unchecked" << "-Xlint:deprecation"
