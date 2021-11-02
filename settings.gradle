@@ -72,3 +72,5 @@ findProject(':prettier-frameworks:netty4.x')?.name = 'netty4.x'
 include 'prettier-frameworks:junit5'
 findProject(':prettier-frameworks:junit5')?.name = 'junit5'
 
+include 'springdata-labs'
+
