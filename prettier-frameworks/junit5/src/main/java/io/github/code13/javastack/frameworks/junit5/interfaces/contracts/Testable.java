@@ -22,7 +22,7 @@ package io.github.code13.javastack.frameworks.junit5.interfaces.contracts;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 11/5/2021 11:11 AM
  */
-public interface Testable<T> {
+interface Testable<T> {
 
   T createValue();
 }

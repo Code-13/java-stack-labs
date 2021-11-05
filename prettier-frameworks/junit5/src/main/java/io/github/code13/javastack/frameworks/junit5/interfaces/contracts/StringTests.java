@@ -25,7 +25,7 @@ package io.github.code13.javastack.frameworks.junit5.interfaces.contracts;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 11/5/2021 11:14 AM
  */
-public class StringTests implements ComparableContract<String>, EqualsContract<String> {
+class StringTests implements ComparableContract<String>, EqualsContract<String> {
 
   @Override
   public String createSmallerValue() {
