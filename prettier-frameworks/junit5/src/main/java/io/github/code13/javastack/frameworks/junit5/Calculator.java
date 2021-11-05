@@ -22,7 +22,7 @@ package io.github.code13.javastack.frameworks.junit5;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 11/4/2021 3:35 PM
  */
-class Calculator {
+public class Calculator {
 
   public int add(int i, int i1) {
     return i + i1;

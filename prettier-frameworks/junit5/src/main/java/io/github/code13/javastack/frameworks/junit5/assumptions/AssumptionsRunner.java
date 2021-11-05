@@ -14,11 +14,12 @@
  *      limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.junit5;
+package io.github.code13.javastack.frameworks.junit5.assumptions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
+import io.github.code13.javastack.frameworks.junit5.Calculator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

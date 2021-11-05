@@ -14,7 +14,7 @@
  *      limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.junit5;
+package io.github.code13.javastack.frameworks.junit5.conditional;
 
 import static org.junit.jupiter.api.condition.JRE.JAVA_10;
 import static org.junit.jupiter.api.condition.JRE.JAVA_11;

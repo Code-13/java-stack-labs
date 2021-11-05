@@ -14,7 +14,7 @@
  *      limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.junit5;
+package io.github.code13.javastack.frameworks.junit5.std;
 
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;

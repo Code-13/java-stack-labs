@@ -14,7 +14,7 @@
  *      limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.junit5;
+package io.github.code13.javastack.frameworks.junit5.nested;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

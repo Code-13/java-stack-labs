@@ -14,11 +14,12 @@
  *      limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.junit5;
+package io.github.code13.javastack.frameworks.junit5.assertions;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import io.github.code13.javastack.frameworks.junit5.Calculator;
 import org.junit.jupiter.api.Test;
 
 /**

@@ -14,7 +14,7 @@
  *      limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.junit5;
+package io.github.code13.javastack.frameworks.junit5.assertions;
 
 import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofMinutes;
@@ -25,6 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import io.github.code13.javastack.frameworks.junit5.Calculator;
+import io.github.code13.javastack.frameworks.junit5.Person;
 import java.util.concurrent.CountDownLatch;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

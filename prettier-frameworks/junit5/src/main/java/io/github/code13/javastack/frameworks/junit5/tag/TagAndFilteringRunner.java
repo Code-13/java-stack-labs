@@ -14,7 +14,7 @@
  *      limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.junit5;
+package io.github.code13.javastack.frameworks.junit5.tag;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

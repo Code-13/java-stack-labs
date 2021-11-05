@@ -14,7 +14,7 @@
  *      limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.junit5;
+package io.github.code13.javastack.frameworks.junit5.disabled;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
