@@ -26,7 +26,9 @@ import static org.junit.jupiter.api.Assertions.assertTimeout;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import io.github.code13.javastack.frameworks.junit5.Calculator;
+import io.github.code13.javastack.frameworks.junit5.Gender;
 import io.github.code13.javastack.frameworks.junit5.Person;
+import java.time.LocalDate;
 import java.util.concurrent.CountDownLatch;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,7 +45,7 @@ class AssertionsRunner {
 
   private final Calculator calculator = new Calculator();
 
-  private final Person person = new Person("Jane", "Doe");
+  private final Person person = new Person("Jane", "Doe", Gender.F, LocalDate.now());
 
   @Test
   void standardAssertions() {

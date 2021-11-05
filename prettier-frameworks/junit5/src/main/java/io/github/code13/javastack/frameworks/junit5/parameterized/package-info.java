@@ -14,29 +14,15 @@
  *      limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.junit5;
-
 /**
- * Calculator.
+ * ParameterizedTests.
+ *
+ * <p>Parameterized tests make it possible to run a test multiple times with different arguments.
+ * They are declared just like regular @Test methods but use the @ParameterizedTest annotation
+ * instead. In addition, you must declare at least one source that will provide the arguments for
+ * each invocation and then consume the arguments in the test method.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @date 11/4/2021 3:35 PM
+ * @date 11/5/2021 5:00 PM
  */
-public final class Calculator {
-
-  public int add(int i, int i1) {
-    return i + i1;
-  }
-
-  public int multiply(int i, int i1) {
-    return i * i1;
-  }
-
-  public int divide(int i, int i1) {
-    return i / i1;
-  }
-
-  public int subtract(int i, int i1) {
-    return i - i1;
-  }
-}
+package io.github.code13.javastack.frameworks.junit5.parameterized;

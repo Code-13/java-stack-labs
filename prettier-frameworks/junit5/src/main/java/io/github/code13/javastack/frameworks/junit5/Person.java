@@ -16,12 +16,18 @@
 
 package io.github.code13.javastack.frameworks.junit5;
 
+import java.time.LocalDate;
+
 /**
  * Person.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 11/4/2021 3:36 PM
  */
-public record Person(String firstName, String lastName) {
+public record Person(
+    String firstName,
+    String lastName,
+    Gender gender,
+    LocalDate dateOfBirth) {
 
 }

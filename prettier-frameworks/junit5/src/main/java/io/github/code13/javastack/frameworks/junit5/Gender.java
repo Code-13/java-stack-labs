@@ -17,26 +17,12 @@
 package io.github.code13.javastack.frameworks.junit5;
 
 /**
- * Calculator.
+ * Gender.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @date 11/4/2021 3:35 PM
+ * @date 11/5/2021 4:41 PM
  */
-public final class Calculator {
-
-  public int add(int i, int i1) {
-    return i + i1;
-  }
-
-  public int multiply(int i, int i1) {
-    return i * i1;
-  }
-
-  public int divide(int i, int i1) {
-    return i / i1;
-  }
-
-  public int subtract(int i, int i1) {
-    return i - i1;
-  }
+public enum Gender {
+  M,
+  F
 }
