@@ -14,26 +14,23 @@
  *      limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.junit5.interfaces;
+package io.github.code13.javastack.frameworks.junit5;
 
-import static io.github.code13.javastack.frameworks.junit5.StringUtils.isPalindrome;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-import java.util.stream.Stream;
-import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.TestFactory;
+import java.util.stream.IntStream;
 
 /**
- * TestInterfaceDynamicTestsDemo.
+ * StringUtils.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @date 11/5/2021 11:00 AM
+ * @date 11/5/2021 12:28 PM
  */
-interface TestInterfaceDynamicTestsDemo {
+public final class StringUtils {
 
-  @TestFactory
-  default Stream<DynamicTest> dynamicTestsForPalindromes() {
-    return Stream.of("racecar", "radar", "mom", "dad")
-        .map(text -> dynamicTest(text, () -> assertTrue(isPalindrome(text))));
+  public static boolean isPalindrome(String originalString) {
+
+    String tempString = originalString.replaceAll("\\s+", "").toLowerCase();
+
+    return IntStream.range(0, tempString.length() / 2)
+        .noneMatch(i -> tempString.charAt(i) != tempString.charAt(tempString.length() - i - 1));
   }
 }
