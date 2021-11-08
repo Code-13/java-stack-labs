@@ -14,3 +14,7 @@
 - [x] Interfaces default method
 - [x] Repeated
 - [x] Parameterized
+- [x] Dynamic
+- [x] Timeouts
+- [x] Parallel
+- [x] Build-In Extensions
