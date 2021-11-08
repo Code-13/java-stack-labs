@@ -80,7 +80,7 @@ configure(subprojects) {
             mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2020.0.4'
         }
         dependencies {
-            dependency 'org.checkerframework:checker-qual:3.18.0'
+            dependency 'org.checkerframework:checker-qual:3.19.0'
 
             dependencySet(group: "com.baomidou", version: '3.4.3.4') {
                 entry "mybatis-plus-boot-starter"
@@ -94,29 +94,34 @@ configure(subprojects) {
                 entry "mapstruct-processor"
             }
 
-            dependency 'com.alibaba:druid-spring-boot-starter:1.2.6'
+            dependency 'com.alibaba:druid-spring-boot-starter:1.2.8'
 
             dependency 'io.vavr:vavr:0.10.4'
+            dependency 'io.vavr:vavr-jackson:0.10.3'
+            dependency 'io.vavr:vavr-test:0.10.3'
+            dependency 'io.vavr:vavr-gson:0.10.2'
+            dependency 'io.vavr:vavr-beanvalidation2:0.10.0'
+
             dependency 'commons-io:commons-io:2.11.0'
             dependency 'org.apache.commons:commons-collections4:4.4'
             dependency 'commons-beanutils:commons-beanutils:1.9.4'
             dependency 'commons-fileupload:commons-fileupload:1.4'
             dependency 'commons-net:commons-net:3.8.0'
 
-            dependency 'org.jsoup:jsoup:1.14.1'
-            dependency 'org.reflections:reflections:0.9.12'
-            dependency 'com.googlecode.libphonenumber:libphonenumber:8.12.31'
+            dependency 'org.jsoup:jsoup:1.14.3'
+            dependency 'org.reflections:reflections:0.10.2'
+            dependency 'com.googlecode.libphonenumber:libphonenumber:8.12.36'
             dependency 'org.locationtech.spatial4j:spatial4j:0.8'
             dependency 'com.google.zxing:core:3.4.1'
 
-            dependencySet(group: "org.redisson", version: "3.16.2") {
+            dependencySet(group: "org.redisson", version: "3.16.4") {
                 entry "redisson"
                 entry "redisson-spring-boot-starter"
                 entry "redisson-mybatis"
                 entry "redisson-spring-data-25"
             }
 
-            dependencySet(group: "cn.hutool", version: "5.7.13") {
+            dependencySet(group: "cn.hutool", version: "5.7.15") {
                 entry "hutool-all"
                 entry "hutool-aop"
                 entry "hutool-bloomFilter"
