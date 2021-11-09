@@ -35,7 +35,10 @@ import org.springframework.core.io.ClassPathResource;
  */
 public final class Utils {
 
-  private Utils() {}
+  private Utils() {
+    throw new UnsupportedOperationException(
+        "No io.github.code13.javastack.frameworks.mbplus.utils.Utils instances for you!");
+  }
 
   static YamlPropertySourceLoader loader = new YamlPropertySourceLoader();
   static ClassPathResource resource = new ClassPathResource("application.yaml");
