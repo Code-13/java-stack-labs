@@ -14,17 +14,23 @@
  *     limitations under the License.
  */
 
-DROP TABLE IF EXISTS billionaires;
+DROP TABLE IF EXISTS user;
 
-CREATE TABLE billionaires
+CREATE TABLE user
 (
-    id         INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(250) NOT NULL,
-    last_name  VARCHAR(250) NOT NULL,
-    career     VARCHAR(250) DEFAULT NULL
+    id    BIGINT(20) NOT NULL COMMENT '主键ID',
+    name  VARCHAR(30) NULL DEFAULT NULL COMMENT '姓名',
+    age   INT(11) NULL DEFAULT NULL COMMENT '年龄',
+    email VARCHAR(50) NULL DEFAULT NULL COMMENT '邮箱',
+    PRIMARY KEY (id)
 );
 
-INSERT INTO billionaires (first_name, last_name, career)
-VALUES ('Aliko', 'Dangote', 'Billionaire Industrialist'),
-       ('Bill', 'Gates', 'Billionaire Tech Entrepreneur'),
-       ('Folrunsho', 'Alakija', 'Billionaire Oil Magnate');
+DELETE
+FROM user;
+
+INSERT INTO user (id, name, age, email)
+VALUES (1, 'Jone', 18, 'test1@baomidou.com'),
+       (2, 'Jack', 20, 'test2@baomidou.com'),
+       (3, 'Tom', 28, 'test3@baomidou.com'),
+       (4, 'Sandy', 21, 'test4@baomidou.com'),
+       (5, 'Billie', 24, 'test5@baomidou.com');

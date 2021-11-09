@@ -167,4 +167,10 @@ configure(subprojects) {
     }
 
     compileJava.dependsOn(processResources)
+
+    processResources {
+        from('src/main/java') {
+            include '**/*.xml'
+        }
+    }
 }
