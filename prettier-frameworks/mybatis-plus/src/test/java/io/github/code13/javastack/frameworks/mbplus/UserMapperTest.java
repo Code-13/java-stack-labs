@@ -42,8 +42,14 @@ class UserMapperTest {
             .build(
                 UserMapperTest.class
                     .getClassLoader()
-                    .getResourceAsStream(
-                        "mybatisTestConfiguration/UserMapperTestConfiguration.xml"));
+                    .getResourceAsStream("mybatisTestConfiguration/H2TestConfiguration.xml"));
+
+    //    MybatisPlus 的插件，如要使用可以放开
+    //    MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+    //    interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+    //    interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
+    //    builder.getConfiguration().addInterceptor(interceptor);
+
     // you can use builder.openSession(false) to not commit to database
     mapper = builder.getConfiguration().getMapper(UserMapper.class, builder.openSession(true));
   }

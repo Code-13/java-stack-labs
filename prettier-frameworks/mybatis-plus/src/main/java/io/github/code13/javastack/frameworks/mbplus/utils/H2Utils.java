@@ -66,7 +66,6 @@ public final class H2Utils {
   }
 
   public H2Utils initTables(DataSourceProperties properties, String initSql) {
-
     try (Connection connection =
             DriverManager.getConnection(
                 properties.getUrl(), properties.getUsername(), properties.getPassword());
