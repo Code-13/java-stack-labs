@@ -51,9 +51,6 @@ findProject(':prettier-libs:mockito')?.name = 'mockito'
 include 'prettier-libs:objenesis'
 findProject(':prettier-libs:objenesis')?.name = 'objenesis'
 
-include 'springframework-labs'
-include 'springboot-labs'
-
 include 'concurrency-masters'
 
 include 'jvm'
@@ -72,5 +69,11 @@ findProject(':prettier-frameworks:junit5')?.name = 'junit5'
 include 'prettier-frameworks:mybatis-plus'
 findProject(':prettier-frameworks:mybatis-plus')?.name = 'mybatis-plus'
 
-include 'springdata-labs'
+include 'spring'
+include 'spring:spring-framework'
+findProject(':spring:spring-framework')?.name = 'spring-framework'
+include 'spring:spring-data'
+findProject(':spring:spring-data')?.name = 'spring-data'
+include 'spring:spring-boot'
+findProject(':spring:spring-boot')?.name = 'spring-boot'
 

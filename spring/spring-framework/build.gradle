@@ -1,0 +1,4 @@
+group 'io.github.code13.javastack.spring'
+
+dependencies {
+}

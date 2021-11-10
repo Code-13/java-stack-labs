@@ -1,7 +1,0 @@
-group 'io.github.code13.javastack.springlabs'
-
-dependencies {
-    implementation 'org.junit.jupiter:junit-jupiter'
-    implementation 'org.springframework:spring-core'
-    implementation 'org.springframework:spring-beans'
-}
