@@ -5,7 +5,7 @@
  *     you may not use this file except in compliance with the License.
  *     You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ *         http://www.apache.org/licenses/LICENSE-2.0
  *
  *     Unless required by applicable law or agreed to in writing, software
  *     distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,17 +14,20 @@
  *     limitations under the License.
  */
 
-DROP TABLE IF EXISTS billionaires;
+package io.github.code13.javastack.frameworks.mbplus;
 
-CREATE TABLE billionaires
-(
-    id         INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(250) NOT NULL,
-    last_name  VARCHAR(250) NOT NULL,
-    career     VARCHAR(250) DEFAULT NULL
-);
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 
-INSERT INTO billionaires (first_name, last_name, career)
-VALUES ('Aliko', 'Dangote', 'Billionaire Industrialist'),
-       ('Bill', 'Gates', 'Billionaire Tech Entrepreneur'),
-       ('Folrunsho', 'Alakija', 'Billionaire Oil Magnate');
+/**
+ * UserMapper.
+ *
+ * @author <a href="https://github.com/Code-13/">code13</a>
+ * @date 11/9/2021 11:34 AM
+ */
+public interface UserMapper extends BaseMapper<User> {
+
+  default User getByEmail(String email) {
+    return selectOne(Wrappers.<User>lambdaQuery().eq(User::getEmail, email));
+  }
+}

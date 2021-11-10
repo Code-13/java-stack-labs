@@ -40,6 +40,7 @@ configure(subprojects) {
     apply plugin: "java-library"
     apply plugin: "io.spring.dependency-management"
     apply plugin: "idea"
+    apply plugin: "maven-publish"
 
     sourceCompatibility = "$javaVersion"
     targetCompatibility = "$javaVersion"
@@ -82,6 +83,7 @@ configure(subprojects) {
         dependencies {
             dependency 'org.checkerframework:checker-qual:3.19.0'
 
+            dependency 'com.baomidou:mybatis-plus-generator:3.5.1'
             dependencySet(group: "com.baomidou", version: '3.4.3.4') {
                 entry "mybatis-plus-boot-starter"
                 entry "mybatis-plus-core"
@@ -167,4 +169,10 @@ configure(subprojects) {
     }
 
     compileJava.dependsOn(processResources)
+
+    processResources {
+        from('src/main/java') {
+            include '**/*.xml'
+        }
+    }
 }
