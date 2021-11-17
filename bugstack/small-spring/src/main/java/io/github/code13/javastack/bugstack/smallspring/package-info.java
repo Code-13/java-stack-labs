@@ -17,7 +17,7 @@
 /**
  * package-info.
  *
- * <p>手撸 Spring
+ * <p>project remove to https://github.com/Code-13/small-spring
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 11/17/2021 3:11 PM
