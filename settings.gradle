@@ -77,3 +77,7 @@ findProject(':spring:spring-data')?.name = 'spring-data'
 include 'spring:spring-boot'
 findProject(':spring:spring-boot')?.name = 'spring-boot'
 
+include 'bugstack'
+include 'bugstack:small-spring'
+findProject(':bugstack:small-spring')?.name = 'small-spring'
+
