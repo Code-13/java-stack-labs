@@ -77,11 +77,11 @@ configure(subprojects) {
 
     dependencyManagement {
         imports {
-            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.6.0'
-            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2020.0.4'
+            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.6.1'
+            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2021.0.0'
         }
         dependencies {
-            dependency 'org.checkerframework:checker-qual:3.19.0'
+            dependency 'org.checkerframework:checker-qual:3.20.0'
 
             dependency 'com.baomidou:mybatis-plus-generator:3.5.1'
             dependencySet(group: "com.baomidou", version: '3.4.3.4') {
@@ -112,11 +112,11 @@ configure(subprojects) {
 
             dependency 'org.jsoup:jsoup:1.14.3'
             dependency 'org.reflections:reflections:0.10.2'
-            dependency 'com.googlecode.libphonenumber:libphonenumber:8.12.36'
+            dependency 'com.googlecode.libphonenumber:libphonenumber:8.12.38'
             dependency 'org.locationtech.spatial4j:spatial4j:0.8'
             dependency 'com.google.zxing:core:3.4.1'
 
-            dependencySet(group: "org.redisson", version: "3.16.4") {
+            dependencySet(group: "org.redisson", version: "3.16.6") {
                 entry "redisson"
                 entry "redisson-spring-boot-starter"
                 entry "redisson-mybatis"
