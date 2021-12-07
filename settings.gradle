@@ -80,4 +80,6 @@ findProject(':spring:spring-boot')?.name = 'spring-boot'
 include 'bugstack'
 include 'bugstack:small-spring'
 findProject(':bugstack:small-spring')?.name = 'small-spring'
+include 'books:java-concurrency-in-practice'
+findProject(':books:java-concurrency-in-practice')?.name = 'java-concurrency-in-practice'
 
