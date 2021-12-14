@@ -2,4 +2,4 @@
 
 https://jcip.net/
 
-![](https://img2.doubanio.com/view/subject/l/public/s7663093.jpg)
+![cover](https://cdn.jsdelivr.net/gh/code-13/cloudimage/images/2021/12/14/20211214205238.jpeg)
