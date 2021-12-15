@@ -2,4 +2,9 @@ group 'io.github.code13.javastack.books'
 
 configure(subprojects) {
     group 'io.github.code13.javastack.books'
+
+    dependencies {
+        implementation 'org.junit.jupiter:junit-jupiter'
+    }
+
 }
