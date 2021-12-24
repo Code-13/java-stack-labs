@@ -82,4 +82,6 @@ include 'bugstack:small-spring'
 findProject(':bugstack:small-spring')?.name = 'small-spring'
 include 'books:java-concurrency-in-practice'
 findProject(':books:java-concurrency-in-practice')?.name = 'java-concurrency-in-practice'
+include 'books:understanding-the-jvm-3edition'
+findProject(':books:understanding-the-jvm-3edition')?.name = 'understanding-the-jvm-3edition'
 
