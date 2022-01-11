@@ -19,6 +19,7 @@ package io.github.code13.javastack.frameworks.mbplus.generator;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
+import com.baomidou.mybatisplus.generator.config.TemplateType;
 import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -99,6 +100,7 @@ public class FastAutoGeneratorTest {
                   .addInclude("t_simple") // 设置需要生成的表名
                   .addTablePrefix("t_", "c_"); // 设置过滤表前缀
             })
+        .templateConfig(builder -> builder.disable(TemplateType.SERVICE, TemplateType.SERVICEIMPL))
         .templateEngine(new BeetlTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
         .execute();
   }

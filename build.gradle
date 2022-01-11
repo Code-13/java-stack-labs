@@ -84,7 +84,7 @@ configure(subprojects) {
             dependency 'org.checkerframework:checker-qual:3.20.0'
 
             dependency 'com.baomidou:mybatis-plus-generator:3.5.1'
-            dependencySet(group: "com.baomidou", version: '3.4.3.4') {
+            dependencySet(group: "com.baomidou", version: '3.5.0') {
                 entry "mybatis-plus-boot-starter"
                 entry "mybatis-plus-core"
                 entry "mybatis-plus-extension"
