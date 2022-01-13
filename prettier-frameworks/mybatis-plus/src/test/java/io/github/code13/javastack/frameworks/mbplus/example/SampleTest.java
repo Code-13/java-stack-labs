@@ -14,7 +14,7 @@
  *     limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.mbplus;
+package io.github.code13.javastack.frameworks.mbplus.example;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

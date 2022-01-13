@@ -14,20 +14,22 @@
  *     limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.mbplus;
+package io.github.code13.javastack.frameworks.mbplus.example;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 /**
- * UserMapper.
+ * User.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @date 11/9/2021 11:34 AM
+ * @date 11/9/2021 11:33 AM
  */
-public interface UserMapper extends BaseMapper<User> {
-
-  default User getByEmail(String email) {
-    return selectOne(Wrappers.<User>lambdaQuery().eq(User::getEmail, email));
-  }
+@Data
+@TableName("USER")
+public class User {
+  private Long id;
+  private String name;
+  private Integer age;
+  private String email;
 }

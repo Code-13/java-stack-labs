@@ -14,25 +14,39 @@
  *     limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.mbplus;
-
-import static io.github.code13.javastack.frameworks.mbplus.utils.Utils.loadClassPathResource;
-import static io.github.code13.javastack.frameworks.mbplus.utils.Utils.loadDataSourceProperties;
-import io.github.code13.javastack.frameworks.mbplus.utils.H2Utils;
+package io.github.code13.javastack.frameworks.mbplus.method;
 
 /**
- * H2TestUtils.
+ * SqlMethodEx.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @date 11/9/2021 1:39 PM
+ * @date 1/11/2022 10:15 AM
  */
-public final class H2TestUtils {
+public enum SqlMethodEx {
 
-  private H2TestUtils() {}
+  //  --count
+  EXIST_HIGH_PERFORMANCE("existHighPerformance", "高性能查询是否存在", "SELECT 1 FROM %s %s LIMIT 1"),
+  ;
 
-  public static void start() {
-    H2Utils.newBuilder()
-        .startH2Server()
-        .initTables(loadDataSourceProperties(), loadClassPathResource("schema.sql"));
+  private final String method;
+  private final String desc;
+  private final String sql;
+
+  SqlMethodEx(String method, String desc, String sql) {
+    this.method = method;
+    this.desc = desc;
+    this.sql = sql;
+  }
+
+  public String getMethod() {
+    return method;
+  }
+
+  public String getDesc() {
+    return desc;
+  }
+
+  public String getSql() {
+    return sql;
   }
 }

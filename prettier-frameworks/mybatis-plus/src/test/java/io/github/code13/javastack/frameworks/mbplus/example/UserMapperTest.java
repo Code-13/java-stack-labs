@@ -14,10 +14,11 @@
  *     limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.mbplus;
+package io.github.code13.javastack.frameworks.mbplus.example;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.baomidou.mybatisplus.core.MybatisSqlSessionFactoryBuilder;
+import io.github.code13.javastack.frameworks.mbplus.H2TestUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
