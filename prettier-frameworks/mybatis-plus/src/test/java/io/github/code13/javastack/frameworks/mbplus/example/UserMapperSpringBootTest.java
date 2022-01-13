@@ -18,19 +18,20 @@ package io.github.code13.javastack.frameworks.mbplus.example;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * SampleTest.
+ * UserMapperSpringBootTest.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 11/9/2021 12:32 PM
  */
 @SpringBootTest
-class SampleTest {
+class UserMapperSpringBootTest {
 
   @Autowired UserMapper userMapper;
 

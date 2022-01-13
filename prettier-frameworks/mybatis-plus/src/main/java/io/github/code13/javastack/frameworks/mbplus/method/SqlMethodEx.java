@@ -25,7 +25,8 @@ package io.github.code13.javastack.frameworks.mbplus.method;
 public enum SqlMethodEx {
 
   //  --count
-  EXIST_HIGH_PERFORMANCE("existHighPerformance", "高性能查询是否存在", "SELECT 1 FROM %s %s LIMIT 1"),
+  EXIST_HIGH_PERFORMANCE(
+      "existHighPerformance", "高性能查询是否存在", "<script>SELECT 1 FROM %s %s LIMIT 1</script>"),
   ;
 
   private final String method;

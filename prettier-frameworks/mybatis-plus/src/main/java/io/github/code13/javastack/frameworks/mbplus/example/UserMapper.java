@@ -16,8 +16,8 @@
 
 package io.github.code13.javastack.frameworks.mbplus.example;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import io.github.code13.javastack.frameworks.mbplus.BaseMapper;
 
 /**
  * UserMapper.
@@ -25,7 +25,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 11/9/2021 11:34 AM
  */
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper extends BaseMapper<User, Long> {
 
   default User getByEmail(String email) {
     return selectOne(Wrappers.<User>lambdaQuery().eq(User::getEmail, email));

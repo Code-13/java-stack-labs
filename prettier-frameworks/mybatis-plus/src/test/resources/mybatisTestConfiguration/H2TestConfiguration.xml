@@ -17,6 +17,6 @@
   </environments>
 
   <mappers>
-    <mapper resource="io/github/code13/javastack/frameworks/mbplus/UserMapper.xml"/>
+    <mapper resource="io/github/code13/javastack/frameworks/mbplus/example/UserMapper.xml"/>
   </mappers>
 </configuration>

@@ -43,8 +43,8 @@ public class ExistHighPerformanceMethod extends AbstractMethod {
     String sqlWhere = sqlWhereEntityWrapper(true, tableInfo);
     String sql = String.format(sqlMethod.getSql(), tableName, sqlWhere, sqlComment());
     SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
-    return addSelectMappedStatementForTable(
-        mapperClass, getMethod(sqlMethod), sqlSource, tableInfo);
+    return addSelectMappedStatementForOther(
+        mapperClass, getMethod(sqlMethod), sqlSource, Boolean.class);
   }
 
   private String getMethod(SqlMethodEx sqlMethod) {

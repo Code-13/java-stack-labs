@@ -16,12 +16,15 @@
 
 package io.github.code13.javastack.frameworks.mbplus.utils;
 
+import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.sql.DataSource;
 import org.h2.tools.Server;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 
 /**
  * H2Utils.
@@ -53,6 +56,11 @@ public final class H2Utils {
     }
   }
 
+  public H2Utils initTables(DataSourceProperties properties, String initSql) {
+    return initTables(
+        properties.getUrl(), properties.getUsername(), properties.getPassword(), initSql);
+  }
+
   public H2Utils initTables(String url, String user, String password, String initSql) {
 
     try (Connection connection = DriverManager.getConnection(url, user, password);
@@ -65,16 +73,13 @@ public final class H2Utils {
     }
   }
 
-  public H2Utils initTables(DataSourceProperties properties, String initSql) {
-    try (Connection connection =
-            DriverManager.getConnection(
-                properties.getUrl(), properties.getUsername(), properties.getPassword());
-        Statement statement = connection.createStatement(); ) {
-      statement.execute(initSql);
-      return instance;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw new RuntimeException(e);
-    }
+  public static DataSource createH2DataSource() {
+    return DataSourceBuilder.create(Utils.class.getClassLoader())
+        .type(HikariDataSource.class)
+        .driverClassName(Utils.dataSourceProperties.determineDriverClassName())
+        .url(Utils.dataSourceProperties.determineUrl())
+        .username(Utils.dataSourceProperties.determineUsername())
+        .password(Utils.dataSourceProperties.determinePassword())
+        .build();
   }
 }

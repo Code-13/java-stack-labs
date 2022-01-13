@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Properties;
 import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.env.YamlPropertySourceLoader;
@@ -39,6 +40,8 @@ public final class Utils {
     throw new UnsupportedOperationException(
         "No io.github.code13.javastack.frameworks.mbplus.utils.Utils instances for you!");
   }
+
+  static DataSourceProperties dataSourceProperties;
 
   static YamlPropertySourceLoader loader = new YamlPropertySourceLoader();
   static ClassPathResource resource = new ClassPathResource("application.yaml");
@@ -69,6 +72,7 @@ public final class Utils {
       properties.setPassword(password);
       properties.setType((Class<? extends DataSource>) Class.forName(driver));
 
+      dataSourceProperties = properties;
       return properties;
     } catch (ClassNotFoundException e) {
       throw new RuntimeException(e);
@@ -86,5 +90,11 @@ public final class Utils {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public static Properties loadProperties(String path) throws IOException {
+    Properties properties = new Properties();
+    properties.load(Utils.class.getClassLoader().getResourceAsStream(path));
+    return properties;
   }
 }

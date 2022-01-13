@@ -79,7 +79,7 @@ public interface BaseMapper<T, ID extends Serializable>
    * @return true/false
    * @see ExistHighPerformanceMethod
    */
-  Optional<Boolean> exist(@Param(Constants.WRAPPER) Wrapper<T> queryWrapper);
+  Optional<Boolean> existHighPerformance(@Param(Constants.WRAPPER) Wrapper<T> queryWrapper);
 
   int alwaysUpdateSomeColumnById(@Param(Constants.ENTITY) T entity);
 
