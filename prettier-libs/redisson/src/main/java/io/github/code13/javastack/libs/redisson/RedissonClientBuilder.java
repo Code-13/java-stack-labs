@@ -89,4 +89,8 @@ public final class RedissonClientBuilder {
     objectMapper.registerModule(javaTimeModule);
     return objectMapper;
   }
+
+  private RedissonClientBuilder() {
+    throw new UnsupportedOperationException();
+  }
 }
