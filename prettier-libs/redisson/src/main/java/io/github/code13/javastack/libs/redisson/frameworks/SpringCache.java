@@ -16,25 +16,10 @@
 
 package io.github.code13.javastack.libs.redisson.frameworks;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import io.github.code13.javastack.libs.redisson.RedissonClientBuilder;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.lang3.StringUtils;
-import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
-import org.redisson.codec.JsonJacksonCodec;
-import org.redisson.config.SingleServerConfig;
 import org.redisson.spring.cache.CacheConfig;
 import org.redisson.spring.cache.RedissonSpringCacheManager;
 import org.slf4j.Logger;
@@ -72,54 +57,20 @@ public class SpringCache {
 
     @Bean
     CacheManager cacheManager(RedissonClient redissonClient) {
-      Map<String, CacheConfig> config = new HashMap<String, CacheConfig>();
+      Map<String, CacheConfig> config = new HashMap<>();
 
       // create "testMap" cache with ttl = 24 minutes and maxIdleTime = 12 minutes
       config.put("testMap", new CacheConfig(24 * 60 * 1000, 12 * 60 * 1000));
       return new RedissonSpringCacheManager(redissonClient, config);
     }
 
-    @Bean
+    @Bean(destroyMethod = "shutdown")
     public static RedissonClient doBuild(RedisProperties properties) {
-      org.redisson.config.Config config = new org.redisson.config.Config();
-      SingleServerConfig singleServerConfig =
-          config
-              .useSingleServer()
-              .setAddress("redis://" + properties.getHost() + ":" + properties.getPort())
-              .setDatabase(properties.getDatabase());
-
-      if (StringUtils.isNotBlank(properties.getPassword())) {
-        singleServerConfig.setPassword(properties.getPassword());
-      }
-
-      ObjectMapper objectMapper = buildObjectMapper();
-
-      config.setCodec(new JsonJacksonCodec(objectMapper));
-
-      return Redisson.create(config);
-    }
-
-    private static ObjectMapper buildObjectMapper() {
-      JavaTimeModule javaTimeModule = new JavaTimeModule();
-      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-      javaTimeModule.addSerializer(
-          LocalDateTime.class, new LocalDateTimeSerializer(dateTimeFormatter));
-      javaTimeModule.addDeserializer(
-          LocalDateTime.class, new LocalDateTimeDeserializer(dateTimeFormatter));
-
-      // 处理LocalDate
-      DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-      javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(dateFormatter));
-      javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer(dateFormatter));
-
-      // 处理LocalTime
-      DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-      javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(timeFormatter));
-      javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(timeFormatter));
-
-      var objectMapper = new ObjectMapper();
-      objectMapper.registerModule(javaTimeModule);
-      return objectMapper;
+      return RedissonClientBuilder.build(
+          properties.getHost(),
+          properties.getPort(),
+          properties.getPassword(),
+          properties.getDatabase());
     }
   }
 

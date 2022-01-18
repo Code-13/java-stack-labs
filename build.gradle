@@ -132,7 +132,7 @@ subprojects {
                 entry "redisson"
                 entry "redisson-spring-boot-starter"
                 entry "redisson-mybatis"
-                entry "redisson-spring-data-25"
+                entry "redisson-spring-data-26"
             }
 
             dependencySet(group: "cn.hutool", version: "5.7.19") {
