@@ -18,8 +18,6 @@ buildscript {
 
     ext {
         javaVersion = JavaVersion.VERSION_17
-        springBootVersion = "2.6.2"
-        springCloudVersion = "2021.0.0"
     }
 
     repositories {
@@ -89,53 +87,53 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.6.2'
-            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2021.0.0'
+            mavenBom 'org.springframework.boot:spring-boot-dependencies:${springBootVersion}'
+            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}'
         }
         dependencies {
-            dependency 'org.checkerframework:checker-qual:3.20.0'
+            dependency 'org.checkerframework:checker-qual:${checkerframeworkVersion}'
 
-            dependency 'com.baomidou:mybatis-plus-generator:3.5.1'
-            dependencySet(group: "com.baomidou", version: '3.5.0') {
+            dependency 'com.baomidou:mybatis-plus-generator:${mybatisPlusGeneratorVersion}'
+            dependencySet(group: "com.baomidou", version: '${mybatisPlusVersion}') {
                 entry "mybatis-plus-boot-starter"
                 entry "mybatis-plus-core"
                 entry "mybatis-plus-extension"
                 entry "mybatis-plus-annotation"
             }
 
-            dependencySet(group: "org.mapstruct", version: '1.4.2.Final') {
+            dependencySet(group: "org.mapstruct", version: '${mapstructVersion}') {
                 entry "mapstruct"
                 entry "mapstruct-processor"
             }
 
-            dependency 'com.alibaba:druid-spring-boot-starter:1.2.8'
+            dependency 'com.alibaba:druid-spring-boot-starter:${alibabaDruidVersion}'
 
-            dependency 'io.vavr:vavr:0.10.4'
-            dependency 'io.vavr:vavr-jackson:0.10.3'
-            dependency 'io.vavr:vavr-test:0.10.3'
-            dependency 'io.vavr:vavr-gson:0.10.2'
-            dependency 'io.vavr:vavr-beanvalidation2:0.10.0'
+            dependency 'io.vavr:vavr:${vavrVersion}'
+            dependency 'io.vavr:vavr-jackson:${vavrJacksonVersion}'
+            dependency 'io.vavr:vavr-test:${vavrTestVersion}'
+            dependency 'io.vavr:vavr-gson:${vavrGsonVersion}'
+            dependency 'io.vavr:vavr-beanvalidation2:${vavrBeanvalidation2Version}'
 
-            dependency 'commons-io:commons-io:2.11.0'
-            dependency 'org.apache.commons:commons-collections4:4.4'
-            dependency 'commons-beanutils:commons-beanutils:1.9.4'
-            dependency 'commons-fileupload:commons-fileupload:1.4'
-            dependency 'commons-net:commons-net:3.8.0'
+            dependency 'commons-io:commons-io:${commonsIoVersion}'
+            dependency 'org.apache.commons:commons-collections4:${commonsCollections4Version}'
+            dependency 'commons-beanutils:commons-beanutils:${commonsBeanutilsVersion}'
+            dependency 'commons-fileupload:commons-fileupload:${commonsFileuploadVersion}'
+            dependency 'commons-net:commons-net:${commonsNetVersion}'
 
-            dependency 'org.jsoup:jsoup:1.14.3'
-            dependency 'org.reflections:reflections:0.10.2'
-            dependency 'com.googlecode.libphonenumber:libphonenumber:8.12.41'
-            dependency 'org.locationtech.spatial4j:spatial4j:0.8'
-            dependency 'com.google.zxing:core:3.4.1'
+            dependency 'org.jsoup:jsoup:${jsoupVersio}'
+            dependency 'org.reflections:reflections:${reflectionsVersion}'
+            dependency 'com.googlecode.libphonenumber:libphonenumber:${libphonenumberVersion}'
+            dependency 'org.locationtech.spatial4j:spatial4j:${spatial4jVersion}'
+            dependency 'com.google.zxing:core:${zxingVersion}'
 
-            dependencySet(group: "org.redisson", version: "3.16.7") {
+            dependencySet(group: "org.redisson", version: "${redissonVersion}") {
                 entry "redisson"
                 entry "redisson-spring-boot-starter"
                 entry "redisson-mybatis"
                 entry "redisson-spring-data-26"
             }
 
-            dependencySet(group: "cn.hutool", version: "5.7.19") {
+            dependencySet(group: "cn.hutool", version: "${hutoolVersion}") {
                 entry "hutool-all"
                 entry "hutool-aop"
                 entry "hutool-bloomFilter"
