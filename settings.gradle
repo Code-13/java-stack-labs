@@ -51,8 +51,6 @@ findProject(':prettier-libs:mockito')?.name = 'mockito'
 include 'prettier-libs:objenesis'
 findProject(':prettier-libs:objenesis')?.name = 'objenesis'
 
-include 'concurrency-masters'
-
 include 'jvm'
 include 'jvm:mat'
 findProject(':jvm:mat')?.name = 'mat'
@@ -85,3 +83,6 @@ findProject(':books:java-concurrency-in-practice')?.name = 'java-concurrency-in-
 include 'books:understanding-the-jvm-3edition'
 findProject(':books:understanding-the-jvm-3edition')?.name = 'understanding-the-jvm-3edition'
 
+include 'columns'
+include 'columns:concurrency-masters'
+findProject(':columns:concurrency-masters')?.name = 'concurrency-masters'
