@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:spring_security;MODE=MySQL;DATABASE_TO_LOWER=TRUE
+  h2:
+    console:
+      enabled: true
+      settings:
+        trace: true
+        web-allow-others: true
+      path: /h2-console
+  sql:
+    init:
+      schema-locations: classpath:sql/ddl.sql
+      data-locations: classpath:sql/dml.sql
+      mode: embedded

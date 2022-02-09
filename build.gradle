@@ -59,7 +59,8 @@ subprojects {
 
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
-        options.compilerArgs << "-parameters" << "-Xlint:unchecked" << "-Xlint:deprecation" << "-J--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED"
+        options.compilerArgs << "-parameters" << "-Xlint:unchecked" << "-Xlint:deprecation"
+        options.forkOptions.jvmArgs << "-J--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED"
     }
 
     task sourcesJar(type: Jar, dependsOn: classes) {

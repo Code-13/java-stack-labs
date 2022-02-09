@@ -74,6 +74,8 @@ include 'spring:spring-data'
 findProject(':spring:spring-data')?.name = 'spring-data'
 include 'spring:spring-boot'
 findProject(':spring:spring-boot')?.name = 'spring-boot'
+include 'spring:spring-security'
+findProject(':spring:spring-security')?.name = 'spring-security'
 
 include 'books:java-concurrency-in-practice'
 findProject(':books:java-concurrency-in-practice')?.name = 'java-concurrency-in-practice'
