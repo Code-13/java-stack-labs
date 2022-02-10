@@ -32,4 +32,9 @@ public class TestController {
   public Object get() {
     return 1;
   }
+
+  @GetMapping(value = "/v1/test1")
+  public Object get1() {
+    return 1;
+  }
 }

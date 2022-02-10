@@ -16,7 +16,10 @@
 
 package io.github.code13.javastack.spring.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.code13.javastack.spring.security.captcha.CaptchaAuthenticationFilterConfigurer;
+import java.io.PrintWriter;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -34,6 +37,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2022/2/9 21:42
  */
+//@EnableWebSecurity(debug = true)
 @Configuration(proxyBeanMethods = false)
 public class UserDetailsServiceConfiguration {
 
@@ -53,11 +57,9 @@ public class UserDetailsServiceConfiguration {
 
     http.csrf()
         .disable()
-        .authorizeHttpRequests()
+        .authorizeRequests()
         .mvcMatchers("/foo/**")
         .hasAuthority("ROLE_USER")
-        .anyRequest()
-        .authenticated()
         .and()
         .apply(new CaptchaAuthenticationFilterConfigurer<>())
         .captchaService((phone, rawCode) -> true) // 此处自己去自定义
@@ -72,8 +74,60 @@ public class UserDetailsServiceConfiguration {
                   new MappingJackson2HttpMessageConverter();
               mappingJackson2HttpMessageConverter.write(
                   authentication, MediaType.APPLICATION_JSON, servletServerHttpResponse);
-            });
+            })
+        .failureHandler(
+            (request, response, exception) -> {
+              // 这里把认证信息以JSON形式返回
+              ServletServerHttpResponse servletServerHttpResponse =
+                  new ServletServerHttpResponse(response);
+              MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter =
+                  new MappingJackson2HttpMessageConverter();
+              mappingJackson2HttpMessageConverter.write(
+                  "{\n" + "  \"code\": 401,\n" + "  \"msg\": \"not authorized\"\n" + "}",
+                  MediaType.APPLICATION_JSON,
+                  servletServerHttpResponse);
+            })
+        .and()
+        .exceptionHandling() //
+        .authenticationEntryPoint((request, response, authException) -> {
+          response.setContentType("application/json;charset=utf-8");
+          response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+          PrintWriter writer = response.getWriter();
+          String result = """
+                  {code: 401,msg:"access denied"}
+                  """;
+          writer.write(new ObjectMapper().writeValueAsString(result));
+          writer.flush();
+          writer.close();
+        })
+        .accessDeniedHandler(
+            (request, response, accessDeniedException) -> {
+              response.setContentType("application/json;charset=utf-8");
+              response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+              PrintWriter writer = response.getWriter();
+              String result = "{code: 401,msg:\"access denied\"}";
+              writer.write(new ObjectMapper().writeValueAsString(result));
+              writer.flush();
+              writer.close();
+            })
+        .and()
+        // 只拦截 api开头的
+        .authorizeRequests()
+        .antMatchers("/api/**")
+        .authenticated()
+        .anyRequest()
+        .permitAll();
 
     return http.build();
   }
 }
+
+/*
+spring security 未登录或登录状态访问无权限资源都会出现访问异常，这个异常由 ExceptionTranslationFilter 处理，其中:
+未登录，异常由 AuthenticationEntryPoint 处理，其中重定向至Login页面操作也是个EntryPoint：LoginUrlAuthenticationEntryPoint，他专为formLogin做跳转
+已登录，异常由 AccessDeniedHandler 处理，同样可以自定义实现并配置
+
+认证过程中的成功与失败则由 successHandler、failureHandler
+
+如果是认证失败 ，比如密码错误等，就配置login 的 .failureHandler()。如果是权限不够（.accessDeniedHandler）或者未认证（.authenticationEntryPoint），就配置exceptionHandling()。
+ */
