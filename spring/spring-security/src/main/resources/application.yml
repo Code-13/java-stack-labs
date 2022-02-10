@@ -14,3 +14,5 @@ spring:
       schema-locations: classpath:sql/ddl.sql
       data-locations: classpath:sql/dml.sql
       mode: embedded
+server:
+  port: 52708

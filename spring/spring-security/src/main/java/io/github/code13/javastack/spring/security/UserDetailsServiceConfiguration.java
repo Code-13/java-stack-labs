@@ -16,11 +16,17 @@
 
 package io.github.code13.javastack.spring.security;
 
+import io.github.code13.javastack.spring.security.captcha.CaptchaAuthenticationFilterConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.server.ServletServerHttpResponse;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * UserDetailsServiceConfiguration.
@@ -39,5 +45,35 @@ public class UserDetailsServiceConfiguration {
             .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder()::encode)
             .authorities("ROLE_USER", "ROLE_ADMIN")
             .build();
+  }
+
+  @Bean
+  SecurityFilterChain defaultSecurityChain(HttpSecurity http, UserDetailsService userDetailsService)
+      throws Exception {
+
+    http.csrf()
+        .disable()
+        .authorizeHttpRequests()
+        .mvcMatchers("/foo/**")
+        .hasAuthority("ROLE_USER")
+        .anyRequest()
+        .authenticated()
+        .and()
+        .apply(new CaptchaAuthenticationFilterConfigurer<>())
+        .captchaService((phone, rawCode) -> true) // 此处自己去自定义
+        .captchaUserDetailsService(
+            phone -> userDetailsService.loadUserByUsername("code13")) // 此处应该自定义用户信息
+        .successHandler(
+            (request, response, authentication) -> {
+              // 这里把认证信息以JSON形式返回
+              ServletServerHttpResponse servletServerHttpResponse =
+                  new ServletServerHttpResponse(response);
+              MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter =
+                  new MappingJackson2HttpMessageConverter();
+              mappingJackson2HttpMessageConverter.write(
+                  authentication, MediaType.APPLICATION_JSON, servletServerHttpResponse);
+            });
+
+    return http.build();
   }
 }

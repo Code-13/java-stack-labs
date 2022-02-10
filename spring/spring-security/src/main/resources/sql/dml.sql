@@ -14,17 +14,17 @@
  *     limitations under the License.
  */
 
-# 初始化一个用户 用户名felord 密码 123456 密码一定要hash一下可别学某站放明文密码
+-- # 初始化一个用户 用户名felord 密码 123456 密码一定要hash一下可别学某站放明文密码
 INSERT INTO spring_security.sys_user (user_id, username, encode_password,
                                       expired, locked, enabled)
 VALUES ('1', 'felord',
         '{bcrypt}$2a$10$iNfPvjiZitM.DzuiPgpjYuLGI16pz0MTK8RIoGOLuPpsXZxccOwu2', 1, 1, 1);
-# 初始化两个角色
+-- # 初始化两个角色
 INSERT INTO spring_security.role (role_id, role_name, role_comment, enabled)
 VALUES ('1', 'ROLE_USER', '用户角色', 1);
 INSERT INTO spring_security.role (role_id, role_name, role_comment, enabled)
 VALUES ('2', 'ROLE_ADMIN', '管理员角色', 1);
-# 给用户赋予角色
+-- #给用户赋予角色
 INSERT INTO spring_security.user_role (user_role_id, username, role_id,
                                        role_name, enabled)
 VALUES ('1', 'felord', '1', 'ROLE_USER', 1);
