@@ -17,15 +17,16 @@
 package io.github.code13.javastack.spring.security;
 
 import io.github.code13.javastack.spring.security.captcha.CaptchaAuthenticationFilterConfigurer;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -38,11 +39,12 @@ import org.springframework.security.web.SecurityFilterChain;
  * @date 2022/2/9 21:42
  */
 @EnableWebSecurity(debug = true)
-@Configuration(proxyBeanMethods = false)
 public class SecurityConfiguration {
 
+  private static final List<String> WHITELIST = List.of("/api/**");
+
   @Bean
-  public UserDetailsService userDetailsService() {
+  UserDetailsService userDetailsService() {
     return username ->
         User.withUsername(username)
             .password("password")
@@ -60,10 +62,16 @@ public class SecurityConfiguration {
 
     http.csrf()
         .disable()
+        // 出去白名单中的，其余全部拦截
         .authorizeRequests()
-        .mvcMatchers("/foo/**")
-        .hasAuthority("ROLE_USER")
+        .antMatchers(WHITELIST.toArray(String[]::new))
+        .permitAll()
         .and()
+        .authorizeRequests()
+        .anyRequest()
+        .authenticated()
+        .and()
+        // 应用 Captcha 的配置
         .apply(new CaptchaAuthenticationFilterConfigurer<>())
         .captchaService((phone, rawCode) -> true) // 此处自己去自定义
         .captchaUserDetailsService(
@@ -108,16 +116,14 @@ public class SecurityConfiguration {
                   Map.of("code", 403, "msg", "Forbidden", "path", request.getRequestURI()),
                   MediaType.APPLICATION_JSON,
                   servletServerHttpResponse);
-            })
-        .and()
-        // 只拦截 api开头的
-        .authorizeRequests()
-        .antMatchers("/api/**")
-        .authenticated()
-        .anyRequest()
-        .permitAll();
+            });
 
     return http.build();
+  }
+
+  @Bean
+  WebSecurityCustomizer webSecurityCustomizer() {
+    return web -> web.ignoring().antMatchers("/h2-console/**");
   }
 }
 
