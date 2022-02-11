@@ -18,9 +18,9 @@ package io.github.code13.javastack.spring.security;
 
 import io.github.code13.javastack.spring.security.captcha.CaptchaAuthenticationFilterConfigurer;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpResponse;
@@ -41,7 +41,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity(debug = true)
 public class SecurityConfiguration {
 
-  private static final List<String> WHITELIST = List.of("/api/**");
+  private static final List<String> WHITELIST = List.of("/no/**");
 
   @Bean
   UserDetailsService userDetailsService() {
@@ -91,7 +91,7 @@ public class SecurityConfiguration {
               ServletServerHttpResponse servletServerHttpResponse =
                   new ServletServerHttpResponse(response);
               mappingJackson2HttpMessageConverter.write(
-                  Map.of("code", 401, "msg", "Unauthorized", "path", request.getRequestURI()),
+                  ResponseData.of(HttpStatus.UNAUTHORIZED, request.getRequestURI()),
                   MediaType.APPLICATION_JSON,
                   servletServerHttpResponse);
             })
@@ -103,7 +103,7 @@ public class SecurityConfiguration {
               ServletServerHttpResponse servletServerHttpResponse =
                   new ServletServerHttpResponse(response);
               mappingJackson2HttpMessageConverter.write(
-                  Map.of("code", 401, "msg", "Unauthorized", "path", request.getRequestURI()),
+                  ResponseData.of(HttpStatus.UNAUTHORIZED, request.getRequestURI()),
                   MediaType.APPLICATION_JSON,
                   servletServerHttpResponse);
             })
@@ -113,7 +113,7 @@ public class SecurityConfiguration {
               ServletServerHttpResponse servletServerHttpResponse =
                   new ServletServerHttpResponse(response);
               mappingJackson2HttpMessageConverter.write(
-                  Map.of("code", 403, "msg", "Forbidden", "path", request.getRequestURI()),
+                  ResponseData.of(HttpStatus.FORBIDDEN, request.getRequestURI()),
                   MediaType.APPLICATION_JSON,
                   servletServerHttpResponse);
             });

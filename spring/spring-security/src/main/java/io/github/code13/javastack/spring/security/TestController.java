@@ -28,12 +28,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
+  /** 这个接口会被spring security 拦截. */
   @GetMapping(value = "/api/v1/test1")
   public Object get() {
     return 1;
   }
 
-  @GetMapping(value = "/v1/test1")
+  /** 这个接口没有被 Spring Security 拦截.可以直接访问 */
+  @GetMapping(value = "/no/v1/test1")
   public Object get1() {
     return 1;
   }
