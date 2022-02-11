@@ -16,9 +16,8 @@
 
 package io.github.code13.javastack.spring.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.code13.javastack.spring.security.captcha.CaptchaAuthenticationFilterConfigurer;
-import java.io.PrintWriter;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,20 +25,21 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
- * UserDetailsServiceConfiguration.
+ * SecurityConfiguration.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2022/2/9 21:42
  */
-//@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = true)
 @Configuration(proxyBeanMethods = false)
-public class UserDetailsServiceConfiguration {
+public class SecurityConfiguration {
 
   @Bean
   public UserDetailsService userDetailsService() {
@@ -52,7 +52,10 @@ public class UserDetailsServiceConfiguration {
   }
 
   @Bean
-  SecurityFilterChain defaultSecurityChain(HttpSecurity http, UserDetailsService userDetailsService)
+  SecurityFilterChain defaultSecurityChain(
+      HttpSecurity http,
+      UserDetailsService userDetailsService,
+      MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter)
       throws Exception {
 
     http.csrf()
@@ -70,45 +73,41 @@ public class UserDetailsServiceConfiguration {
               // 这里把认证信息以JSON形式返回
               ServletServerHttpResponse servletServerHttpResponse =
                   new ServletServerHttpResponse(response);
-              MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter =
-                  new MappingJackson2HttpMessageConverter();
               mappingJackson2HttpMessageConverter.write(
                   authentication, MediaType.APPLICATION_JSON, servletServerHttpResponse);
             })
         .failureHandler(
             (request, response, exception) -> {
               // 这里把认证信息以JSON形式返回
+              response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
               ServletServerHttpResponse servletServerHttpResponse =
                   new ServletServerHttpResponse(response);
-              MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter =
-                  new MappingJackson2HttpMessageConverter();
               mappingJackson2HttpMessageConverter.write(
-                  "{\n" + "  \"code\": 401,\n" + "  \"msg\": \"not authorized\"\n" + "}",
+                  Map.of("code", 401, "msg", "Unauthorized", "path", request.getRequestURI()),
                   MediaType.APPLICATION_JSON,
                   servletServerHttpResponse);
             })
         .and()
         .exceptionHandling() //
-        .authenticationEntryPoint((request, response, authException) -> {
-          response.setContentType("application/json;charset=utf-8");
-          response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-          PrintWriter writer = response.getWriter();
-          String result = """
-                  {code: 401,msg:"access denied"}
-                  """;
-          writer.write(new ObjectMapper().writeValueAsString(result));
-          writer.flush();
-          writer.close();
-        })
+        .authenticationEntryPoint(
+            (request, response, authException) -> {
+              response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+              ServletServerHttpResponse servletServerHttpResponse =
+                  new ServletServerHttpResponse(response);
+              mappingJackson2HttpMessageConverter.write(
+                  Map.of("code", 401, "msg", "Unauthorized", "path", request.getRequestURI()),
+                  MediaType.APPLICATION_JSON,
+                  servletServerHttpResponse);
+            })
         .accessDeniedHandler(
             (request, response, accessDeniedException) -> {
-              response.setContentType("application/json;charset=utf-8");
               response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-              PrintWriter writer = response.getWriter();
-              String result = "{code: 401,msg:\"access denied\"}";
-              writer.write(new ObjectMapper().writeValueAsString(result));
-              writer.flush();
-              writer.close();
+              ServletServerHttpResponse servletServerHttpResponse =
+                  new ServletServerHttpResponse(response);
+              mappingJackson2HttpMessageConverter.write(
+                  Map.of("code", 403, "msg", "Forbidden", "path", request.getRequestURI()),
+                  MediaType.APPLICATION_JSON,
+                  servletServerHttpResponse);
             })
         .and()
         // 只拦截 api开头的

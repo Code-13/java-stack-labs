@@ -36,7 +36,7 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.util.matcher.AndRequestMatcher;
@@ -167,7 +167,7 @@ public class CaptchaAuthenticationFilterConfigurer<H extends HttpSecurityBuilder
 
     CaptchaAuthenticationFilter filter = postProcess(authFilter);
     // 这里改为使用前插过滤器方法
-    http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+    http.addFilterBefore(filter, LogoutFilter.class);
   }
 
   private void initProvider(H http) {
