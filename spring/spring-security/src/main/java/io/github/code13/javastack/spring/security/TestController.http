@@ -1,0 +1,11 @@
+# 登录
+POST http://localhost:52708/login/captcha
+
+###
+GET http://localhost:52708/api/v1/test1
+
+###
+GET http://localhost:52708/no/api/v1/test1
+
+###
+GET http://127.0.0.1:52708/authorities/api/v1/test1

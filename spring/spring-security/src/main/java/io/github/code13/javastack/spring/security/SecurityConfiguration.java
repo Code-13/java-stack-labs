@@ -16,7 +16,7 @@
 
 package io.github.code13.javastack.spring.security;
 
-import io.github.code13.javastack.spring.security.captcha.CaptchaAuthenticationFilterConfigurer;
+import io.github.code13.javastack.spring.security.old.CaptchaAuthenticationFilterConfigurer;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpResponse;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -38,11 +39,14 @@ import org.springframework.security.web.SecurityFilterChain;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2022/2/9 21:42
  */
-// @EnableMethodSecurity //开启方法权限拦截
 @EnableWebSecurity(debug = true)
 public class SecurityConfiguration {
 
   private static final List<String> WHITELIST = List.of("/no/**");
+
+  /** 开启方法权限拦截 */
+  @EnableMethodSecurity
+  static class EnableMethodSecurityConfig {}
 
   @Bean
   UserDetailsService userDetailsService() {
@@ -54,8 +58,10 @@ public class SecurityConfiguration {
             .build();
   }
 
-  @Bean
-  SecurityFilterChain defaultSecurityChain(
+  /** 旧的配置 */
+  @Deprecated
+  //  @Bean
+  SecurityFilterChain defaultSecurityChain1(
       HttpSecurity http,
       UserDetailsService userDetailsService,
       MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter)
@@ -108,6 +114,32 @@ public class SecurityConfiguration {
                   MediaType.APPLICATION_JSON,
                   servletServerHttpResponse);
             });
+
+    return http.build();
+  }
+
+  @Bean
+  SecurityFilterChain defaultSecurityChain(HttpSecurity http, UserDetailsService userDetailsService)
+      throws Exception {
+
+    http.csrf()
+        .disable()
+        // 出去白名单中的，其余全部拦截
+        .authorizeRequests()
+        .antMatchers(WHITELIST.toArray(String[]::new))
+        .permitAll()
+        .and()
+        .authorizeRequests()
+        .anyRequest()
+        .authenticated()
+        .and()
+        // 应用 Captcha 的配置
+        .apply(
+            new io.github.code13.javastack.spring.security.captcha
+                .CaptchaAuthenticationFilterConfigurer<>())
+        .captchaService((phone, rawCode) -> true) // 此处自己去自定义
+        .captchaUserDetailsService(
+            phone -> userDetailsService.loadUserByUsername("code13")); // 此处应该自定义用户信息
 
     return http.build();
   }

@@ -32,13 +32,13 @@ public class TestController {
   /** 这个接口会被spring security 拦截. */
   @GetMapping(value = "/api/v1/test1")
   public Object get() {
-    return 1;
+    return "认证成功，直接访问";
   }
 
   /** 这个接口没有被 Spring Security 拦截.可以直接访问 */
   @GetMapping(value = "/no/api/v1/test1")
   public Object get1() {
-    return 1;
+    return "这个接口没有被 Spring Security 拦截.可以直接访问";
   }
 
   /** 需要ROLE_OTHER权限才可以访问 */
