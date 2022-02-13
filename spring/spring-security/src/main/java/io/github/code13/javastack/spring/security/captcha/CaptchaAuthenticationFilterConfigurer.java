@@ -26,8 +26,10 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
+import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.PortMapper;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -51,6 +53,8 @@ import org.springframework.web.accept.HeaderContentNegotiationStrategy;
 /**
  * CaptchaAuthenticationFilterConfigurer.
  *
+ * @see AbstractAuthenticationFilterConfigurer
+ * @see FormLoginConfigurer
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2/10/2022 3:02 PM
  */

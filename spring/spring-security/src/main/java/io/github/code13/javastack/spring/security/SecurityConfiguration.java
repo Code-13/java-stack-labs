@@ -38,6 +38,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2022/2/9 21:42
  */
+// @EnableMethodSecurity //开启方法权限拦截
 @EnableWebSecurity(debug = true)
 public class SecurityConfiguration {
 
@@ -104,16 +105,6 @@ public class SecurityConfiguration {
                   new ServletServerHttpResponse(response);
               mappingJackson2HttpMessageConverter.write(
                   ResponseData.of(HttpStatus.UNAUTHORIZED, request.getRequestURI()),
-                  MediaType.APPLICATION_JSON,
-                  servletServerHttpResponse);
-            })
-        .accessDeniedHandler(
-            (request, response, accessDeniedException) -> {
-              response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-              ServletServerHttpResponse servletServerHttpResponse =
-                  new ServletServerHttpResponse(response);
-              mappingJackson2HttpMessageConverter.write(
-                  ResponseData.of(HttpStatus.FORBIDDEN, request.getRequestURI()),
                   MediaType.APPLICATION_JSON,
                   servletServerHttpResponse);
             });

@@ -16,6 +16,7 @@
 
 package io.github.code13.javastack.spring.security;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,8 +36,15 @@ public class TestController {
   }
 
   /** 这个接口没有被 Spring Security 拦截.可以直接访问 */
-  @GetMapping(value = "/no/v1/test1")
+  @GetMapping(value = "/no/api/v1/test1")
   public Object get1() {
     return 1;
+  }
+
+  /** 需要ROLE_OTHER权限才可以访问 */
+  @PreAuthorize("hasAuthority('ROLE_OTHER')")
+  @GetMapping(value = "/authorities/api/v1/test1")
+  public Object authorities() {
+    return "authorities";
   }
 }
