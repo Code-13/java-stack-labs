@@ -50,6 +50,8 @@ include 'prettier-libs:mockito'
 findProject(':prettier-libs:mockito')?.name = 'mockito'
 include 'prettier-libs:objenesis'
 findProject(':prettier-libs:objenesis')?.name = 'objenesis'
+include 'prettier-libs:easyexcel'
+findProject(':prettier-libs:easyexcel')?.name = 'easyexcel'
 
 include 'jvm'
 include 'jvm:mat'
@@ -88,3 +90,4 @@ findProject(':columns:concurrency-kings')?.name = 'concurrency-kings'
 include 'columns:bugstack'
 include 'columns:bugstack:small-spring'
 findProject(':columns:bugstack:small-spring')?.name = 'small-spring'
+

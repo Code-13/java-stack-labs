@@ -1,0 +1,15 @@
+ext {
+    javaVersion = JavaVersion.VERSION_1_8
+}
+
+sourceCompatibility = "${javaVersion}"
+targetCompatibility = "${javaVersion}"
+
+dependencies {
+    //https://www.yuque.com/easyexcel
+    implementation 'com.alibaba:easyexcel:3.0.5'
+
+    implementation 'ch.qos.logback:logback-classic'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}
