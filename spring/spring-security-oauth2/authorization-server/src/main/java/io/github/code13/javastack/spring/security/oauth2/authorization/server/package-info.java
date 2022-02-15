@@ -22,4 +22,4 @@
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2022/2/13 21:54
  */
-package io.github.code13.javastack.spring.security.oauth2.authorization;
+package io.github.code13.javastack.spring.security.oauth2.authorization.server;
