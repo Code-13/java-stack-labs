@@ -20,15 +20,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * EasyexcelApplication.
+ * EasyExcelApplication.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2/14/2022 5:49 PM
  */
 @SpringBootApplication
-public class EasyexcelApplication {
+public class EasyExcelApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(EasyexcelApplication.class, args);
+    SpringApplication.run(EasyExcelApplication.class, args);
   }
 }
