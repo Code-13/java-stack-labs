@@ -9,8 +9,8 @@ spring:
             client-secret: secret
             #            http://127.0.0.1:8080/oauth2/authorization/felord-auth
             #todo        redirect-uri:  '{baseUrl}/foo/bar' 错误的写法  根据oauth2协议localhost不可被解析
-            #            redirect-uri:  '{baseUrl}/login/oauth2/code/{registrationId}'
-            redirect-uri: 'http://127.0.0.1:8080/foo/bar'
+            redirect-uri: 'http://127.0.0.1:8080/login/oauth2/code/felord-auth'
+            #            redirect-uri: 'http://127.0.0.1:8080/foo/bar'
             authorization-grant-type: authorization_code
             client-authentication-method: client_secret_basic
             scope: message.read,message.write
@@ -20,7 +20,7 @@ spring:
             client-secret: secret
             #            http://127.0.0.1:8080/oauth2/authorization/felord-oidc
             #todo        redirect-uri:  '{baseUrl}/foo/bar' 错误的写法  根据oauth2协议localhost不可被解析
-            redirect-uri: 'http://127.0.0.1:8080/login/oauth2/code/{registrationId}'
+            redirect-uri: 'http://127.0.0.1:8080/login/oauth2/code/felord-oidc'
             authorization-grant-type: authorization_code
             scope: openid
         provider:

@@ -17,7 +17,6 @@
 package io.github.code13.javastack.spring.security.oauth2.client;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -44,16 +43,18 @@ public class OAuth2ClientSecurityConfiguration {
         .csrf()
         .disable()
         .authorizeRequests()
-        .mvcMatchers(HttpMethod.GET, "/foo/bar")
-        .hasAnyAuthority("ROLE_USER", "ROLE_ANONYMOUS")
         .anyRequest()
         .authenticated()
         .and()
         // oauth2.0 login
-        .oauth2Login(
-            oauth2clientLogin -> oauth2clientLogin.loginPage("/oauth2/authorization/felord-oidc"))
-        // oauth2.0 client
-        .oauth2Client();
+        .oauth2Login();
     return httpSecurity.build();
   }
 }
+
+//       /oauth2/authorization/{registrationId}
+
+/*
+ * 如果需要拿授权方的用户信息需要走 oauth2Login()
+ * 如果不需要获取用户信息  仅仅是授权 就用 oauth2Client()
+ */

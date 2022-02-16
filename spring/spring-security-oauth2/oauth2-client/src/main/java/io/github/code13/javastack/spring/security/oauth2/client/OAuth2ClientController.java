@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OAuth2ClientController {
 
   /**
-   * redirect_uri
+   * redirect_uri.
    *
    * @param client ID为{@code code13-auth}的客户端信息，注意ClientRegistration中必须包含该ID
    * @return the map
@@ -52,7 +52,7 @@ public class OAuth2ClientController {
   }
 
   /**
-   * 登录成功后默认跳转页
+   * 登录成功后默认跳转页.
    *
    * @param authentication 当前认证信息
    * @return the map
@@ -64,6 +64,19 @@ public class OAuth2ClientController {
     HashMap<String, Object> map = new HashMap<>();
     map.put("authentication", authentication);
     map.put("client", client);
+    return map;
+  }
+
+  /**
+   * 登录成功后默认跳转页.
+   *
+   * @return the map
+   */
+  @GetMapping("/code13")
+  public Map<String, Object> code13() {
+    HashMap<String, Object> map = new HashMap<>();
+    map.put("code", 0);
+    map.put("msg", "这是一个受保护的接口");
     return map;
   }
 }
