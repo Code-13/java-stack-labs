@@ -62,6 +62,8 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfiguration {
 
+  // JwtCustomizer
+
   @Bean
   SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
     OAuth2AuthorizationServerConfigurer<HttpSecurity> configurer =
@@ -102,7 +104,7 @@ public class AuthorizationServerConfiguration {
             .redirectUri("http://127.0.0.1:8080/login/oauth2/code/felord-oidc")
             //            .redirectUri("http://127.0.0.1:8080/authorized")
             //            .redirectUri("http://127.0.0.1:8080/foo/bar")
-            //            .redirectUri("https://www.baidu.com")
+            .redirectUri("https://www.baidu.com")
             .scope(OidcScopes.OPENID)
             .scope("message.read")
             .scope("message.write")
@@ -149,6 +151,13 @@ public class AuthorizationServerConfiguration {
     return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
   }
 
+  /**
+   * 配置 OAuth2.0 provider元信息
+   *
+   * <p>源数据配置，很重要，很重要很重要
+   *
+   * @return the provider settings
+   */
   @Bean
   ProviderSettings providerSettings(@Value("${server.port}") Integer port) {
     return ProviderSettings.builder().issuer("http://localhost:" + port).build();
