@@ -40,7 +40,11 @@ public class SecurityCoreConfig {
   @Bean
   SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
-        .formLogin();
+        .formLogin()
+        .and()
+        .exceptionHandling()
+        .authenticationEntryPoint(
+            (request, response, authException) -> response.sendRedirect("http://localhost:3000/"));
     return http.build();
   }
   // @formatter:on
