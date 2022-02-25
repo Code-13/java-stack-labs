@@ -1,0 +1,10 @@
+server:
+  port: 9001
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          public-key-location: felordcn.jks
+          issuer-uri: http://localhost:9000/
