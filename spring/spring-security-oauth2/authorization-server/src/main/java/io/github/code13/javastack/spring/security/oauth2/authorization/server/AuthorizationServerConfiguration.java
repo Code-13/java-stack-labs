@@ -79,7 +79,26 @@ public class AuthorizationServerConfiguration {
         .csrf(csrf -> csrf.ignoringRequestMatchers(authorizationServerEndpointsMatcher))
         .formLogin()
         .and()
-        .apply(configurer);
+        .apply(configurer)
+        .and()
+        .exceptionHandling();
+    //        .authenticationEntryPoint(
+    //            (request, response, authException) -> {
+    //              String s = request.getRequestURL().toString() + "?" + request.getQueryString();
+    //              System.out.println(s);
+    //              byte[] encode =
+    // Base64.getUrlEncoder().encode(s.getBytes(StandardCharsets.UTF_8));
+    //              String state = new String(encode, StandardCharsets.UTF_8);
+    //              System.out.println(state);
+    //
+    //              Cookie cookie = new Cookie("state", state);
+    //              cookie.setDomain("127.0.0.1");
+    //              cookie.setPath("/");
+    //              cookie.setMaxAge(-1);
+    //              response.addCookie(cookie);
+    //
+    //              response.sendRedirect("http://localhost:3000?state=" + state);
+    //            });
 
     return http.build();
   }

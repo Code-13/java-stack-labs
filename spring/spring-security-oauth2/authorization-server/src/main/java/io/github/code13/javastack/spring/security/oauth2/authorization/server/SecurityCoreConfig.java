@@ -41,10 +41,37 @@ public class SecurityCoreConfig {
   SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
         .formLogin()
+        //        .loginProcessingUrl("/login")
+        //        .successHandler(
+        //            (request, response, authentication) -> {
+        //              System.out.println(
+        //
+        // SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
+        //
+        //              String queryString = request.getQueryString();
+        //              System.out.println(queryString);
+        //
+        //              String substring = queryString.substring("state=".length());
+        //
+        //              System.out.println(substring);
+        //
+        //              byte[] decode = Base64.getUrlDecoder().decode(substring);
+        //
+        //              String s = new String(decode, StandardCharsets.UTF_8);
+        //
+        //              System.out.println(s);
+        //
+        //              response.sendRedirect(s);
+        //            })
         .and()
-        .exceptionHandling()
-        .authenticationEntryPoint(
-            (request, response, authException) -> response.sendRedirect("http://localhost:3000/"));
+        .csrf()
+        .disable()
+        .exceptionHandling();
+    //        .authenticationEntryPoint(
+    //            (request, response, authException) -> {
+    //              System.out.println(request.getRequestURI());
+    //              response.sendRedirect("http://localhost:3000?state=" + request.getRequestURI());
+    //            });
     return http.build();
   }
   // @formatter:on
@@ -75,6 +102,6 @@ public class SecurityCoreConfig {
    */
   @Bean
   WebSecurityCustomizer webSecurityCustomizer() {
-    return web -> web.ignoring().antMatchers("/actuator/health", "/h2-console/**");
+    return web -> web.ignoring().antMatchers("/actuator/health", "/h2-console/**", "/favicon.ico");
   }
 }
