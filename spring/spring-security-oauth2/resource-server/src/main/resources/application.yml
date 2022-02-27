@@ -7,4 +7,4 @@ spring:
       resourceserver:
         jwt:
           public-key-location: felordcn.jks
-          issuer-uri: http://localhost:9000/
+          issuer-uri: http://localhost:9000
