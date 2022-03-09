@@ -52,6 +52,8 @@ include 'prettier-libs:objenesis'
 findProject(':prettier-libs:objenesis')?.name = 'objenesis'
 include 'prettier-libs:easyexcel'
 findProject(':prettier-libs:easyexcel')?.name = 'easyexcel'
+include 'prettier-libs:nimbus-jose-jwt'
+findProject(':prettier-libs:nimbus-jose-jwt')?.name = 'nimbus-jose-jwt'
 
 include 'jvm'
 include 'jvm:mat'
