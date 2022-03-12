@@ -18,8 +18,9 @@ buildscript {
 
     ext {
         javaVersion = JavaVersion.VERSION_17
-        springBootVersion = "2.6.3"
-        springCloudVersion = "2021.0.0"
+        springBootVersion = "2.6.4"
+        springCloudVersion = "2021.0.1"
+        springCloudAlibabaVersion = '2021.1'
     }
 
     repositories {
@@ -91,8 +92,9 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.6.3'
-            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2021.0.0'
+            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.6.4'
+            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2021.0.1'
+            mavenBom 'com.alibaba.cloud:spring-cloud-alibaba-dependencies:2021.1'
         }
         dependencies {
             dependency 'org.checkerframework:checker-qual:3.21.2'
@@ -137,7 +139,7 @@ subprojects {
                 entry "redisson-spring-data-26"
             }
 
-            dependencySet(group: "cn.hutool", version: "5.7.19") {
+            dependencySet(group: "cn.hutool", version: "5.7.22") {
                 entry "hutool-all"
                 entry "hutool-aop"
                 entry "hutool-bloomFilter"
