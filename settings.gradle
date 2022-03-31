@@ -100,4 +100,6 @@ findProject(':columns:concurrency-kings')?.name = 'concurrency-kings'
 include 'columns:bugstack'
 include 'columns:bugstack:small-spring'
 findProject(':columns:bugstack:small-spring')?.name = 'small-spring'
+include 'prettier-libs:itextpdf'
+findProject(':prettier-libs:itextpdf')?.name = 'itextpdf'
 
