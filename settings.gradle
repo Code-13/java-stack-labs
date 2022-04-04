@@ -88,6 +88,8 @@ include 'spring:spring-security-oauth2:oauth2-client'
 findProject(':spring:spring-security-oauth2:oauth2-client')?.name = 'oauth2-client'
 include 'spring:spring-security-oauth2:resource-server'
 findProject(':spring:spring-security-oauth2:resource-server')?.name = 'resource-server'
+include 'spring:spring-kafka'
+findProject(':spring:spring-kafka')?.name = 'spring-kafka'
 
 include 'books:java-concurrency-in-practice'
 findProject(':books:java-concurrency-in-practice')?.name = 'java-concurrency-in-practice'
