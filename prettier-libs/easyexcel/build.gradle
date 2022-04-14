@@ -1,4 +1,5 @@
-// 需要在 idea 中 使用 modify run configuration 将 JDK 设为 JDK8
+// 1. 需要在 idea 中 使用 modify run configuration 将 JDK 设为 JDK8
+// 2. 需要在 idea 中 将该模块的 Language Level 设为 8
 
 ext {
     javaVersion = JavaVersion.VERSION_1_8

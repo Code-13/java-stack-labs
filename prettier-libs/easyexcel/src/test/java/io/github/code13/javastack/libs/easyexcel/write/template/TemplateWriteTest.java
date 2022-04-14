@@ -20,11 +20,13 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.commons.lang3.ObjectUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,7 +43,7 @@ import org.springframework.core.io.ClassPathResource;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2022/3/31 2:47 PM
  */
-@DisplayName("根据模板更新")
+@DisplayName("根据模板生成 Excel")
 class TemplateWriteTest {
 
   private static final Logger logger = LoggerFactory.getLogger(TemplateWriteTest.class);
@@ -49,11 +51,13 @@ class TemplateWriteTest {
   static final ClassPathResource templateResource =
       new ClassPathResource("template/excel-template.xlsx");
 
+  static AtomicInteger iobCodeGenerator = new AtomicInteger();
+
   static List<IclExportDataDTO> mockData() {
     List<IclExportDataDTO> result = new ArrayList<>();
 
     int ix = ThreadLocalRandom.current().nextInt(5, 10);
-    for (int i = 0; i < ix; i++) {
+    for (int i = 1; i <= ix; i++) {
       IclExportDataDTO exportData = new IclExportDataDTO();
 
       result.add(exportData);
@@ -72,8 +76,9 @@ class TemplateWriteTest {
       int jx = ThreadLocalRandom.current().nextInt(1, 5);
       for (int j = 0; j < jx; j++) {
         IobExportDataDTO iobExportData = new IobExportDataDTO();
-        iobExportData.setIobCode("IOB" + String.format("%0" + 7 + "d", j));
-        iobExportData.setIobName(exportData.getIclCode());
+        iobExportData.setIobCode(
+            "IOB" + String.format("%0" + 7 + "d", iobCodeGenerator.incrementAndGet()));
+        iobExportData.setIobName(iobExportData.getIobCode() + ":" + exportData.getIclCode());
         iobExportData.setClassificationMethod("General");
         iobExportData.setIobSecurityClass("HP");
         iobExportData.setIobConfidentiality("C");
@@ -101,6 +106,10 @@ class TemplateWriteTest {
   void testWriteWithTemplate() throws IOException {
 
     List<IclExportDataDTO> iclExportDataDTOS = mockData();
+
+    logger.info(
+        "Mock data : \n {}",
+        new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(iclExportDataDTOS));
 
     List<IclExportData> iclExportDataList = map(iclExportDataDTOS);
 

@@ -49,8 +49,13 @@ public class MergeStrategy extends AbstractMergeStrategy {
       int startRow = 2;
       int endRow = 3;
       for (IclExportDataDTO dto : dtos) {
-        if (!dto.getIobExportDataList().isEmpty()) {
-          endRow = startRow + dto.getIobExportDataList().size() - 1;
+        List<IobExportDataDTO> iobExportDataList = dto.getIobExportDataList();
+
+        // 如果单元格只有一个，不需要合并
+        if (iobExportDataList.size() == 1) {
+          endRow++;
+        } else {
+          endRow = startRow + iobExportDataList.size() - 1;
           for (int c : columns) {
             sheet.addMergedRegionUnsafe(new CellRangeAddress(startRow, endRow, c, c));
           }
