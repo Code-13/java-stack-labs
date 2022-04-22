@@ -41,7 +41,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  */
 @SpringBootApplication
 @RestController
-public class DynamicRegisterRequestMappingHandlerMappingApp {
+class DynamicRegisterRequestMappingHandlerMappingApp {
 
   public static void main(String[] args) {
     SpringApplication.run(DynamicRegisterRequestMappingHandlerMappingApp.class, args);
