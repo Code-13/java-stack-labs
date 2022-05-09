@@ -1,4 +1,11 @@
 group 'io.github.code13.javastack.spring'
 
 dependencies {
+    implementation 'org.springframework:spring-core'
+    implementation 'org.springframework:spring-context'
+    implementation 'org.springframework:spring-beans'
+    implementation 'org.springframework:spring-aop'
+    implementation 'org.aspectj:aspectjweaver'
+
+    implementation 'org.junit.jupiter:junit-jupiter'
 }
