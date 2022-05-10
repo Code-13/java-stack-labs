@@ -18,8 +18,8 @@ buildscript {
 
     ext {
         javaVersion = JavaVersion.VERSION_17
-        springBootVersion = "2.6.6"
-        springCloudVersion = "2021.0.1"
+        springBootVersion = "2.6.7"
+        springCloudVersion = "2021.0.2"
         springCloudAlibabaVersion = '2021.1'
     }
 
@@ -92,12 +92,12 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.6.6'
-            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2021.0.1'
+            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.6.7'
+            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2021.0.2'
             mavenBom 'com.alibaba.cloud:spring-cloud-alibaba-dependencies:2021.1'
         }
         dependencies {
-            dependency 'org.checkerframework:checker-qual:3.21.4'
+            dependency 'org.checkerframework:checker-qual:3.22.0'
 
             dependency 'com.baomidou:mybatis-plus-generator:3.5.2'
             dependencySet(group: "com.baomidou", version: '3.5.1') {
@@ -112,7 +112,7 @@ subprojects {
                 entry "mapstruct-processor"
             }
 
-            dependency 'com.alibaba:druid-spring-boot-starter:1.2.8'
+            dependency 'com.alibaba:druid-spring-boot-starter:1.2.9'
 
             dependency 'io.vavr:vavr:0.10.4'
             dependency 'io.vavr:vavr-jackson:0.10.3'
@@ -128,18 +128,18 @@ subprojects {
 
             dependency 'org.jsoup:jsoup:1.14.3'
             dependency 'org.reflections:reflections:0.10.2'
-            dependency 'com.googlecode.libphonenumber:libphonenumber:8.12.41'
+            dependency 'com.googlecode.libphonenumber:libphonenumber:8.12.48'
             dependency 'org.locationtech.spatial4j:spatial4j:0.8'
             dependency 'com.google.zxing:core:3.4.1'
 
-            dependencySet(group: "org.redisson", version: "3.17.0") {
+            dependencySet(group: "org.redisson", version: "3.17.1") {
                 entry "redisson"
                 entry "redisson-spring-boot-starter"
                 entry "redisson-mybatis"
                 entry "redisson-spring-data-26"
             }
 
-            dependencySet(group: "cn.hutool", version: "5.7.22") {
+            dependencySet(group: "cn.hutool", version: "5.8.0") {
                 entry "hutool-all"
                 entry "hutool-aop"
                 entry "hutool-bloomFilter"
