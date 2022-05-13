@@ -14,3 +14,21 @@
  *     limitations under the License.
  */
 
+def HelloWorldPremainClass = 'io.github.code13.javastack.javalabs.agent.hello_world.HelloAgent'
+def MonitorPremainClass = 'io.github.code13.javastack.javalabs.agent.demo02_method_monitor.MonitorAgent'
+def ByteBuddyMonitorPremainClass = 'io.github.code13.javastack.javalabs.agent.demo03_bytebuddy_monitor.ByteBuddyMonitorAgent'
+jar {
+    manifest {
+        attributes(
+                'Premain-Class': ByteBuddyMonitorPremainClass
+        )
+    }
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.javassist/javassist
+    implementation 'org.javassist:javassist:3.28.0-GA'
+    // https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy
+    // implementation 'net.bytebuddy:byte-buddy:1.12.10'
+    implementation 'net.bytebuddy:byte-buddy'
+}
