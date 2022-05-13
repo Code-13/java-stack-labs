@@ -60,6 +60,8 @@ include 'prettier-libs:cglib'
 findProject(':prettier-libs:cglib')?.name = 'cglib'
 include 'prettier-libs:javassist'
 findProject(':prettier-libs:javassist')?.name = 'javassist'
+include 'prettier-libs:bytebuddy'
+findProject(':prettier-libs:bytebuddy')?.name = 'bytebuddy'
 
 include 'jvm'
 include 'jvm:mat'
