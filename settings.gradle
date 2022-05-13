@@ -58,6 +58,8 @@ include 'prettier-libs:itextpdf'
 findProject(':prettier-libs:itextpdf')?.name = 'itextpdf'
 include 'prettier-libs:cglib'
 findProject(':prettier-libs:cglib')?.name = 'cglib'
+include 'prettier-libs:javassist'
+findProject(':prettier-libs:javassist')?.name = 'javassist'
 
 include 'jvm'
 include 'jvm:mat'
