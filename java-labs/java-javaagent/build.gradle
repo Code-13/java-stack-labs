@@ -22,7 +22,8 @@ def TrackAgentPremainClass = 'io.github.code13.javastack.javalabs.agent.demo05_t
 jar {
     manifest {
         attributes(
-                'Premain-Class': TrackAgentPremainClass
+                'Premain-Class': TrackAgentPremainClass,
+                'Can-Redefine-Classes': true
         )
     }
 }
