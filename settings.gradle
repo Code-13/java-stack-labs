@@ -62,6 +62,8 @@ include 'prettier-libs:javassist'
 findProject(':prettier-libs:javassist')?.name = 'javassist'
 include 'prettier-libs:bytebuddy'
 findProject(':prettier-libs:bytebuddy')?.name = 'bytebuddy'
+include 'prettier-libs:jackson'
+findProject(':prettier-libs:jackson')?.name = 'jackson'
 
 include 'jvm'
 include 'jvm:mat'
