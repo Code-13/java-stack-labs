@@ -72,6 +72,12 @@ findProject(':jvm:mat')?.name = 'mat'
 include 'books'
 include 'books:modern-java-in-action'
 findProject(':books:modern-java-in-action')?.name = 'modern-java-in-action'
+include 'books:java-concurrency-in-practice'
+findProject(':books:java-concurrency-in-practice')?.name = 'java-concurrency-in-practice'
+include 'books:understanding-the-jvm-3edition'
+findProject(':books:understanding-the-jvm-3edition')?.name = 'understanding-the-jvm-3edition'
+include 'books:effective-java-3edition'
+findProject(':books:effective-java-3edition')?.name = 'effective-java-3edition'
 
 include 'prettier-frameworks'
 include 'prettier-frameworks:netty4.x'
@@ -101,15 +107,9 @@ findProject(':spring:spring-security-oauth2:resource-server')?.name = 'resource-
 include 'spring:spring-kafka'
 findProject(':spring:spring-kafka')?.name = 'spring-kafka'
 
-include 'books:java-concurrency-in-practice'
-findProject(':books:java-concurrency-in-practice')?.name = 'java-concurrency-in-practice'
-include 'books:understanding-the-jvm-3edition'
-findProject(':books:understanding-the-jvm-3edition')?.name = 'understanding-the-jvm-3edition'
-
 include 'columns'
 include 'columns:concurrency-kings'
 findProject(':columns:concurrency-kings')?.name = 'concurrency-kings'
 include 'columns:bugstack'
 include 'columns:bugstack:small-spring'
 findProject(':columns:bugstack:small-spring')?.name = 'small-spring'
-
