@@ -34,7 +34,10 @@ ext {
             "hutoolVersion"                : "5.8.0",
 
             // redisson
-            "redissonVersion"              : "3.17.1"
+            "redissonVersion"              : "3.17.1",
+
+            // jmh
+            "jmhVersion"                   : "1.35"
     ]
 
     bom = [
@@ -79,5 +82,9 @@ ext {
             "redisson-spring-boot-starter": "org.redisson:redisson-spring-boot-starter:$version.redissonVersion",
             "redisson-mybatis"            : "org.redisson:redisson-mybatis:$version.redissonVersion",
             "redisson-spring-data-26"     : "org.redisson:redisson-spring-data-26:$version.redissonVersion",
+
+            // https://mvnrepository.com/artifact/org.openjdk.jmh
+            "jmh"                         : "org.openjdk.jmh:jmh-core:$version.jmhVersion",
+            "jmh-generator-annprocess"    : "org.openjdk.jmh:jmh-generator-annprocess:$version.jmhVersion"
     ]
 }

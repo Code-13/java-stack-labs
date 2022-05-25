@@ -86,6 +86,8 @@ include 'prettier-frameworks:junit5'
 findProject(':prettier-frameworks:junit5')?.name = 'junit5'
 include 'prettier-frameworks:mybatis-plus'
 findProject(':prettier-frameworks:mybatis-plus')?.name = 'mybatis-plus'
+include 'prettier-frameworks:jmh'
+findProject(':prettier-frameworks:jmh')?.name = 'jmh'
 
 include 'spring'
 include 'spring:spring-framework'
