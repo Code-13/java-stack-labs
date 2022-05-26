@@ -15,7 +15,9 @@
  */
 
 /**
- * package-info.
+ * OpenJDK/code-tools/jmh.
+ *
+ * <p>http://hg.openjdk.java.net/code-tools/jmh/file/tip/jmh-samples/src/main/java/org/openjdk/jmh/samples/
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2022/5/25 21:57

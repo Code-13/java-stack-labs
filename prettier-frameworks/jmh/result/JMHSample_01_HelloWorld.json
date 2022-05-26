@@ -1,0 +1,59 @@
+[
+    {
+        "jmhVersion" : "1.35",
+        "benchmark" : "io.github.code13.javastack.frameworks.jmh.JMHSample_01_HelloWorld.wellHelloThere",
+        "mode" : "thrpt",
+        "threads" : 1,
+        "forks" : 1,
+        "jvm" : "/Users/u0039724/Library/Java/jdk-17.0.2.jdk/Contents/Home/bin/java",
+        "jvmArgs" : [
+            "-Dfile.encoding=UTF-8",
+            "-Duser.country=US",
+            "-Duser.language=en",
+            "-Duser.variant"
+        ],
+        "jdkVersion" : "17.0.2",
+        "vmName" : "Java HotSpot(TM) 64-Bit Server VM",
+        "vmVersion" : "17.0.2+8-LTS-86",
+        "warmupIterations" : 5,
+        "warmupTime" : "10 s",
+        "warmupBatchSize" : 1,
+        "measurementIterations" : 5,
+        "measurementTime" : "10 s",
+        "measurementBatchSize" : 1,
+        "primaryMetric" : {
+            "score" : 1.6635640889346745E9,
+            "scoreError" : 6.634572543956349E8,
+            "scoreConfidence" : [
+                1.0001068345390396E9,
+                2.3270213433303094E9
+            ],
+            "scorePercentiles" : {
+                "0.0" : 1.3573895558121061E9,
+                "50.0" : 1.7209783691541774E9,
+                "90.0" : 1.761803654237423E9,
+                "95.0" : 1.761803654237423E9,
+                "99.0" : 1.761803654237423E9,
+                "99.9" : 1.761803654237423E9,
+                "99.99" : 1.761803654237423E9,
+                "99.999" : 1.761803654237423E9,
+                "99.9999" : 1.761803654237423E9,
+                "100.0" : 1.761803654237423E9
+            },
+            "scoreUnit" : "ops/s",
+            "rawData" : [
+                [
+                    1.719751513557117E9,
+                    1.7209783691541774E9,
+                    1.3573895558121061E9,
+                    1.7578973519125488E9,
+                    1.761803654237423E9
+                ]
+            ]
+        },
+        "secondaryMetrics" : {
+        }
+    }
+]
+
+
