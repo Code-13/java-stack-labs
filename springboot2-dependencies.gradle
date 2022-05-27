@@ -32,6 +32,7 @@ ext {
             "spatial4jVersion"             : "0.8",
             "zxingVersion"                 : "3.4.1",
             "hutoolVersion"                : "5.8.0",
+            "datafakerVersion"             : "1.4.0",
 
             // redisson
             "redissonVersion"              : "3.17.1",
@@ -77,6 +78,8 @@ ext {
             "libphonenumber"              : "com.googlecode.libphonenumber:libphonenumber:$version.libphonenumberVersion",
             "spatial4j"                   : "org.locationtech.spatial4j:spatial4j:$version.spatial4jVersion",
             "zxing"                       : "com.google.zxing:core:$version.zxingVersion",
+            // https://www.datafaker.net/
+            "datafaker"                   : "'net.datafaker:datafaker:$version.datafakerVersion",
 
             "redisson"                    : "org.redisson:resisson:$version.redissonVersion",
             "redisson-spring-boot-starter": "org.redisson:redisson-spring-boot-starter:$version.redissonVersion",
