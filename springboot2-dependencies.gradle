@@ -81,7 +81,7 @@ ext {
             // https://www.datafaker.net/
             "datafaker"                   : "'net.datafaker:datafaker:$version.datafakerVersion",
 
-            "redisson"                    : "org.redisson:resisson:$version.redissonVersion",
+            "redisson"                    : "org.redisson:redisson:$version.redissonVersion",
             "redisson-spring-boot-starter": "org.redisson:redisson-spring-boot-starter:$version.redissonVersion",
             "redisson-mybatis"            : "org.redisson:redisson-mybatis:$version.redissonVersion",
             "redisson-spring-data-26"     : "org.redisson:redisson-spring-data-26:$version.redissonVersion",
