@@ -87,7 +87,7 @@ subprojects {
                 author true
                 version true
                 failOnError false
-                links "https://docs.oracle.com/javase/8/docs/api"
+                links "https://docs.oracle.com/en/java/javase/17/"
             }
         }
     }
