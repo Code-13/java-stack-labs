@@ -111,6 +111,14 @@ public class JMHSample_03_States {
    *      http://openjdk.java.net/projects/code-tools/jmh/)
    */
 
+  /*
+   * Idea 下载 JMH 插件：
+   *        https://plugins.jetbrains.com/plugin/7529-jmh-java-microbenchmark-harness
+   * 就可以直接下面的运行下面的 main 方法。注意请直接使用 run 模式，不要使用 debug 模式！！！
+   *
+   * 所有的报告均在 prettier-frameworks/jmh/result 目录下
+   */
+
   public static void main(String[] args) throws RunnerException {
     String simpleName = JMHSample_03_States.class.getSimpleName();
 
