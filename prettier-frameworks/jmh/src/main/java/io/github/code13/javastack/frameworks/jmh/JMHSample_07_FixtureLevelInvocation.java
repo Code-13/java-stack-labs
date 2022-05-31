@@ -31,7 +31,16 @@
 
 package io.github.code13.javastack.frameworks.jmh;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Level;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
@@ -43,87 +52,123 @@ import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 /**
- * JMHSample_05_StateFixtures.
+ * JMHSample_07_FixtureLevelInvocation.
+ *
+ * <p>copy from <a
+ * href="http://hg.openjdk.java.net/code-tools/jmh/file/2be2df7dbaf8/jmh-samples/src/main/java/org/openjdk/jmh/samples/JMHSample_07_FixtureLevelInvocation.java">JMHSample_07_FixtureLevelInvocation</a>
+ *
+ * <p>just for study
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @date 2022/5/30 22:10
+ * @date 2022/5/31 10:57
  */
-@State(Scope.Thread)
-public class JMHSample_05_StateFixtures {
-
-  double x;
+@OutputTimeUnit(TimeUnit.MICROSECONDS)
+public class JMHSample_07_FixtureLevelInvocation {
 
   /*
-   * Since @State objects are kept around during the lifetime of the
-   * benchmark, it helps to have the methods which do state housekeeping.
-   * These are usual fixture methods, you are probably familiar with them from
-   * JUnit and TestNG.
+   * Fixtures have different Levels to control when they are about to run.
+   * Level.Invocation is useful sometimes to do some per-invocation work,
+   * which should not count as payload. PLEASE NOTE the timestamping and
+   * synchronization for Level.Invocation helpers might significantly offset
+   * the measurement, use with care. See Level.Invocation javadoc for further
+   * discussion.
    *
-   * Fixture methods make sense only on @State objects, and JMH will fail to
-   * compile the test otherwise.
-   *
-   * As with the State, fixture methods are only called by those benchmark
-   * threads which are using the state. That means you can operate in the
-   * thread-local context, and (not) use synchronization as if you are
-   * executing in the context of benchmark thread.
-   *
-   * Note: fixture methods can also work with static fields, although the
-   * semantics of these operations fall back out of State scope, and obey
-   * usual Java rules (i.e. one static field per class).
+   * Consider this sample:
    */
 
   /*
-   * Ok, let's prepare our benchmark:
+   * This state handles the executor.
+   * Note we create and shutdown executor with Level.Trial, so
+   * it is kept around the same across all iterations.
    */
 
-  @Setup
-  public void prepare() {
-    x = Math.PI;
+  @State(Scope.Benchmark)
+  public static class NormalState {
+    ExecutorService service;
+
+    @Setup(Level.Trial)
+    public void up() {
+      service = Executors.newCachedThreadPool();
+    }
+
+    @TearDown(Level.Trial)
+    public void down() {
+      service.shutdown();
+    }
   }
 
   /*
-   * And, check the benchmark went fine afterwards:
+   * This is the *extension* of the basic state, which also
+   * has the Level.Invocation fixture method, sleeping for some time.
    */
 
-  @TearDown
-  public void check() {
-    assert x > Math.PI : "Nothing changed?";
+  public static class LaggingState extends NormalState {
+    public static final int SLEEP_TIME = Integer.getInteger("sleepTime", 10);
+
+    @Setup(Level.Invocation)
+    public void lag() throws InterruptedException {
+      TimeUnit.MILLISECONDS.sleep(SLEEP_TIME);
+    }
   }
 
   /*
-   * This method obviously does the right thing, incrementing the field x
-   * in the benchmark state. check() will never fail this way, because
-   * we are always guaranteed to have at least one benchmark call.
+   * This allows us to formulate the task: measure the task turnaround in
+   * "hot" mode when we are not sleeping between the submits, and "cold" mode,
+   * when we are sleeping.
    */
 
   @Benchmark
-  public void measureRight() {
-    x++;
+  @BenchmarkMode(Mode.AverageTime)
+  public double measureHot(NormalState e, Scratch s)
+      throws ExecutionException, InterruptedException {
+    return e.service.submit(new Task(s)).get();
+  }
+
+  @Benchmark
+  @BenchmarkMode(Mode.AverageTime)
+  public double measureCold(LaggingState e, Scratch s)
+      throws ExecutionException, InterruptedException {
+    return e.service.submit(new Task(s)).get();
   }
 
   /*
-   * This method, however, will fail the check(), because we deliberately
-   * have the "typo", and increment only the local variable. This should
-   * not pass the check, and JMH will fail the run.
+   * This is our scratch state which will handle the work.
    */
 
-  @Benchmark
-  public void measureWrong() {
-    double x = 0;
-    x++;
+  @State(Scope.Thread)
+  public static class Scratch {
+    private double p;
+
+    public double doWork() {
+      p = Math.log(p);
+      return p;
+    }
+  }
+
+  public static class Task implements Callable<Double> {
+    private Scratch s;
+
+    public Task(Scratch s) {
+      this.s = s;
+    }
+
+    @Override
+    public Double call() {
+      return s.doWork();
+    }
   }
 
   /*
    * ============================== HOW TO RUN THIS TEST: ====================================
    *
-   * You can see measureRight() yields the result, and measureWrong() fires
-   * the assert at the end of the run.
+   * You can see the cold scenario is running longer, because we pay for
+   * thread wakeups.
    *
    * You can run this test:
    *
    * a) Via the command line:
    *    $ mvn clean install
-   *    $ java -ea -jar target/benchmarks.jar JMHSample_05 -f 1
+   *    $ java -jar target/benchmarks.jar JMHSample_07 -f 1
    *    (we requested single fork; there are also other options, see -h)
    *
    * b) Via the Java API:
@@ -140,14 +185,13 @@ public class JMHSample_05_StateFixtures {
    */
 
   public static void main(String[] args) throws RunnerException {
-    String simpleName = JMHSample_05_StateFixtures.class.getSimpleName();
+    String simpleName = JMHSample_07_FixtureLevelInvocation.class.getSimpleName();
     Options opt =
         new OptionsBuilder()
             .include(simpleName)
             .forks(1)
             .resultFormat(ResultFormatType.JSON)
             .result("prettier-frameworks/jmh/result/" + simpleName + ".json")
-            .jvmArgs("-ea")
             .build();
 
     new Runner(opt).run();
