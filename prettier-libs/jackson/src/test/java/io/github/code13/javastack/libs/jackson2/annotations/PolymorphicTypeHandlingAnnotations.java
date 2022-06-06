@@ -35,6 +35,8 @@ import org.junit.jupiter.api.Test;
  *
  * <p>Jackson Polymorphic Type Handling Annotations
  *
+ * <p>每一个静态内部类都只测试了一个注解，顺序如下：
+ *
  * @see com.fasterxml.jackson.annotation.JsonTypeInfo
  * @see com.fasterxml.jackson.annotation.JsonSubTypes
  * @see com.fasterxml.jackson.annotation.JsonTypeName

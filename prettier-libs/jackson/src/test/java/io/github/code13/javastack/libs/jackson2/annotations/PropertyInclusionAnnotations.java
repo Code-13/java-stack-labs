@@ -36,6 +36,8 @@ import org.junit.jupiter.api.Test;
  *
  * <p>Jackson Property Inclusion Annotations.
  *
+ * <p>每一个静态内部类都只测试了一个注解，顺序如下：
+ *
  * @see com.fasterxml.jackson.annotation.JsonIgnoreProperties
  * @see com.fasterxml.jackson.annotation.JsonIgnore
  * @see com.fasterxml.jackson.annotation.JsonIgnoreType

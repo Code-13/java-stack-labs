@@ -7,3 +7,6 @@
 - PropertyInclusionAnnotations
 - PolymorphicTypeHandlingAnnotations
 - GeneralAnnotations
+- CustomJacksonAnnotation
+- MixInAnnotations
+- DisableAnnotation
