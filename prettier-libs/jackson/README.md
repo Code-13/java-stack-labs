@@ -10,3 +10,13 @@
 - CustomJacksonAnnotation
 - MixInAnnotations
 - DisableAnnotation
+
+## ObjectMapper
+
+- ReadingAndWritingUsingObjectMapper
+- SerializationDeserializationFeature
+
+## Ignore
+
+- IgnoreProperties
+- IgnoreNullFields
