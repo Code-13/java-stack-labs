@@ -20,3 +20,7 @@
 
 - IgnoreProperties
 - IgnoreNullFields
+
+## Optional
+
+- UsingOptionalWithJackson
