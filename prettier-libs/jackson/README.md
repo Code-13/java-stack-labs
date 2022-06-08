@@ -24,3 +24,12 @@
 ## Optional
 
 - UsingOptionalWithJackson
+
+## unknown
+
+- UnmarshallingJSONWithUnknownProperties
+
+## SkipFields
+
+- IgnoreFieldsWithJsonFilter
+- SkipObjectsConditionally
