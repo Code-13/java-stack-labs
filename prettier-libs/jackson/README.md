@@ -33,3 +33,7 @@
 
 - IgnoreFieldsWithJsonFilter
 - SkipObjectsConditionally
+
+## Streaming
+
+- JacksonStreamingApi
