@@ -37,3 +37,9 @@
 ## Streaming
 
 - JacksonStreamingApi
+
+## enums
+
+## Immutable
+
+## Contextual
