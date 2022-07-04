@@ -1,9 +1,9 @@
 ext {
     version = [
-            "springBootVersion"                             : "2.7.0",
+            "springBootVersion"                             : "2.7.1",
             "springCloudVersion"                            : "2021.0.3",
             "springCloudAlibabaVersion"                     : "2021.1",
-            "springSecurityOauth2AuthorizationServerVersion": "0.3.0",
+            "springSecurityOauth2AuthorizationServerVersion": "0.3.1",
 
             "checkerQualVersion"                            : "3.22.0",
 
@@ -39,7 +39,9 @@ ext {
             "redissonVersion"                               : "3.17.3",
 
             // jmh
-            "jmhVersion"                                    : "1.35"
+            "jmhVersion"                                    : "1.35",
+
+            "caffeineVersion"                               : "3.1.1"
     ]
 
     bom = [
@@ -92,6 +94,11 @@ ext {
 
             // https://mvnrepository.com/artifact/org.openjdk.jmh
             "jmh"                                        : "org.openjdk.jmh:jmh-core:$version.jmhVersion",
-            "jmh-generator-annprocess"                   : "org.openjdk.jmh:jmh-generator-annprocess:$version.jmhVersion"
+            "jmh-generator-annprocess"                   : "org.openjdk.jmh:jmh-generator-annprocess:$version.jmhVersion",
+
+            // caffeine
+            "caffeine"                                   : "com.github.ben-manes.caffeine:caffeine:$version.caffeineVersion",
+            "caffeine-guava"                             : "com.github.ben-manes.caffeine:guava:$version.caffeineVersion",
+            "caffeine-jcache"                            : "com.github.ben-manes.caffeine:jcache:$version.caffeineVersion",
     ]
 }
