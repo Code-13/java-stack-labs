@@ -15,26 +15,30 @@
 
 package io.github.code13.javastack.libs.caffeine;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.stats.ConcurrentStatsCounter;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 /**
- * CaffeineInternalUtils.
+ * StatisticsTest.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @since 2022/7/6 10:10
+ * @since 2022/7/6 15:40
  */
-class CaffeineInternalUtils {
+class StatisticsTest {
 
-  static Graph createExpensiveGraph(Key key) {
-    return new Graph(key.getId());
-  }
+  @Test
+  @DisplayName("testStatistics")
+  void testStatistics() {
+    Cache<Key, Graph> cache =
+        Caffeine.newBuilder().maximumSize(10_000).recordStats(ConcurrentStatsCounter::new).build();
 
-  static Graph createExpensiveGraphI(Key key) {
-    return new Graph();
-  }
+    for (int i = 0; i < 10_0000; i++) {
+      cache.put(new Key(), new Graph());
+    }
 
-  CompletableFuture<? extends Graph> createExpensiveGraphAsync(Key key, Executor executor) {
-    return CompletableFuture.supplyAsync(() -> new Graph(key.getId()), executor);
+    System.out.println(cache.stats().toString());
   }
 }
