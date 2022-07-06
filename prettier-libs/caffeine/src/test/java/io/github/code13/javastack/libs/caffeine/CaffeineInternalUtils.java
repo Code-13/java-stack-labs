@@ -15,46 +15,22 @@
 
 package io.github.code13.javastack.libs.caffeine;
 
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 /**
- * Graph.
+ * CaffeineInternalUtils.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @since 2022/7/4 13:32
+ * @since 2022/7/6 10:10
  */
-public class Graph {
+class CaffeineInternalUtils {
 
-  private static final AtomicLong atomicLong = new AtomicLong();
-
-  private final Long id;
-  private final LocalDateTime creationDate = LocalDateTime.now();
-
-  public Graph() {
-    id = atomicLong.incrementAndGet();
+  static Graph createExpensiveGraph(Key key) {
+    return new Graph(key.getId());
   }
 
-  public Graph(Long id) {
-    this.id = id;
-  }
-
-  public List<String> vertices() {
-    return Collections.emptyList();
-  }
-
-  public LocalDateTime creationDate() {
-    return creationDate;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  @Override
-  public String toString() {
-    return "Graph:" + id;
+  CompletableFuture<? extends Graph> createExpensiveGraphAsync(Key key, Executor executor) {
+    return CompletableFuture.supplyAsync(() -> new Graph(key.getId()), executor);
   }
 }

@@ -41,7 +41,10 @@ ext {
             // jmh
             "jmhVersion"                                    : "1.35",
 
-            "caffeineVersion"                               : "3.1.1"
+            "caffeineVersion"                               : "3.1.1",
+
+            // guava
+            "guavaTestLibVersion"                           : "31.1-jre"
     ]
 
     bom = [
@@ -100,5 +103,8 @@ ext {
             "caffeine"                                   : "com.github.ben-manes.caffeine:caffeine:$version.caffeineVersion",
             "caffeine-guava"                             : "com.github.ben-manes.caffeine:guava:$version.caffeineVersion",
             "caffeine-jcache"                            : "com.github.ben-manes.caffeine:jcache:$version.caffeineVersion",
+
+            // guava
+            "guava-testlib"                              : "com.google.guava:guava-testlib:$version.guavaTestLibVersion"
     ]
 }
