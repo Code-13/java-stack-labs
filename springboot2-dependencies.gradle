@@ -87,7 +87,7 @@ ext {
             "spatial4j"                                  : "org.locationtech.spatial4j:spatial4j:$version.spatial4jVersion",
             "zxing"                                      : "com.google.zxing:core:$version.zxingVersion",
             // https://www.datafaker.net/
-            "datafaker"                                  : "'net.datafaker:datafaker:$version.datafakerVersion",
+            "datafaker"                                  : "net.datafaker:datafaker:$version.datafakerVersion",
 
             // redisson
             "redisson"                                   : "org.redisson:redisson:$version.redissonVersion",
