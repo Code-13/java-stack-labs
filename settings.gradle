@@ -16,15 +16,14 @@
 
 rootProject.name = 'java-stack-labs'
 
-/*
-include all java-labs
-*/
+// javase
 file("$rootDir/java-labs").eachDirMatch(~/java-.*/) {
     include "java-labs:${it.name}"
 }
 include 'java-labs:jdk-new-api-features'
 findProject(':java-labs:jdk-new-api-features')?.name = 'jdk-new-api-features'
 
+// libs
 include 'prettier-libs'
 include 'prettier-libs:vavr'
 findProject(':prettier-libs:vavr')?.name = 'vavr'
@@ -46,8 +45,6 @@ include 'prettier-libs:javafaker'
 findProject(':prettier-libs:javafaker')?.name = 'javafaker'
 include 'prettier-libs:protostuff'
 findProject(':prettier-libs:protostuff')?.name = 'protostuff'
-include 'prettier-libs:mockito'
-findProject(':prettier-libs:mockito')?.name = 'mockito'
 include 'prettier-libs:objenesis'
 findProject(':prettier-libs:objenesis')?.name = 'objenesis'
 include 'prettier-libs:easyexcel'
@@ -71,10 +68,12 @@ findProject(':prettier-libs:json-path')?.name = 'json-path'
 include 'prettier-libs:datafaker'
 findProject(':prettier-libs:datafaker')?.name = 'datafaker'
 
+// jvm
 include 'jvm'
 include 'jvm:mat'
 findProject(':jvm:mat')?.name = 'mat'
 
+// books
 include 'books'
 include 'books:modern-java-in-action'
 findProject(':books:modern-java-in-action')?.name = 'modern-java-in-action'
@@ -85,16 +84,14 @@ findProject(':books:understanding-the-jvm-3edition')?.name = 'understanding-the-
 include 'books:effective-java-3edition'
 findProject(':books:effective-java-3edition')?.name = 'effective-java-3edition'
 
+// frameworks
 include 'prettier-frameworks'
 include 'prettier-frameworks:netty4'
 findProject(':prettier-frameworks:netty4')?.name = 'netty4'
-include 'prettier-frameworks:junit5'
-findProject(':prettier-frameworks:junit5')?.name = 'junit5'
 include 'prettier-frameworks:mybatis-plus'
 findProject(':prettier-frameworks:mybatis-plus')?.name = 'mybatis-plus'
-include 'prettier-frameworks:jmh'
-findProject(':prettier-frameworks:jmh')?.name = 'jmh'
 
+// spring
 include 'spring'
 include 'spring:spring-framework'
 findProject(':spring:spring-framework')?.name = 'spring-framework'
@@ -115,9 +112,20 @@ findProject(':spring:spring-security-oauth2:resource-server')?.name = 'resource-
 include 'spring:spring-kafka'
 findProject(':spring:spring-kafka')?.name = 'spring-kafka'
 
+// columns
 include 'columns'
 include 'columns:concurrency-kings'
 findProject(':columns:concurrency-kings')?.name = 'concurrency-kings'
 include 'columns:bugstack'
 include 'columns:bugstack:small-spring'
 findProject(':columns:bugstack:small-spring')?.name = 'small-spring'
+
+// tests-frameworks
+include 'tests-frameworks'
+include 'tests-frameworks:jmh'
+findProject(':tests-frameworks:jmh')?.name = 'jmh'
+include 'tests-frameworks:junit5'
+findProject(':tests-frameworks:junit5')?.name = 'junit5'
+include 'tests-frameworks:mockito'
+findProject(':tests-frameworks:mockito')?.name = 'mockito'
+
