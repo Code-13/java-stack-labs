@@ -17,7 +17,6 @@
 package io.github.code13.javastack.javalabs.jnaf.jdk13;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

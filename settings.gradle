@@ -17,11 +17,11 @@
 rootProject.name = 'java-stack-labs'
 
 // javase
-file("$rootDir/java-labs").eachDirMatch(~/java-.*/) {
-    include "java-labs:${it.name}"
+file("$rootDir/javase").eachDirMatch(~/java-.*/) {
+    include "javase:${it.name}"
 }
-include 'java-labs:jdk-new-api-features'
-findProject(':java-labs:jdk-new-api-features')?.name = 'jdk-new-api-features'
+include 'javase:jdk-new-api-features'
+findProject(':javase:jdk-new-api-features')?.name = 'jdk-new-api-features'
 
 // libs
 include 'prettier-libs'
