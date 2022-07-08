@@ -129,3 +129,6 @@ findProject(':tests-frameworks:junit5')?.name = 'junit5'
 include 'tests-frameworks:mockito'
 findProject(':tests-frameworks:mockito')?.name = 'mockito'
 
+// jakartaee
+include 'jakartaee'
+

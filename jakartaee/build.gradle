@@ -1,0 +1,10 @@
+group 'io.github.code13.javastack.jakartaee'
+
+configure(subprojects) {
+    group 'io.github.code13.javastack.jakartaee'
+
+    dependencies {
+//        implementation 'org.apache.commons:commons-lang3'
+    }
+
+}
