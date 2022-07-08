@@ -189,7 +189,7 @@ public class H2CodeGeneratorTest {
   public void testCustomTemplatePath() {
     // 设置自定义路径
     Map<OutputFile, String> pathInfo = new HashMap<>();
-    pathInfo.put(OutputFile.mapperXml, "D://");
+    pathInfo.put(OutputFile.xml, "D://");
     pathInfo.put(OutputFile.entity, "D://entity//");
     AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
     generator.strategy(strategyConfig().build());

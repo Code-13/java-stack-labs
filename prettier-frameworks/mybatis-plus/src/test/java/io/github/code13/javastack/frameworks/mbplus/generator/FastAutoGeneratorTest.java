@@ -91,7 +91,7 @@ public class FastAutoGeneratorTest {
                   .moduleName("system") // 设置父包模块名
                   .pathInfo(
                       Collections.singletonMap(
-                          OutputFile.mapperXml,
+                          OutputFile.xml,
                           "prettier-frameworks/mybatis-plus/src/generated")); // 设置mapperXml生成路径
             })
         .strategyConfig(
