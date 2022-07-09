@@ -34,6 +34,9 @@ ext {
             "zxingVersion"                                  : "3.4.1",
             "hutoolVersion"                                 : "5.8.0",
             "datafakerVersion"                              : "1.4.0",
+            "objenesisVersion"                              : "3.2",
+            "protostuffVersion"                             : "1.8.0",
+            "easyexcelVersion"                              : "3.1.1",
 
             // redisson
             "redissonVersion"                               : "3.17.3",
@@ -88,6 +91,10 @@ ext {
             "zxing"                                      : "com.google.zxing:core:$version.zxingVersion",
             // https://www.datafaker.net/
             "datafaker"                                  : "net.datafaker:datafaker:$version.datafakerVersion",
+            "objenesis"                                  : "org.objenesis:objenesis:$version.objenesisVersion",
+            "protostuff-core"                            : "io.protostuff:protostuff-core:$version.protostuffVersion",
+            "protostuff-runtime"                         : "io.protostuff:protostuff-runtime:$version.protostuffVersion",
+            "easyexcel"                                  : "com.alibaba:easyexcel:$version.easyexcelVersion",
 
             // redisson
             "redisson"                                   : "org.redisson:redisson:$version.redissonVersion",

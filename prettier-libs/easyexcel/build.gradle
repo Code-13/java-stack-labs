@@ -10,7 +10,7 @@ targetCompatibility = "${javaVersion}"
 
 dependencies {
     //https://www.yuque.com/easyexcel
-    implementation 'com.alibaba:easyexcel:3.0.5'
+    implementation 'com.alibaba:easyexcel'
 
     implementation 'ch.qos.logback:logback-classic'
 

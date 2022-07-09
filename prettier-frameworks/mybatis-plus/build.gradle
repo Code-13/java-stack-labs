@@ -6,5 +6,5 @@ dependencies {
     implementation 'com.baomidou:mybatis-plus-boot-starter'
     implementation 'com.baomidou:mybatis-plus-generator'
     implementation 'com.h2database:h2'
-    implementation 'com.ibeetl:beetl:3.8.0.RELEASE' // 代码生成
+    implementation 'com.ibeetl:beetl:3.10.0.RELEASE' // 代码生成
 }

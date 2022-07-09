@@ -1,6 +1,6 @@
 dependencies {
-    implementation 'io.protostuff:protostuff-core:1.7.4'
-    implementation 'io.protostuff:protostuff-runtime:1.7.4'
+    implementation 'io.protostuff:protostuff-core'
+    implementation 'io.protostuff:protostuff-runtime'
     implementation 'org.junit.jupiter:junit-jupiter'
-    implementation 'org.objenesis:objenesis:3.2'
+    implementation 'org.objenesis:objenesis'
 }
