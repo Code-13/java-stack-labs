@@ -1,5 +1,4 @@
 /*
- *
  * Copyright 2022-present the original author or authors.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +13,7 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.spring.boot.custom_aop_annotation_with_spel;
+package io.github.code13.javastack.spring.boot.caaws;
 
 import java.lang.reflect.Method;
 import org.aspectj.lang.ProceedingJoinPoint;

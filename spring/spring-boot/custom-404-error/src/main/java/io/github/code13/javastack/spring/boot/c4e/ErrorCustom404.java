@@ -1,5 +1,4 @@
 /*
- *
  * Copyright 2022-present the original author or authors.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +13,7 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.spring.boot.error_custom_404;
+package io.github.code13.javastack.spring.boot.c4e;
 
 import java.util.Map;
 import org.springframework.boot.SpringApplication;

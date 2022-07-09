@@ -1,5 +1,4 @@
 /*
- *
  * Copyright 2022-present the original author or authors.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +13,7 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.spring.boot.dynamic_register_request_mapping_handler_mapping;
+package io.github.code13.javastack.spring.boot.drrmhm;
 
 import java.util.Objects;
 import java.util.UUID;
