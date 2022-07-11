@@ -119,6 +119,8 @@ include 'spring:spring-boot:dynamic-register-request-mapping-handler-mapping'
 findProject(':spring:spring-boot:dynamic-register-request-mapping-handler-mapping')?.name = 'dynamic-register-request-mapping-handler-mapping'
 include 'spring:spring-boot:custom-404-error'
 findProject(':spring:spring-boot:custom-404-error')?.name = 'custom-404-error'
+include 'spring:spring-boot:caffeine-redis-multi-level-cache'
+findProject(':spring:spring-boot:caffeine-redis-multi-level-cache')?.name = 'caffeine-redis-multi-level-cache'
 
 // columns
 include 'columns'
