@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@interface Interest {
+public @interface Interest {
 
   String key();
 

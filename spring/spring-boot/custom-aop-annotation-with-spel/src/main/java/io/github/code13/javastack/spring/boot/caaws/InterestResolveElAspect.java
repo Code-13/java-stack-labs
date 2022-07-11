@@ -36,7 +36,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
  * @date 2022/4/22 09:26
  */
 @Aspect
-class InterestResolveElAspect {
+public class InterestResolveElAspect {
 
   private static final Logger logger = LoggerFactory.getLogger(InterestResolveElAspect.class);
 

@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @SpringBootApplication
 @Import(InterestResolveElAspect.class)
-class CustomAopAnnotationWithSpelApp {
+public class CustomAopAnnotationWithSpelApp {
 
   public static void main(String[] args) {
     SpringApplication.run(CustomAopAnnotationWithSpelApp.class, args);
