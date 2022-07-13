@@ -15,6 +15,7 @@
 
 package io.github.code13.javastack.spring.boot.caaws;
 
+import io.github.code13.javastack.spring.boot.caaws.internal.InternalInterestResolveElAspect;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
@@ -28,7 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2022/4/22 10:01
  */
 @SpringBootApplication
-@Import(InterestResolveElAspect.class)
+// @Import(InterestResolveElAspect.class)
+@Import(InternalInterestResolveElAspect.class)
 public class CustomAopAnnotationWithSpelApp {
 
   public static void main(String[] args) {

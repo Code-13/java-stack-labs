@@ -19,6 +19,8 @@ import io.github.code13.javastack.spring.boot.caaws.Interest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.expression.EvaluationContext;
 
 /**
@@ -29,6 +31,9 @@ import org.springframework.expression.EvaluationContext;
  */
 @Aspect
 public class InternalInterestResolveElAspect implements AopSpelResolveService {
+
+  private static final Logger logger =
+      LoggerFactory.getLogger(InternalInterestResolveElAspect.class);
 
   @Around("@annotation(anno)")
   public Object invoked(ProceedingJoinPoint joinPoint, Interest anno) throws Throwable {
@@ -43,6 +48,7 @@ public class InternalInterestResolveElAspect implements AopSpelResolveService {
   }
 
   private void doInvoke(String key, Boolean unless) {
+    logger.info("call InterestResolveElAspect.invoked, key:[{}],unless:[{}]", key, unless);
     // 在此处处理你想要的逻辑
   }
 }
