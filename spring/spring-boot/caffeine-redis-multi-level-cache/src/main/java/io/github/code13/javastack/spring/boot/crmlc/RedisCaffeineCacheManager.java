@@ -34,19 +34,19 @@ import org.springframework.data.redis.core.RedisTemplate;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/7/11 22:31
  */
-public class RedisCaffeineCacheManager implements CacheManager {
+class RedisCaffeineCacheManager implements CacheManager {
 
   private static final Logger logger = LoggerFactory.getLogger(RedisCaffeineCacheManager.class);
 
-  private ConcurrentMap<String, Cache> cacheMap = new ConcurrentHashMap<>();
+  private final ConcurrentMap<String, Cache> cacheMap = new ConcurrentHashMap<>();
 
-  private CacheConfigProperties cacheConfigProperties;
+  private final CacheConfigProperties cacheConfigProperties;
 
-  private RedisTemplate<Object, Object> stringKeyRedisTemplate;
+  private final RedisTemplate<Object, Object> stringKeyRedisTemplate;
 
-  private boolean dynamic;
+  private final boolean dynamic;
 
-  private Set<String> cacheNames;
+  private final Set<String> cacheNames;
 
   public RedisCaffeineCacheManager(
       CacheConfigProperties cacheConfigProperties,

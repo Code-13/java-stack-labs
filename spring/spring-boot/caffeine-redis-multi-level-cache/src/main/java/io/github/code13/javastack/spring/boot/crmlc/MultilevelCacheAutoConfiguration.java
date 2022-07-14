@@ -15,13 +15,12 @@
 
 package io.github.code13.javastack.spring.boot.crmlc;
 
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
@@ -34,10 +33,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/7/11 22:47
  */
-@Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter(RedisAutoConfiguration.class)
+@AutoConfiguration(after = RedisAutoConfiguration.class)
 @EnableConfigurationProperties(CacheConfigProperties.class)
-public class MultilevelCacheAutoConfiguration {
+class MultilevelCacheAutoConfiguration {
 
   @Bean
   @ConditionalOnBean(RedisTemplate.class)

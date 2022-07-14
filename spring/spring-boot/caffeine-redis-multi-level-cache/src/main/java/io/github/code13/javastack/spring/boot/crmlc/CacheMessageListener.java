@@ -27,7 +27,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/7/11 22:31
  */
-public class CacheMessageListener implements MessageListener {
+class CacheMessageListener implements MessageListener {
 
   private static final Logger logger = LoggerFactory.getLogger(CacheMessageListener.class);
 

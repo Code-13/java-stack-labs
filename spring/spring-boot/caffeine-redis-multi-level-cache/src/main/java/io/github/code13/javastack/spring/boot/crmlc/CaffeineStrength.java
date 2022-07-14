@@ -21,7 +21,7 @@ package io.github.code13.javastack.spring.boot.crmlc;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/7/11 22:09
  */
-public enum CaffeineStrength {
+enum CaffeineStrength {
 
   /** 弱引用 */
   WEAK,

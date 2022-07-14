@@ -27,7 +27,7 @@ import lombok.Data;
  * @since 2022/7/11 16:08
  */
 @Data
-public class RedisConfigProp {
+class RedisConfigProp {
 
   /** 全局过期时间，默认不过期 */
   private Duration defaultExpiration = Duration.ZERO;

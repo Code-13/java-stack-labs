@@ -29,7 +29,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
  */
 @Data
 @ConfigurationProperties(prefix = "spring.cache.multi")
-public class CacheConfigProperties {
+class CacheConfigProperties {
 
   private Set<String> cacheNames = new HashSet<>();
 

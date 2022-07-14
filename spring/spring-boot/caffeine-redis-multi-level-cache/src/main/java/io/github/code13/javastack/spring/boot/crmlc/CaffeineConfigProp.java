@@ -25,7 +25,7 @@ import lombok.Data;
  * @since 2022/7/11 22:04
  */
 @Data
-public class CaffeineConfigProp {
+class CaffeineConfigProp {
 
   /** 访问后过期时间 */
   private Duration expireAfterAccess;

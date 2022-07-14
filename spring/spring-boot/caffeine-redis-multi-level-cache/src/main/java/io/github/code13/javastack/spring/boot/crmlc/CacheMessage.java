@@ -27,7 +27,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class CacheMessage implements Serializable {
+class CacheMessage implements Serializable {
 
   private String cacheName;
 

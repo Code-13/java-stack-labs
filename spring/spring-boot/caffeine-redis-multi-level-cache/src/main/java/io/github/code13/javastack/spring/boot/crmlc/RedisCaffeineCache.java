@@ -36,7 +36,7 @@ import org.springframework.util.StringUtils;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/7/11 15:33
  */
-public class RedisCaffeineCache extends AbstractValueAdaptingCache {
+class RedisCaffeineCache extends AbstractValueAdaptingCache {
 
   private static final Logger logger = LoggerFactory.getLogger(RedisCaffeineCache.class);
 
