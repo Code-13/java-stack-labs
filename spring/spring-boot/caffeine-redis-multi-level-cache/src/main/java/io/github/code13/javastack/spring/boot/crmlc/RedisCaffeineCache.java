@@ -26,7 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.support.AbstractValueAdaptingCache;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -78,7 +78,7 @@ class RedisCaffeineCache extends AbstractValueAdaptingCache {
     }
 
     // 避免自动一个 RedisTemplate 覆盖失效
-    stringKeyRedisTemplate.setKeySerializer(new StringRedisSerializer());
+    stringKeyRedisTemplate.setKeySerializer(RedisSerializer.string());
     value = stringKeyRedisTemplate.opsForValue().get(cacheKey);
 
     if (value != null) {
