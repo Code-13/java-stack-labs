@@ -27,8 +27,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
@@ -58,7 +58,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2022/2/15 20:14
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class AuthorizationServerConfiguration {
 
   // JwtCustomizer
