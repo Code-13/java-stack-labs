@@ -1,3 +1,7 @@
+tasks.named('compileJava') {
+    inputs.files(tasks.named('processResources'))
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
@@ -8,4 +12,6 @@ dependencies {
     implementation 'com.github.ben-manes.caffeine:caffeine'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 }
