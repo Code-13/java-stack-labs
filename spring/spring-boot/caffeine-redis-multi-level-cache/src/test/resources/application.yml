@@ -1,0 +1,22 @@
+server:
+  port: 0
+spring:
+  cache:
+    multi:
+      cache-names:
+        - cache1
+        - cache2
+        - cache3
+      cache-prefix: multi-cache
+      caffeine:
+        initial-capacity: 128
+        expire-after-access: 10m
+        expire-after-write: 10m
+      redis:
+        default-expiration: 30m
+  redis:
+    host: localhost
+    port: 6379
+logging:
+  level:
+    io.github.code13.javastack.spring.boot.crmlc: debug
