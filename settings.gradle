@@ -90,6 +90,8 @@ include 'prettier-frameworks:netty4'
 findProject(':prettier-frameworks:netty4')?.name = 'netty4'
 include 'prettier-frameworks:mybatis-plus'
 findProject(':prettier-frameworks:mybatis-plus')?.name = 'mybatis-plus'
+include 'prettier-frameworks:open-feign'
+findProject(':prettier-frameworks:open-feign')?.name = 'open-feign'
 
 // spring
 include 'spring'
