@@ -40,7 +40,7 @@ ext {
             "easyexcelVersion"                              : "3.1.1",
 
             // redisson
-            "redissonVersion"                               : "3.17.4",
+            "redissonVersion"                               : "3.17.5",
 
             // jmh
             "jmhVersion"                                    : "1.35",
