@@ -28,6 +28,8 @@ ext {
             "commonsFileuploadVersion"                      : "1.4",
             "commonsNetVersion"                             : "3.8.0",
 
+            "pdfboxVersion"                                 : "2.0.26",
+
             "jsoupVersion"                                  : "1.15.2",
             "reflectionsVersion"                            : "0.10.2",
             "libphonenumberVersion"                         : "8.12.52",
@@ -84,6 +86,11 @@ ext {
             "commons-beanutils"                          : "commons-beanutils:commons-beanutils:$version.commonsBeanutilsVersion",
             "commons-fileupload"                         : "commons-fileupload:commons-fileupload:$version.commonsFileuploadVersion",
             "commons-net"                                : "commons-net:commons-net:$version.commonsNetVersion",
+
+            "pdfbox"                                     : "org.apache.pdfbox:pdfbox:$version.pdfboxVersion",
+            "pdfbox-fontbox"                             : "org.apache.pdfbox:fontbox:$version.pdfboxVersion",
+            "pdfbox-preflight"                           : "org.apache.pdfbox:preflight:$version.pdfboxVersion",
+            "pdfbox-tools"                               : "org.apache.pdfbox:pdfbox-tools:$version.pdfboxVersion",
 
             "jsoup"                                      : "org.jsoup:jsoup:$version.jsoupVersion",
             "reflections"                                : "org.reflections:reflections:$version.reflectionsVersion",

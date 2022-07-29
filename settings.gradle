@@ -67,6 +67,8 @@ include 'prettier-libs:json-path'
 findProject(':prettier-libs:json-path')?.name = 'json-path'
 include 'prettier-libs:datafaker'
 findProject(':prettier-libs:datafaker')?.name = 'datafaker'
+include 'prettier-libs:pdfbox'
+findProject(':prettier-libs:pdfbox')?.name = 'pdfbox'
 
 // jvm
 include 'jvm'
