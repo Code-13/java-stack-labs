@@ -69,6 +69,8 @@ include 'prettier-libs:datafaker'
 findProject(':prettier-libs:datafaker')?.name = 'datafaker'
 include 'prettier-libs:pdfbox'
 findProject(':prettier-libs:pdfbox')?.name = 'pdfbox'
+include 'prettier-libs:jsoup'
+findProject(':prettier-libs:jsoup')?.name = 'jsoup'
 
 // jvm
 include 'jvm'
