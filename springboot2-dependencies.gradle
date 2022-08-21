@@ -5,10 +5,10 @@ ext {
             "springCloudAlibabaVersion"                     : "2021.1",
             "springSecurityOauth2AuthorizationServerVersion": "0.3.1",
 
-            "checkerQualVersion"                            : "3.23.0",
+            "checkerQualVersion"                            : "3.24.0",
 
-            "mybatisPlusGeneratorVersion"                   : "3.5.2",
-            "mybatisPlusVersion"                            : "3.5.3",
+            "mybatisPlusGeneratorVersion"                   : "3.5.3",
+            "mybatisPlusVersion"                            : "3.5.2",
 
             "mapstructVersion"                              : "1.5.2.Final",
 
@@ -32,12 +32,12 @@ ext {
 
             "jsoupVersion"                                  : "1.15.2",
             "reflectionsVersion"                            : "0.10.2",
-            "libphonenumberVersion"                         : "8.12.52",
+            "libphonenumberVersion"                         : "8.12.54",
             "spatial4jVersion"                              : "0.8",
             "zxingVersion"                                  : "3.5.0",
-            "hutoolVersion"                                 : "5.8.4",
-            "datafakerVersion"                              : "1.4.0",
-            "objenesisVersion"                              : "3.2",
+            "hutoolVersion"                                 : "5.8.5",
+            "datafakerVersion"                              : "1.5.0",
+            "objenesisVersion"                              : "3.3",
             "protostuffVersion"                             : "1.8.0",
             "easyexcelVersion"                              : "3.1.1",
 
