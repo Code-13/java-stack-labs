@@ -25,6 +25,8 @@ import com.nimbusds.jose.JWSSigner;
 import com.nimbusds.jose.Payload;
 import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jose.crypto.RSASSAVerifier;
+import com.nimbusds.jose.crypto.impl.RSAKeyUtils;
+import com.nimbusds.jose.crypto.opts.AllowWeakRSAKey;
 import com.nimbusds.jose.jwk.RSAKey;
 import java.io.IOException;
 import java.security.KeyStore;
@@ -32,6 +34,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.text.ParseException;
+import java.util.Collections;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
@@ -73,7 +76,10 @@ public class RSAJWTRunner {
     Payload payload = new Payload("hello world");
 
     JWSObject jwsObject = new JWSObject(jwsHeader, payload);
-    JWSSigner signer = new RSASSASigner(rsaKey, true);
+    JWSSigner signer =
+        new RSASSASigner(
+            RSAKeyUtils.toRSAPrivateKey(rsaKey),
+            Collections.singleton(AllowWeakRSAKey.getInstance()));
 
     jwsObject.sign(signer);
 
