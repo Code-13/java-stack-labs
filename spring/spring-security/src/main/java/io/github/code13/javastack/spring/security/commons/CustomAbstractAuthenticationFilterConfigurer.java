@@ -187,7 +187,8 @@ public abstract class CustomAbstractAuthenticationFilterConfigurer<
       ApplicationContext applicationContext = http.getSharedObject(ApplicationContext.class);
       MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter =
           getBeanOrNull(applicationContext, MappingJackson2HttpMessageConverter.class);
-      successHandler = new TokenAuthenticationSuccessHandler(mappingJackson2HttpMessageConverter);
+      successHandler =
+          new TokenResultAuthenticationSuccessHandler(mappingJackson2HttpMessageConverter);
     }
   }
 

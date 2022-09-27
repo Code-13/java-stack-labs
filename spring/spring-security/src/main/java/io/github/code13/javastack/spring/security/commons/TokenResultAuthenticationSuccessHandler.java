@@ -15,14 +15,20 @@
 
 package io.github.code13.javastack.spring.security.commons;
 
+import io.github.code13.javastack.spring.security.commons.token.JwtTokenResult;
+import io.github.code13.javastack.spring.security.commons.token.JwtUtils;
 import java.io.IOException;
+import java.time.Duration;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
@@ -31,13 +37,13 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2022/2/13 17:36
  */
-public class TokenAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class TokenResultAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
   private MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter;
 
-  public TokenAuthenticationSuccessHandler() {}
+  public TokenResultAuthenticationSuccessHandler() {}
 
-  public TokenAuthenticationSuccessHandler(
+  public TokenResultAuthenticationSuccessHandler(
       MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter) {
     this.mappingJackson2HttpMessageConverter = mappingJackson2HttpMessageConverter;
   }
@@ -50,7 +56,27 @@ public class TokenAuthenticationSuccessHandler implements AuthenticationSuccessH
     // 这里把认证信息以JSON形式返回
     ServletServerHttpResponse servletServerHttpResponse = new ServletServerHttpResponse(response);
     mappingJackson2HttpMessageConverter.write(
-        authentication, MediaType.APPLICATION_JSON, servletServerHttpResponse);
+        genToken(authentication), MediaType.APPLICATION_JSON, servletServerHttpResponse);
+  }
+
+  @NonNull
+  private Object genToken(Authentication authentication) {
+    User user = (User) authentication.getPrincipal();
+    Duration accessTokenExpire = Duration.ofMinutes(10);
+    String accessToken =
+        JwtUtils.createToken(
+            Map.of("userinfo", user), "qwertyuiopasdfghjklzxcvbnm1234567890", accessTokenExpire);
+
+    Duration refreshTokenExpire = Duration.ofDays(1);
+    String refreshToken =
+        JwtUtils.createToken(
+            Map.of("userinfo", user), "qwertyuiopasdfghjklzxcvbnm1234567890", refreshTokenExpire);
+
+    return new JwtTokenResult(
+        accessToken,
+        (int) accessTokenExpire.getSeconds(),
+        refreshToken,
+        (int) refreshTokenExpire.getSeconds());
   }
 
   public void setMappingJackson2HttpMessageConverter(
