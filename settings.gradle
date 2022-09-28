@@ -148,3 +148,5 @@ findProject(':tests-frameworks:mockito')?.name = 'mockito'
 // jakartaee
 include 'jakartaee'
 
+include 'design-pattern'
+
