@@ -5,14 +5,14 @@ ext {
             "springCloudAlibabaVersion"                     : "2021.1",
             "springSecurityOauth2AuthorizationServerVersion": "0.3.1",
 
-            "checkerQualVersion"                            : "3.25.0",
+            "checkerQualVersion"                            : "3.26.0",
 
             "mybatisPlusGeneratorVersion"                   : "3.5.3",
             "mybatisPlusVersion"                            : "3.5.2",
 
             "mapstructVersion"                              : "1.5.2.Final",
 
-            "druidSpringBootStarterVersion"                 : "1.2.11",
+            "druidSpringBootStarterVersion"                 : "1.2.12",
 
             // vavr
             "vavrVersin"                                    : "0.10.4",
@@ -35,14 +35,14 @@ ext {
             "libphonenumberVersion"                         : "8.12.56",
             "spatial4jVersion"                              : "0.8",
             "zxingVersion"                                  : "3.5.0",
-            "hutoolVersion"                                 : "5.8.7",
+            "hutoolVersion"                                 : "5.8.8",
             "datafakerVersion"                              : "1.6.0",
             "objenesisVersion"                              : "3.3",
             "protostuffVersion"                             : "1.8.0",
             "easyexcelVersion"                              : "3.1.1",
 
             // redisson
-            "redissonVersion"                               : "3.17.6",
+            "redissonVersion"                               : "3.17.7",
 
             // jmh
             "jmhVersion"                                    : "1.35",
