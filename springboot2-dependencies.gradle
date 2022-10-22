@@ -1,6 +1,6 @@
 ext {
     version = [
-            "springBootVersion"                             : "2.7.4",
+            "springBootVersion"                             : "2.7.5",
             "springCloudVersion"                            : "2021.0.4",
             "springCloudAlibabaVersion"                     : "2021.1",
             "springSecurityOauth2AuthorizationServerVersion": "0.3.1",
