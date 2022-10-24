@@ -147,6 +147,8 @@ findProject(':tests-frameworks:mockito')?.name = 'mockito'
 
 // jakartaee
 include 'jakartaee'
+include 'jakartaee:jakarta-bean-validation'
+findProject(':jakartaee:jakarta-bean-validation')?.name = 'jakarta-bean-validation'
 
 include 'design-pattern'
 
