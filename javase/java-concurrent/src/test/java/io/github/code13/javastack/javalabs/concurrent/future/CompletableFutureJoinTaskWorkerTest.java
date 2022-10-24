@@ -39,7 +39,7 @@ class CompletableFutureJoinTaskWorkerTest {
   @Test
   void getAllResult() {
 
-    List<Long> list = List.of(1000L, 2000L, 3000L);
+    List<Long> list = List.of(1000L, 2000L, 3000L, 4000L, 5000L);
 
     CompletableFutureJoinTaskWorker<Long, String> futureTaskWorker =
         new CompletableFutureJoinTaskWorker<>(list, this::getThreadName);
