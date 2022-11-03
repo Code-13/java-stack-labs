@@ -5,14 +5,14 @@ ext {
             "springCloudAlibabaVersion"                     : "2021.1",
             "springSecurityOauth2AuthorizationServerVersion": "0.3.1",
 
-            "checkerQualVersion"                            : "3.26.0",
+            "checkerQualVersion"                            : "3.27.0",
 
             "mybatisPlusGeneratorVersion"                   : "3.5.3",
             "mybatisPlusVersion"                            : "3.5.2",
 
-            "mapstructVersion"                              : "1.5.2.Final",
+            "mapstructVersion"                              : "1.5.3.Final",
 
-            "druidSpringBootStarterVersion"                 : "1.2.12",
+            "druidSpringBootStarterVersion"                 : "1.2.14",
 
             // vavr
             "vavrVersin"                                    : "0.10.4",
