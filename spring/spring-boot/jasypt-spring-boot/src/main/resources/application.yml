@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    # url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    # username: sa
+    # password:
+    url: ENC(Dv2sGS97m2kyIj4P218pX6I0NcHdsOjBRLiNVKS1vE2V0G3mQ0vm1wqhu/dn5rNbZuinGCoGED/j29adXVWxkTFt6ZYvE/UZjWPN3huqkzY=)
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+jasypt:
+  encryptor:
+    # 其余配置使用默认值
+    password: jaspyt_password
