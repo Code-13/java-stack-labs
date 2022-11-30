@@ -16,8 +16,9 @@
 package io.github.code13.javastack.frameworks.mbplus.example;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,7 +44,7 @@ class UserMapperSpringBootTest {
 
   @Test
   void testGetByEmail() {
-    User user = userMapper.getByEmail("11");
-    assertNull(user);
+    Optional<User> userOptional = userMapper.getByEmail("11");
+    assertFalse(userOptional.isPresent());
   }
 }

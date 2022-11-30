@@ -30,8 +30,8 @@ import org.apache.ibatis.jdbc.ScriptRunner;
 /**
  * FastAutoGeneratorTest.
  *
- * <p>copy from
- * https://github.com/baomidou/generator/blob/develop/mybatis-plus-generator/src/test/java/com/baomidou/mybatisplus/generator/samples/FastAutoGeneratorTest.java
+ * <p>copy from <a
+ * href="https://github.com/baomidou/generator/blob/develop/mybatis-plus-generator/src/test/java/com/baomidou/mybatisplus/generator/samples/FastAutoGeneratorTest.java">FastAutoGeneratorTest</a>
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 11/9/2021 3:12 PM
@@ -99,8 +99,11 @@ public class FastAutoGeneratorTest {
                   .addInclude("t_simple") // 设置需要生成的表名
                   .addTablePrefix("t_", "c_"); // 设置过滤表前缀
             })
-        .templateConfig(builder -> builder.disable(TemplateType.SERVICE, TemplateType.SERVICEIMPL))
-        .templateEngine(new BeetlTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+        .templateConfig(
+            builder ->
+                builder.disable(
+                    new TemplateType[] {TemplateType.SERVICE, TemplateType.SERVICE_IMPL}))
+        .templateEngine(new BeetlTemplateEngine()) // 使用 Beetl 引擎模板，默认的是Velocity引擎模板
         .execute();
   }
 }

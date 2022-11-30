@@ -36,14 +36,13 @@ import org.springframework.core.io.ClassPathResource;
 public final class Utils {
 
   private Utils() {
-    throw new UnsupportedOperationException(
-        "No io.github.code13.javastack.frameworks.mbplus.utils.Utils instances for you!");
+    // no instance
   }
 
   static DataSourceProperties dataSourceProperties;
 
   static YamlPropertySourceLoader loader = new YamlPropertySourceLoader();
-  static ClassPathResource resource = new ClassPathResource("application.yaml");
+  static ClassPathResource resource = new ClassPathResource("application.yml");
 
   public static String getYamlProperty(String name) {
     try {

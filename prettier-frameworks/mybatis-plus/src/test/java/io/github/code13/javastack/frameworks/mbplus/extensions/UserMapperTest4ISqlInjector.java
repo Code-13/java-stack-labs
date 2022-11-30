@@ -16,11 +16,10 @@
 package io.github.code13.javastack.frameworks.mbplus.extensions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import io.github.code13.javastack.frameworks.mbplus.H2TestUtils;
 import io.github.code13.javastack.frameworks.mbplus.example.User;
@@ -31,7 +30,6 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.core.io.ClassPathResource;
 
 /**
  * Test for {@link com.baomidou.mybatisplus.core.injector.ISqlInjector}.
@@ -45,23 +43,22 @@ class UserMapperTest4ISqlInjector {
 
   @BeforeAll
   static void setUpMybatisDatabase() throws Exception {
-
     DataSource dataSource = H2TestUtils.start();
 
     MybatisSqlSessionFactoryBean factoryBean = new MybatisSqlSessionFactoryBean();
-
     factoryBean.setDataSource(dataSource);
-    factoryBean.setMapperLocations();
-
-    // Config Location
-    factoryBean.setConfigLocation(
-        new ClassPathResource("mybatisTestConfiguration/H2TestConfiguration.xml"));
+    factoryBean.setMapperLocations(
+        new MybatisPlusProperties()
+            .setMapperLocations(
+                new String[] {
+                  "classpath*:io/github/code13/javastack/frameworks/mbplus/example/*.xml"
+                })
+            .resolveMapperLocations());
 
     // config for SqlInjector
     GlobalConfig globalConfig = GlobalConfigUtils.defaults();
     globalConfig.setSqlInjector(new CustomerSqlInjector());
     factoryBean.setGlobalConfig(globalConfig);
-
     SqlSessionFactory factory = factoryBean.getObject();
 
     // you can use builder.openSession(false) to not commit to database
@@ -70,24 +67,21 @@ class UserMapperTest4ISqlInjector {
 
   @Test
   void testGetByEmail() {
-    User user = mapper.getByEmail("test1@baomidou.com");
-    assertNotNull(user);
+    Optional<User> userOptional = mapper.getByEmail("test1@baomidou.com");
+    assertTrue(userOptional.isPresent());
   }
 
   @Test
   void testExistTrue() {
     var result =
-        mapper.existHighPerformance(
-            Wrappers.<User>lambdaQuery().eq(User::getEmail, "test1@baomidou.com"));
+        mapper.existHighPerformance(mapper.query().eq(User::getEmail, "test1@baomidou.com"));
     assertTrue(result.isPresent());
     assertEquals(Boolean.TRUE, result.get());
   }
 
   @Test
   void testExistFalse() {
-
-    var result =
-        mapper.existHighPerformance(Wrappers.<User>lambdaQuery().eq(User::getEmail, "test1@.com"));
+    var result = mapper.existHighPerformance(mapper.query().eq(User::getEmail, "test1@.com"));
     assertEquals(Optional.empty(), result);
   }
 }

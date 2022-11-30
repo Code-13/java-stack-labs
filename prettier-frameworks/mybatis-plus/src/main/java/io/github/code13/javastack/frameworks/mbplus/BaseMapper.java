@@ -16,9 +16,10 @@
 package io.github.code13.javastack.frameworks.mbplus;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import java.io.Serializable;
 import java.util.Collection;
@@ -90,15 +91,19 @@ public interface BaseMapper<T, ID extends Serializable>
 
   // -- easy user for wrappers
 
-  default LambdaQueryChainWrapper<T> lambdaQuery() {
+  default LambdaQueryWrapper<T> query() {
+    return new LambdaQueryWrapper<>();
+  }
+
+  default LambdaQueryChainWrapper<T> queryChain() {
     return new LambdaQueryChainWrapper<>(this);
   }
 
-  default LambdaUpdateChainWrapper<T> lambdaUpdate() {
-    return new LambdaUpdateChainWrapper<>(this);
+  default LambdaUpdateWrapper<T> update() {
+    return new LambdaUpdateWrapper<>();
   }
 
-  default QueryChainWrapper<T> query() {
-    return new QueryChainWrapper<>(this);
+  default LambdaUpdateChainWrapper<T> updateChain() {
+    return new LambdaUpdateChainWrapper<>(this);
   }
 }

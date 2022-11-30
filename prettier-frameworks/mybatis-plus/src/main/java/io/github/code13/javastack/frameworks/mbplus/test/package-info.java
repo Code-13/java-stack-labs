@@ -13,22 +13,12 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.frameworks.mbplus.example;
-
-import io.github.code13.javastack.frameworks.mbplus.BaseMapper;
-import java.util.Optional;
-import org.apache.ibatis.annotations.Mapper;
-
 /**
- * UserMapper.
+ * package-info.
+ *
+ * <p>MybatisPlus Mapper 单元测试
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @date 11/9/2021 11:34 AM
+ * @since 2022/11/27 14:07
  */
-@Mapper
-public interface UserMapper extends BaseMapper<User, Long> {
-
-  default Optional<User> getByEmail(String email) {
-    return queryChain().eq(User::getEmail, email).oneOpt();
-  }
-}
+package io.github.code13.javastack.frameworks.mbplus.test;

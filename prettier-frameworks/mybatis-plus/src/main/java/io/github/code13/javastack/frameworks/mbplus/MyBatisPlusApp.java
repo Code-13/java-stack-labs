@@ -15,7 +15,6 @@
 
 package io.github.code13.javastack.frameworks.mbplus;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -26,7 +25,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2021/8/27 14:53
  */
 @SpringBootApplication
-@MapperScan("io.github.code13.javastack.frameworks.mbplus")
+// @MapperScan("io.github.code13.javastack.frameworks.mbplus")
 public class MyBatisPlusApp {
 
   public static void main(String[] args) {

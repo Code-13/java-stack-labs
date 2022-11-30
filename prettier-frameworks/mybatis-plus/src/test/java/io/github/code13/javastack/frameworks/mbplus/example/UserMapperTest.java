@@ -15,9 +15,15 @@
 
 package io.github.code13.javastack.frameworks.mbplus.example;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import com.baomidou.mybatisplus.core.MybatisSqlSessionFactoryBuilder;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import io.github.code13.javastack.frameworks.mbplus.H2TestUtils;
+import io.github.code13.javastack.frameworks.mbplus.extensions.method.injector.CustomerSqlInjector;
+import java.util.Optional;
+import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -33,30 +39,32 @@ class UserMapperTest {
   private static UserMapper mapper;
 
   @BeforeAll
-  static void setUpMybatisDatabase() {
-    H2TestUtils.start();
+  static void setUpMybatisDatabase() throws Exception {
+    DataSource dataSource = H2TestUtils.start();
 
-    SqlSessionFactory builder =
-        // https://gejun123456.github.io/MyBatisCodeHelper-Pro/#/quicktestsql?id=%e7%94%9f%e6%88%90testcase%e6%94%af%e6%8c%81mybatisplus
-        new MybatisSqlSessionFactoryBuilder()
-            .build(
-                UserMapperTest.class
-                    .getClassLoader()
-                    .getResourceAsStream("mybatisTestConfiguration/H2TestConfiguration.xml"));
+    MybatisSqlSessionFactoryBean factoryBean = new MybatisSqlSessionFactoryBean();
+    factoryBean.setDataSource(dataSource);
+    factoryBean.setMapperLocations(
+        new MybatisPlusProperties()
+            .setMapperLocations(
+                new String[] {
+                  "classpath*:io/github/code13/javastack/frameworks/mbplus/example/*.xml"
+                })
+            .resolveMapperLocations());
 
-    //    MybatisPlus 的插件，如要使用可以放开
-    //    MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-    //    interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
-    //    interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
-    //    builder.getConfiguration().addInterceptor(interceptor);
+    // config for SqlInjector
+    GlobalConfig globalConfig = GlobalConfigUtils.defaults();
+    globalConfig.setSqlInjector(new CustomerSqlInjector());
+    factoryBean.setGlobalConfig(globalConfig);
+    SqlSessionFactory factory = factoryBean.getObject();
 
     // you can use builder.openSession(false) to not commit to database
-    mapper = builder.getConfiguration().getMapper(UserMapper.class, builder.openSession(true));
+    mapper = factory.getConfiguration().getMapper(UserMapper.class, factory.openSession(true));
   }
 
   @Test
   void testGetByEmail() {
-    User user = mapper.getByEmail("test1@baomidou.com");
-    assertNotNull(user);
+    Optional<User> userOptional = mapper.getByEmail("test1@baomidou.com");
+    assertTrue(userOptional.isPresent());
   }
 }

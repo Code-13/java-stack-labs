@@ -15,10 +15,8 @@
 
 package io.github.code13.javastack.frameworks.mbplus;
 
-import static io.github.code13.javastack.frameworks.mbplus.utils.H2Utils.createH2DataSource;
-import static io.github.code13.javastack.frameworks.mbplus.utils.Utils.loadClassPathResource;
-import static io.github.code13.javastack.frameworks.mbplus.utils.Utils.loadDataSourceProperties;
-import io.github.code13.javastack.frameworks.mbplus.utils.H2Utils;
+import static io.github.code13.javastack.frameworks.mbplus.utils.H2.createH2DataSource;
+import io.github.code13.javastack.frameworks.mbplus.utils.H2;
 import javax.sql.DataSource;
 
 /**
@@ -31,13 +29,9 @@ public final class H2TestUtils {
 
   private H2TestUtils() {}
 
-  public static final String SCHEMA_PATH = "schema.sql";
-
   public static DataSource start() {
-    H2Utils.newBuilder()
-        .startH2Server()
-        .initTables(loadDataSourceProperties(), loadClassPathResource(SCHEMA_PATH));
-
-    return createH2DataSource();
+    DataSource dataSource = createH2DataSource();
+    H2.instance().startH2Server().initTables(dataSource);
+    return dataSource;
   }
 }
