@@ -14,7 +14,7 @@
  *     limitations under the License.
  */
 
-group 'io.github.code13.javastack.libs'
+group 'io.github.code13.libs'
 
 configure(subprojects) {
     group 'io.github.code13.javastack.libs'

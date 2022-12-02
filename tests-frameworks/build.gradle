@@ -1,4 +1,4 @@
-group 'io.github.code13.javastack.tests'
+group 'io.github.code13.tests'
 
 configure(subprojects) {
     group 'io.github.code13.javastack.tests'

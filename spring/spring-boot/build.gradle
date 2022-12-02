@@ -1,4 +1,4 @@
-group 'io.github.code13.javastack.spring.boot'
+group 'io.github.code13.spring.boot'
 
 dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
