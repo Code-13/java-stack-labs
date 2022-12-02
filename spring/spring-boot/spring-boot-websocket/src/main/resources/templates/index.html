@@ -1,0 +1,140 @@
+<!--
+  ~ Copyright 2022-present the original author or authors.
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~          http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>实时监控</title>
+  <script>
+    // 使用 importmap
+    const importMap = {
+      "imports": {
+        "vue": "https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.js"
+        // "vue": "https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.prod.js"
+      }
+    };
+    const im = document.createElement('script');
+    im.type = 'importmap';
+    im.textContent = JSON.stringify(importMap);
+    document.currentScript.after(im);
+  </script>
+</head>
+<style>
+  .item {
+    display: flex;
+    border-bottom: 1px solid #000000;
+    justify-content: space-between;
+    width: 30%;
+    line-height: 50px;
+    height: 50px;
+  }
+
+  .item span:nth-child(2) {
+    margin-right: 10px;
+    margin-top: 15px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #55ff00;
+  }
+
+  .nowI {
+    background: #ff0000 !important;
+  }
+</style>
+<body>
+<div id="app">
+  <div v-for="item in list" class="item">
+    <span>{{item.id}}.{{item.name}}</span>
+    <span :class='item.state==-1?"nowI":""'></span>
+  </div>
+</div>
+</body>
+<script type="module">
+  import {createApp} from 'vue'
+
+  const vm = createApp({
+    data() {
+      return {
+        list: [{
+          id: 1,
+          name: '张三',
+          state: 1
+        },
+          {
+            id: 2,
+            name: '李四',
+            state: 1
+          },
+          {
+            id: 3,
+            name: '王五',
+            state: 1
+          },
+          {
+            id: 4,
+            name: '韩梅梅',
+            state: 1
+          },
+          {
+            id: 5,
+            name: '李磊',
+            state: 1
+          },
+        ]
+      }
+    }
+  }).mount('#app')
+
+  if (!('WebSocket' in window)) {
+    alert("很遗憾，您的浏览器不支持WebSocket！");
+  }
+
+  //创建WebSocket对象
+  const webSocket = new WebSocket("ws://127.0.0.1:8080/socketHandler?client=Monitor");
+
+  //连接成功
+  webSocket.onopen = function () {
+    console.log("已连接");
+    webSocket.send("hello, Server; It is Monitor!")
+  };
+  //接收到消息
+  webSocket.onmessage = function (msg) {
+    //处理消息
+    const serverMsg = msg.data;
+    const t_id = parseInt(serverMsg)    //服务端发过来的消息，ID，string需转化为int类型才能比较
+    for (let i = 0; i < vm.list.length; i++) {
+      const item = vm.list[i];
+      if (item.id === t_id) {
+        item.state = -1;
+        vm.list.splice(i, 1, item)
+        break;
+      }
+    }
+    console.log(msg)
+    console.log(msg.data)
+  };
+
+  //关闭事件
+  webSocket.onclose = function () {
+    console.log("websocket已关闭");
+  };
+  //发生了错误事件
+  webSocket.onerror = function () {
+    console.log("websocket发生了错误");
+  };
+</script>
+</html>

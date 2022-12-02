@@ -129,6 +129,8 @@ include 'spring:spring-boot:caffeine-redis-multi-level-cache'
 findProject(':spring:spring-boot:caffeine-redis-multi-level-cache')?.name = 'caffeine-redis-multi-level-cache'
 include 'spring:spring-boot:jasypt-spring-boot'
 findProject(':spring:spring-boot:jasypt-spring-boot')?.name = 'jasypt-spring-boot'
+include 'spring:spring-boot:spring-boot-websocket'
+findProject(':spring:spring-boot:spring-boot-websocket')?.name = 'spring-boot-websocket'
 
 // columns
 include 'columns'
