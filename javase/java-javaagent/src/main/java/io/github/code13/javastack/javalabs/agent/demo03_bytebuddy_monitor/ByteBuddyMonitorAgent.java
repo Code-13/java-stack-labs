@@ -36,7 +36,7 @@ public class ByteBuddyMonitorAgent {
     System.out.println("byte buddy agent：" + agentArgs);
 
     AgentBuilder.Transformer transformer =
-        (builder, typeDescription, classLoader, module) ->
+        (builder, typeDescription, classLoader, module, protectionDomain) ->
             builder
                 .method(ElementMatchers.any())
                 .intercept(MethodDelegation.to(MethodCostTime.class));

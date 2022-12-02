@@ -39,7 +39,7 @@ public class TrackAgent {
     AgentBuilder agentBuilder = new Default();
 
     AgentBuilder.Transformer transformer =
-        (builder, typeDescription, classLoader, module) ->
+        (builder, typeDescription, classLoader, module, protectionDomain) ->
             builder.visit(
                 Advice.to(TrackAdvice.class)
                     .on(

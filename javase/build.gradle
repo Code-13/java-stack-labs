@@ -16,8 +16,14 @@
 
 group 'io.github.code13.javase'
 
-dependencies {
-    implementation 'org.apache.commons:commons-lang3'
-    implementation 'org.junit.jupiter:junit-jupiter'
-    implementation 'org.hamcrest:hamcrest'
+
+configure(subprojects) {
+    group 'io.github.code13.javase'
+
+    dependencies {
+        implementation 'org.apache.commons:commons-lang3'
+        implementation 'org.junit.jupiter:junit-jupiter'
+        implementation 'org.hamcrest:hamcrest'
+    }
+
 }
