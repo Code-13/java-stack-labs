@@ -14,6 +14,4 @@
  *     limitations under the License.
  */
 
-dependencies {
-    implementation 'org.junit.jupiter:junit-jupiter'
-}
+dependencies {}

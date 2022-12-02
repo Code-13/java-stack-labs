@@ -1,5 +1,5 @@
 group 'io.github.code13.columns.bugstack'
 
 configure(subprojects) {
-    group 'io.github.code13.javastack.columns.bugstack'
+    group 'io.github.code13.columns.bugstack'
 }
