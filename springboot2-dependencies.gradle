@@ -1,9 +1,9 @@
 ext {
     version = [
-            "springBootVersion"                             : "2.7.5",
-            "springCloudVersion"                            : "2021.0.4",
+            "springBootVersion"                             : "2.7.6",
+            "springCloudVersion"                            : "2021.0.5",
             "springCloudAlibabaVersion"                     : "2021.1",
-            "springSecurityOauth2AuthorizationServerVersion": "0.3.1",
+            "springSecurityOauth2AuthorizationServerVersion": "0.4",
 
             "checkerQualVersion"                            : "3.27.0",
 
@@ -12,7 +12,7 @@ ext {
 
             "mapstructVersion"                              : "1.5.3.Final",
 
-            "druidSpringBootStarterVersion"                 : "1.2.14",
+            "druidSpringBootStarterVersion"                 : "1.2.15",
 
             // vavr
             "vavrVersin"                                    : "0.10.4",
@@ -28,26 +28,26 @@ ext {
             "commonsFileuploadVersion"                      : "1.4",
             "commonsNetVersion"                             : "3.8.0",
 
-            "pdfboxVersion"                                 : "2.0.26",
+            "pdfboxVersion"                                 : "2.0.27",
 
             "jsoupVersion"                                  : "1.15.3",
             "reflectionsVersion"                            : "0.10.2",
-            "libphonenumberVersion"                         : "8.12.56",
+            "libphonenumberVersion"                         : "8.13.1",
             "spatial4jVersion"                              : "0.8",
-            "zxingVersion"                                  : "3.5.0",
-            "hutoolVersion"                                 : "5.8.8",
-            "datafakerVersion"                              : "1.6.0",
+            "zxingVersion"                                  : "3.5.1",
+            "hutoolVersion"                                 : "5.8.10",
+            "datafakerVersion"                              : "1.7.0",
             "objenesisVersion"                              : "3.3",
             "protostuffVersion"                             : "1.8.0",
-            "easyexcelVersion"                              : "3.1.1",
+            "easyexcelVersion"                              : "3.1.3",
 
             // redisson
-            "redissonVersion"                               : "3.17.7",
+            "redissonVersion"                               : "3.18.1",
 
             // jmh
             "jmhVersion"                                    : "1.35",
 
-            "caffeineVersion"                               : "3.1.1",
+            "caffeineVersion"                               : "3.1.2",
 
             // guava
             "guavaTestLibVersion"                           : "31.1-jre"
