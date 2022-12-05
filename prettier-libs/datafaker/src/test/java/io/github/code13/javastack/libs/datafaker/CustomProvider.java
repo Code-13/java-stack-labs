@@ -18,6 +18,7 @@ package io.github.code13.javastack.libs.datafaker;
 import java.nio.file.Paths;
 import java.util.Locale;
 import net.datafaker.Faker;
+import net.datafaker.providers.base.AbstractProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -27,19 +28,18 @@ import org.junit.jupiter.api.Test;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/7/7 16:17
  */
-public class CustomProvider {
+class CustomProvider {
 
   /*
    * Custom hardcoded provider
    */
 
-  static class Insect {
+  static class Insect extends AbstractProvider<Faker> {
     private static final String[] INSECT_NAMES =
         new String[] {"Ant", "Beetle", "Butterfly", "Wasp"};
-    private final Faker faker;
 
     public Insect(Faker faker) {
-      this.faker = faker;
+      super(faker);
     }
 
     public String nextInsectName() {
@@ -49,7 +49,7 @@ public class CustomProvider {
 
   static class MyCustomFaker extends Faker {
     public Insect insect() {
-      return getProvider(Insect.class, () -> new Insect(this));
+      return getProvider(Insect.class, Insect::new, this);
     }
   }
 
@@ -64,12 +64,11 @@ public class CustomProvider {
    * Custom provider using Yaml file
    */
 
-  static class InsectFromFile {
+  static class InsectFromFile extends AbstractProvider<Faker> {
     private static final String KEY = "insectsfromfile";
-    private final Faker faker;
 
     public InsectFromFile(Faker faker) {
-      this.faker = faker;
+      super(faker);
       faker.addPath(Locale.ENGLISH, Paths.get("src/test/resources/ants.yml"));
       faker.addPath(Locale.ENGLISH, Paths.get("src/test/resources/bees.yml"));
     }
@@ -85,7 +84,7 @@ public class CustomProvider {
 
   static class MyCustomFakerFromFile extends Faker {
     public InsectFromFile insectFromFile() {
-      return getProvider(InsectFromFile.class, () -> new InsectFromFile(this));
+      return getProvider(InsectFromFile.class, InsectFromFile::new, this);
     }
   }
 

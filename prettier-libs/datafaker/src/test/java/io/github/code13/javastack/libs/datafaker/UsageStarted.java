@@ -15,6 +15,7 @@
 
 package io.github.code13.javastack.libs.datafaker;
 
+import java.util.List;
 import java.util.Locale;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.DisplayName;
@@ -26,7 +27,7 @@ import org.junit.jupiter.api.Test;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/7/7 15:19
  */
-public class UsageStarted {
+class UsageStarted {
 
   @Test
   @DisplayName("defaultUsage")
@@ -49,5 +50,19 @@ public class UsageStarted {
   void differentLocale() {
     Faker faker = new Faker(Locale.SIMPLIFIED_CHINESE);
     System.out.println(faker.name().fullName());
+  }
+
+  @Test
+  @DisplayName("Multiple locales")
+  void multipleLocales() {
+    Faker faker1 = new Faker(new Locale("nl"));
+    Faker faker2 = new Faker(new Locale("ar"));
+
+    List<Faker> fakers = List.of(faker1, faker2);
+
+    for (int i = 0; i < 10; i++) {
+      Faker randomFaker = new Faker().options().nextElement(fakers);
+      System.out.println(randomFaker.address().fullAddress());
+    }
   }
 }

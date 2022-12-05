@@ -23,23 +23,26 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Supplier;
-import net.datafaker.Address;
 import net.datafaker.Faker;
-import net.datafaker.Name;
-import net.datafaker.fileformats.Csv;
-import net.datafaker.fileformats.Format;
-import net.datafaker.fileformats.Xml;
-import net.datafaker.fileformats.Yaml;
+import net.datafaker.formats.Csv;
+import net.datafaker.formats.Format;
+import net.datafaker.formats.Xml;
+import net.datafaker.formats.Yaml;
+import net.datafaker.providers.base.Address;
+import net.datafaker.providers.base.Name;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
  * FileFormats.
  *
+ * @deprecated use {@link SchemaAndTransformers} instead
+ * @see https://www.datafaker.net/documentation/formats/
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/7/8 10:00
  */
-public class FileFormats {
+@Deprecated
+class FileFormats {
 
   @Test
   @DisplayName("formatWithCsv")

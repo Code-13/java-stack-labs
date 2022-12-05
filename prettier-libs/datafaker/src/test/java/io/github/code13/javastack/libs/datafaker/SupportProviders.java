@@ -21,7 +21,7 @@ package io.github.code13.javastack.libs.datafaker;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/7/7 15:55
  */
-public final class SupportProviders {
+final class SupportProviders {
 
   /*
    * https://www.datafaker.net/documentation/providers/

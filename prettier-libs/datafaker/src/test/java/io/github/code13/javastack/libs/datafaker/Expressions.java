@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/7/8 10:10
  */
-public class Expressions {
+class Expressions {
 
   @Test
   @DisplayName("jsonExpressions")

@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/7/7 15:57
  */
-public class DateFormats {
+class DateFormats {
 
   @Test
   @DisplayName("dateFormats")
