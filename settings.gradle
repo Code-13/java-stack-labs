@@ -71,6 +71,8 @@ include 'prettier-libs:pdfbox'
 findProject(':prettier-libs:pdfbox')?.name = 'pdfbox'
 include 'prettier-libs:jsoup'
 findProject(':prettier-libs:jsoup')?.name = 'jsoup'
+include 'prettier-libs:apache-httpclient5'
+findProject(':prettier-libs:apache-httpclient5')?.name = 'apache-httpclient5'
 
 // jvm
 include 'jvm'
