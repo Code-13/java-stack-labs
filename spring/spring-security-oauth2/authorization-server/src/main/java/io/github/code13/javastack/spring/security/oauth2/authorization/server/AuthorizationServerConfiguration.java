@@ -26,18 +26,22 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
@@ -45,12 +49,13 @@ import org.springframework.security.oauth2.server.authorization.OAuth2Authorizat
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 /**
  * AuthorizationServerConfiguration.
@@ -58,46 +63,24 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2022/2/15 20:14
  */
-@AutoConfiguration
+@Configuration
 public class AuthorizationServerConfiguration {
 
-  // JwtCustomizer
-
   @Bean
+  @Order(Ordered.HIGHEST_PRECEDENCE)
   SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
-    OAuth2AuthorizationServerConfigurer configurer = new OAuth2AuthorizationServerConfigurer();
+    OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+    http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
+        .oidc(Customizer.withDefaults()); // Enable OpenID Connect 1.0
 
-    RequestMatcher authorizationServerEndpointsMatcher = configurer.getEndpointsMatcher();
-
-    http.requestMatcher(authorizationServerEndpointsMatcher)
-        .authorizeRequests()
-        .anyRequest()
-        .authenticated()
-        .and()
-        .csrf(csrf -> csrf.ignoringRequestMatchers(authorizationServerEndpointsMatcher))
-        .formLogin()
-        .and()
-        .apply(configurer)
-        .and()
-        .exceptionHandling();
-    //        .authenticationEntryPoint(
-    //            (request, response, authException) -> {
-    //              String s = request.getRequestURL().toString() + "?" + request.getQueryString();
-    //              System.out.println(s);
-    //              byte[] encode =
-    // Base64.getUrlEncoder().encode(s.getBytes(StandardCharsets.UTF_8));
-    //              String state = new String(encode, StandardCharsets.UTF_8);
-    //              System.out.println(state);
-    //
-    //              Cookie cookie = new Cookie("state", state);
-    //              cookie.setDomain("127.0.0.1");
-    //              cookie.setPath("/");
-    //              cookie.setMaxAge(-1);
-    //              response.addCookie(cookie);
-    //
-    //              response.sendRedirect("http://localhost:3000?state=" + state);
-    //            });
-
+    // @formatter:off
+    http.exceptionHandling(
+            exceptions ->
+                exceptions.authenticationEntryPoint(
+                    new LoginUrlAuthenticationEntryPoint("/login.html"))) // 此处可直接跳转至登录页面，也可中转
+        // new LoginUrlAuthenticationEntryPoint("/login/oauth2")
+        .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+    // @formatter:on
     return http.build();
   }
 
@@ -107,9 +90,9 @@ public class AuthorizationServerConfiguration {
     RegisteredClient registeredClient =
         RegisteredClient.withId(UUID.randomUUID().toString())
             // 客户端ID和密码
-            .clientId("felord-client")
+            .clientId("test-client")
             .clientSecret("{noop}secret")
-            .clientName("felord")
+            .clientName("test")
             // 授权方法
             .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
             // 授权类型
@@ -117,8 +100,9 @@ public class AuthorizationServerConfiguration {
             .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
             .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
             // 回调地址名单，不在此列将被拒绝 而且只能使用IP或者域名  不能使用 localhost
-            .redirectUri("http://127.0.0.1:8080/login/oauth2/code/felord-auth")
-            .redirectUri("http://127.0.0.1:8080/login/oauth2/code/felord-oidc")
+            // 根据 Oauth2 标准，回调地址应该是 oauth2 client 端
+            .redirectUri("http://127.0.0.1:8080/login/oauth2/code/iam")
+            .redirectUri("http://127.0.0.1:8080/login/oauth2/code/iam-oidc")
             //            .redirectUri("http://127.0.0.1:8080/authorized")
             //            .redirectUri("http://127.0.0.1:8080/foo/bar")
             .redirectUri("https://www.baidu.com")
@@ -168,6 +152,11 @@ public class AuthorizationServerConfiguration {
     return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
   }
 
+  @Bean
+  public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
+    return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
+  }
+
   /**
    * 配置 OAuth2.0 provider元信息
    *
@@ -176,8 +165,8 @@ public class AuthorizationServerConfiguration {
    * @return the provider settings
    */
   @Bean
-  AuthorizationServerSettings providerSettings(@Value("${server.port}") Integer port) {
-    return AuthorizationServerSettings.builder().issuer("http://localhost:" + port).build();
+  AuthorizationServerSettings providerSettings() {
+    return AuthorizationServerSettings.builder().build();
   }
 
   @Bean

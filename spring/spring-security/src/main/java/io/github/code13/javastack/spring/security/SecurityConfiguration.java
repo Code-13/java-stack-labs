@@ -158,3 +158,14 @@ spring security 未登录或登录状态访问无权限资源都会出现访问�
 
 如果是认证失败 ，比如密码错误等，就配置login 的 .failureHandler()。如果是权限不够（.accessDeniedHandler）或者未认证（.authenticationEntryPoint），就配置exceptionHandling()。
  */
+
+/*
+ * Spring Security 的默认默认登录页面是在 DefaultLoginPageGeneratingFilter 中生成的
+ * DefaultLoginPageGeneratingFilter 是在 DefaultLoginPageConfigurer 加入的
+ * DefaultLoginPageConfigurer 是在 HttpSecurityConfiguration 中配置的
+ * DefaultLoginPageGeneratingFilter 是在 FormLoginConfigurer#initDefaultLoginFilter 进一步配置的
+ */
+
+/*
+ * 重定向后会将 request 保存在 HttpSessionRequestCache 中，其中包含重定向地址
+ */

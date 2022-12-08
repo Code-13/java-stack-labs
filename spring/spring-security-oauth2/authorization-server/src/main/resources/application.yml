@@ -8,16 +8,15 @@ spring:
         trace: true
         web-allow-others: true
       path: /h2-console
+  freemarker:
+    suffix: .html
 server:
   port: 9000
+
 
 logging:
   level:
     org.springframework.web: trace
     org.springframework.security: debug
     org.springframework.security.oauth2: debug
-    org:
-      springframework:
-        jdbc:
-          datasource:
-            embedded: info
+    org.springframework.jdbc.datasource.embedded: info

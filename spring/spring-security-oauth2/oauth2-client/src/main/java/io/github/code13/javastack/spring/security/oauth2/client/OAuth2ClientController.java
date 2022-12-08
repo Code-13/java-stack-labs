@@ -42,7 +42,7 @@ public class OAuth2ClientController {
    */
   @GetMapping("/foo/bar")
   public Map<String, Object> bar(
-      @RegisteredOAuth2AuthorizedClient("felord-auth") OAuth2AuthorizedClient client) {
+      @RegisteredOAuth2AuthorizedClient("iam") OAuth2AuthorizedClient client) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     Map<String, Object> map = new HashMap<>();
     map.put("authentication", authentication);
@@ -58,7 +58,7 @@ public class OAuth2ClientController {
    */
   @GetMapping("/")
   public Map<String, Object> index(
-      @RegisteredOAuth2AuthorizedClient("felord-oidc") OAuth2AuthorizedClient client,
+      @RegisteredOAuth2AuthorizedClient("iam-oidc") OAuth2AuthorizedClient client,
       @CurrentSecurityContext(expression = "authentication") Authentication authentication) {
     HashMap<String, Object> map = new HashMap<>();
     map.put("authentication", authentication);

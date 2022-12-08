@@ -38,39 +38,18 @@ public class SecurityCoreConfig {
   // @formatter:off
   @Bean
   SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-    http.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
+    http.authorizeRequests(
+            authorizeRequests ->
+                authorizeRequests
+                    .antMatchers("/login.html", "/login/oauth2")
+                    .permitAll()) // 重要；作为非默认值，必须放开，否则会无限重定向
+        .authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
         .formLogin()
-        //        .loginProcessingUrl("/login")
-        //        .successHandler(
-        //            (request, response, authentication) -> {
-        //              System.out.println(
-        //
-        // SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
-        //
-        //              String queryString = request.getQueryString();
-        //              System.out.println(queryString);
-        //
-        //              String substring = queryString.substring("state=".length());
-        //
-        //              System.out.println(substring);
-        //
-        //              byte[] decode = Base64.getUrlDecoder().decode(substring);
-        //
-        //              String s = new String(decode, StandardCharsets.UTF_8);
-        //
-        //              System.out.println(s);
-        //
-        //              response.sendRedirect(s);
-        //            })
+        .loginPage("/login.html")
+        .loginProcessingUrl("/login/form")
         .and()
         .csrf()
-        .disable()
-        .exceptionHandling();
-    //        .authenticationEntryPoint(
-    //            (request, response, authException) -> {
-    //              System.out.println(request.getRequestURI());
-    //              response.sendRedirect("http://localhost:3000?state=" + request.getRequestURI());
-    //            });
+        .disable();
     return http.build();
   }
   // @formatter:on
@@ -85,8 +64,8 @@ public class SecurityCoreConfig {
   UserDetailsService users() {
     UserDetails user =
         User.builder()
-            .username("felord")
-            .password("password")
+            .username("test")
+            .password("test")
             .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder()::encode)
             .roles("USER")
             .build();
