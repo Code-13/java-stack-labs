@@ -140,7 +140,7 @@ public class OkHttpRecipes {
     Request request =
         new Request.Builder()
             .url("https://api.github.com/markdown/raw")
-            .post(RequestBody.create(mediaTypeMarkdown, postBody))
+            .post(RequestBody.create(postBody, mediaTypeMarkdown))
             .build();
 
     try (Response response = client.newCall(request).execute()) {
@@ -206,7 +206,7 @@ public class OkHttpRecipes {
     Request request =
         new Request.Builder()
             .url("https://api.github.com/markdown/raw")
-            .post(RequestBody.create(mediaTypeMarkdown, file))
+            .post(RequestBody.create(file, mediaTypeMarkdown))
             .build();
 
     try (Response response = client.newCall(request).execute()) {
@@ -248,7 +248,7 @@ public class OkHttpRecipes {
             .addFormDataPart(
                 "image",
                 "logo-square.png",
-                RequestBody.create(mediaType, new File("src/test/resources/icon-square.png")))
+                RequestBody.create(new File("src/test/resources/icon-square.png"), mediaType))
             .build();
 
     Request request =

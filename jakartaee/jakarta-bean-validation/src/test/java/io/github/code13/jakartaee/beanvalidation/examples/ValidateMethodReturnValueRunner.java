@@ -42,7 +42,7 @@ class ValidateMethodReturnValueRunner {
     Assertions.assertThrowsExactly(
         IllegalArgumentException.class,
         () -> {
-          @NotNull ValidateBeanRunner.Person person = personService.getOne(1, "name");
+          ValidateBeanRunner.Person person = personService.getOne(1, "name");
         });
   }
 
