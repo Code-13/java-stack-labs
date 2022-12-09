@@ -13,5 +13,4 @@
 # limitations under the License.
 #
 
-io.github.code13.javase.ap.processor.FactoryAnnotationProcessor
-io.github.code13.javase.ap.processor.JavaPoetProcessor
+io.github.code13.javase.spi.SimpleLogger
