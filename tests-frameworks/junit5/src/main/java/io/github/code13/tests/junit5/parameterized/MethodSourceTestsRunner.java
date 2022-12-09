@@ -122,8 +122,7 @@ class MethodSourceTestsRunner {
    * @param tinyString .
    */
   @ParameterizedTest
-  @MethodSource(
-      "io.github.code13.javastack.frameworks.junit5.parameterized.StringsProviders#tinyStrings")
+  @MethodSource("io.github.code13.frameworks.junit5.parameterized.StringsProviders#tinyStrings")
   void testWithExternalMethodSource(String tinyString) {
     // test with tiny string
   }

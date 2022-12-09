@@ -38,8 +38,7 @@ public class MonitorTransformer implements ClassFileTransformer {
   private static final Set<String> classNameSet = new HashSet<>();
 
   static {
-    classNameSet.add(
-        "io.github.code13.javastack.javalabs.agent.demo02_method_monitor.MonitorAgentTest");
+    classNameSet.add("io.github.code13.javase.agent.demo02_method_monitor.MonitorAgentTest");
   }
 
   @Override

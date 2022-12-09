@@ -44,7 +44,7 @@ public class SpringAopUseRunner {
     }
   }
 
-  @ComponentScan(basePackages = "io.github.code13.javastack.spring.framework.aop.use")
+  @ComponentScan(basePackages = "io.github.code13.spring.framework.aop.use")
   @EnableAspectJAutoProxy
   static class SpringAopUseConfig {}
 }

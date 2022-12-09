@@ -59,7 +59,7 @@ public class ProxyFactoryRunner {
     System.out.println(proxy instanceof Proxy); // true  所有的JDK代理都是继承自Proxy的
     System.out.println(proxy instanceof SpringProxy); // true
     System.out.println(proxy.getClass()); // class
-    // io.github.code13.javastack.spring.framework.aop.proxy_factory.$Proxy10
+    // io.github.code13.spring.framework.aop.proxy_factory.$Proxy10
     System.out.println(Proxy.isProxyClass(proxy.getClass())); // true
     System.out.println(AopUtils.isCglibProxy(proxy)); // false
 

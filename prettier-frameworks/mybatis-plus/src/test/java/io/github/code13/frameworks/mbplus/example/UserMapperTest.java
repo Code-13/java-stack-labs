@@ -47,9 +47,7 @@ class UserMapperTest {
     factoryBean.setMapperLocations(
         new MybatisPlusProperties()
             .setMapperLocations(
-                new String[] {
-                  "classpath*:io/github/code13/javastack/frameworks/mbplus/example/*.xml"
-                })
+                new String[] {"classpath*:io/github/code13/frameworks/mbplus/example/*.xml"})
             .resolveMapperLocations());
 
     // config for SqlInjector

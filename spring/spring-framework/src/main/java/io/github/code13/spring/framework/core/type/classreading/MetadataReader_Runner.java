@@ -75,7 +75,7 @@ public class MetadataReader_Runner {
     CachingMetadataReaderFactory factory = new CachingMetadataReaderFactory();
     MetadataReader metadataReader =
         factory.getMetadataReader(
-            "io.github.code13.javastack.spring.framework.core.type.classreading"
+            "io.github.code13.spring.framework.core.type.classreading"
                 + ".MetadataReader_Runner.Config");
     AnnotationMetadata metadata = metadataReader.getAnnotationMetadata();
 

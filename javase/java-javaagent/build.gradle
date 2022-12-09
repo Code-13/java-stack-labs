@@ -14,11 +14,11 @@
  *     limitations under the License.
  */
 
-def HelloWorldPremainClass = 'io.github.code13.javastack.javalabs.agent.hello_world.HelloAgent'
-def MonitorPremainClass = 'io.github.code13.javastack.javalabs.agent.demo02_method_monitor.MonitorAgent'
-def ByteBuddyMonitorPremainClass = 'io.github.code13.javastack.javalabs.agent.demo03_bytebuddy_monitor.ByteBuddyMonitorAgent'
-def JvmAgentPremainClass = 'io.github.code13.javastack.javalabs.agent.demo04_jvm.JvmStackAgent'
-def TrackAgentPremainClass = 'io.github.code13.javastack.javalabs.agent.demo05_threadlocal_track.TrackAgent'
+def HelloWorldPremainClass = 'io.github.code13.javase.agent.hello_world.HelloAgent'
+def MonitorPremainClass = 'io.github.code13.javase.agent.demo02_method_monitor.MonitorAgent'
+def ByteBuddyMonitorPremainClass = 'io.github.code13.javase.agent.demo03_bytebuddy_monitor.ByteBuddyMonitorAgent'
+def JvmAgentPremainClass = 'io.github.code13.javase.agent.demo04_jvm.JvmStackAgent'
+def TrackAgentPremainClass = 'io.github.code13.javase.agent.demo05_threadlocal_track.TrackAgent'
 jar {
     manifest {
         attributes(

@@ -100,7 +100,7 @@ class JvmStackAgentTest {
 `build.gradle`
 
 ```groovy
-def JvmAgentPremainClass = 'io.github.code13.javastack.javalabs.agent.demo04_jvm.JvmStackAgent'
+def JvmAgentPremainClass = 'io.github.code13.javase.agent.demo04_jvm.JvmStackAgent'
 jar {
     manifest {
         attributes(

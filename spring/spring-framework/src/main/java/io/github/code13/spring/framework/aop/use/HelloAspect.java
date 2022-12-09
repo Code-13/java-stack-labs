@@ -35,7 +35,7 @@ import org.springframework.stereotype.Component;
 public class HelloAspect {
 
   // 定义一个切入点：指定哪些方法可以被切入（如果是别的类需要使用 请用该方法的全类名）
-  @Pointcut("execution(* io.github.code13.javastack.spring.framework.aop.use..*.*(..))")
+  @Pointcut("execution(* io.github.code13.spring.framework.aop.use..*.*(..))")
   public void pointCut() {
     //
   }

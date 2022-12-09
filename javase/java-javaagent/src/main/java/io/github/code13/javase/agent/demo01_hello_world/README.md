@@ -31,7 +31,7 @@ public class HelloAgentTest {
 ### Gradle 配置：
 
 ```groovy
-def PremainClass = 'io.github.code13.javastack.javalabs.agent.demo01_hello_world.HelloAgent'
+def PremainClass = 'io.github.code13.javase.agent.demo01_hello_world.HelloAgent'
 jar {
     manifest {
         attributes(

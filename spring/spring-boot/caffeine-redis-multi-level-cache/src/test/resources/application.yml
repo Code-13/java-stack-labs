@@ -19,4 +19,4 @@ spring:
     port: 6379
 logging:
   level:
-    io.github.code13.javastack.spring.boot.crmlc: debug
+    io.github.code13.spring.boot.crmlc: debug

@@ -43,7 +43,7 @@ public class ResourcePatternResolver_Runner {
 
     Resource[] resources =
         resourcePatternResolver.getResources(
-            "classpath*:io/github/code13/javastack/spring/framework/*/**.class");
+            "classpath*:io/github/code13/spring/framework/*/**.class");
 
     assertTrue(resources.length > 0);
 

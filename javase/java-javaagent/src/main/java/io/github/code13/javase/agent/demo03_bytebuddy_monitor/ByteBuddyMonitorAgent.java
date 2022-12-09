@@ -78,7 +78,7 @@ public class ByteBuddyMonitorAgent {
     new AgentBuilder.Default()
         .type(
             ElementMatchers.nameStartsWith(
-                "io.github.code13.javastack.javalabs.agent.demo03_bytebuddy_monitor"))
+                "io.github.code13.javase.agent.demo03_bytebuddy_monitor"))
         .transform(transformer)
         .with(listener)
         .installOn(inst);

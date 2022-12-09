@@ -123,7 +123,7 @@ public class TrackAgent {
         agentBuilder
             .type(
                 ElementMatchers.nameStartsWith(
-                    "io.github.code13.javastack.javalabs.agent.demo05_threadlocal_track"))
+                    "io.github.code13.javase.agent.demo05_threadlocal_track"))
             .transform(transformer)
             .asTerminalTransformation();
 
@@ -208,7 +208,7 @@ public class TrackAgentTest {
 `build.gradle`
 
 ```groovy
-def TrackAgentPremainClass = 'io.github.code13.javastack.javalabs.agent.demo05_threadlocal_track.TrackAgent'
+def TrackAgentPremainClass = 'io.github.code13.javase.agent.demo05_threadlocal_track.TrackAgent'
 jar {
     manifest {
         attributes(

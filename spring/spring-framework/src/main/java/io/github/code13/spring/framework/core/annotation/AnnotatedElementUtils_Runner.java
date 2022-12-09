@@ -255,10 +255,10 @@ public class AnnotatedElementUtils_Runner {
   void testFindAllMergedAnnotations() {
     Set<Driver> drivers = AnnotatedElementUtils.findAllMergedAnnotations(X5.class, Driver.class);
     System.out.println(drivers);
-    // [@io.github.code13.javastack.spring.framework.core.annotation.AnnotatedElementUtils_Runner.Driver(anno=@org.springframework.stereotype.Component(""), car="Unknown", clazz=java.lang.Integer.class, name="Unknown", value="Unknown")]
+    // [@io.github.code13.spring.framework.core.annotation.AnnotatedElementUtils_Runner.Driver(anno=@org.springframework.stereotype.Component(""), car="Unknown", clazz=java.lang.Integer.class, name="Unknown", value="Unknown")]
 
     drivers = AnnotatedElementUtils.findAllMergedAnnotations(X7.class, Driver.class);
     System.out.println(drivers);
-    // [@io.github.code13.javastack.spring.framework.core.annotation.AnnotatedElementUtils_Runner.Driver(anno=@org.springframework.stereotype.Component(""), car="Unknown", clazz=java.lang.Integer.class, name="Unknown", value="Unknown"), @io.github.code13.javastack.spring.framework.core.annotation.AnnotatedElementUtils_Runner.Driver(anno=@org.springframework.stereotype.Component(""), car="X7", clazz=java.lang.Integer.class, name="X7", value="X7")]
+    // [@io.github.code13.spring.framework.core.annotation.AnnotatedElementUtils_Runner.Driver(anno=@org.springframework.stereotype.Component(""), car="Unknown", clazz=java.lang.Integer.class, name="Unknown", value="Unknown"), @io.github.code13.spring.framework.core.annotation.AnnotatedElementUtils_Runner.Driver(anno=@org.springframework.stereotype.Component(""), car="X7", clazz=java.lang.Integer.class, name="X7", value="X7")]
   }
 }

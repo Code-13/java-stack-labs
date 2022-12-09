@@ -23,7 +23,7 @@ public class MonitorTransformer implements ClassFileTransformer {
 
   static {
     classNameSet.add(
-        "io.github.code13.javastack.javalabs.agent.demo02_method_monitor.MonitorAgentTest");
+        "io.github.code13.javase.agent.demo02_method_monitor.MonitorAgentTest");
   }
 
   @Override
@@ -108,7 +108,7 @@ class MonitorAgentTest {
 `build.gradle`
 
 ```groovy
-def MonitorPremainClass = 'io.github.code13.javastack.javalabs.agent.demo02_method_monitor.MonitorAgent'
+def MonitorPremainClass = 'io.github.code13.javase.agent.demo02_method_monitor.MonitorAgent'
 jar {
     manifest {
         attributes(

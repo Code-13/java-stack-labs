@@ -71,7 +71,7 @@ public class JavaPoetProcessor extends AbstractProcessor {
     try {
       // build com.example.HelloWorld.java
       JavaFile javaFile =
-          JavaFile.builder("io.github.code13.javastack.javalabs.ap", helloWorld)
+          JavaFile.builder("io.github.code13.javalabs.ap", helloWorld)
               .addFileComment(" This codes are generated automatically. Do not modify!")
               .build();
       // write to file

@@ -189,7 +189,7 @@ class ConditionalTestsRunner {
   static class ExternalCustomConditions {
 
     @Test
-    @EnabledIf("io.github.code13.javastack.frameworks.junit5.ExternalCondition#customCondition")
+    @EnabledIf("io.github.code13.frameworks.junit5.ExternalCondition#customCondition")
     void enabled() {
       // ...
     }
