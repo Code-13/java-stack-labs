@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.jvm.mat;
+package io.github.code13.jvm.mat;
 
 import java.util.ArrayList;
 
