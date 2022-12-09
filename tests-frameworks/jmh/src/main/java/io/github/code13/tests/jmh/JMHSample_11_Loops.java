@@ -1,0 +1,166 @@
+/*
+ * Copyright 2022-present the original author or authors.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *          http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package io.github.code13.tests.jmh;
+
+import java.util.concurrent.TimeUnit;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OperationsPerInvocation;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.results.format.ResultFormatType;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.RunnerException;
+import org.openjdk.jmh.runner.options.Options;
+import org.openjdk.jmh.runner.options.OptionsBuilder;
+
+/**
+ * JMHSample_11_Loops.
+ *
+ * @author <a href="https://github.com/Code-13/">code13</a>
+ * @date 2022/5/31 21:01
+ */
+@State(Scope.Thread)
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
+public class JMHSample_11_Loops {
+
+  /*
+   * It would be tempting for users to do loops within the benchmarked method.
+   * (This is the bad thing Caliper taught everyone). These tests explain why
+   * this is a bad idea.
+   *
+   * Looping is done in the hope of minimizing the overhead of calling the
+   * test method, by doing the operations inside the loop instead of inside
+   * the method call. Don't buy this argument; you will see there is more
+   * magic happening when we allow optimizers to merge the loop iterations.
+   */
+
+  /*
+   * Suppose we want to measure how much it takes to sum two integers:
+   */
+
+  int x = 1;
+  int y = 2;
+
+  /*
+   * This is what you do with JMH.
+   */
+
+  @Benchmark
+  public int measureRight() {
+    return (x + y);
+  }
+
+  /*
+   * The following tests emulate the naive looping.
+   * This is the Caliper-style benchmark.
+   */
+  private int reps(int reps) {
+    int s = 0;
+    for (int i = 0; i < reps; i++) {
+      s += (x + y);
+    }
+    return s;
+  }
+
+  /*
+   * We would like to measure this with different repetitions count.
+   * Special annotation is used to get the individual operation cost.
+   */
+
+  @Benchmark
+  @OperationsPerInvocation(1)
+  public int measureWrong_1() {
+    return reps(1);
+  }
+
+  @Benchmark
+  @OperationsPerInvocation(10)
+  public int measureWrong_10() {
+    return reps(10);
+  }
+
+  @Benchmark
+  @OperationsPerInvocation(100)
+  public int measureWrong_100() {
+    return reps(100);
+  }
+
+  @Benchmark
+  @OperationsPerInvocation(1_000)
+  public int measureWrong_1000() {
+    return reps(1_000);
+  }
+
+  @Benchmark
+  @OperationsPerInvocation(10_000)
+  public int measureWrong_10000() {
+    return reps(10_000);
+  }
+
+  @Benchmark
+  @OperationsPerInvocation(100_000)
+  public int measureWrong_100000() {
+    return reps(100_000);
+  }
+
+  /*
+   * ============================== HOW TO RUN THIS TEST: ====================================
+   *
+   * You might notice the larger the repetitions count, the lower the "perceived"
+   * cost of the operation being measured. Up to the point we do each addition with 1/20 ns,
+   * well beyond what hardware can actually do.
+   *
+   * This happens because the loop is heavily unrolled/pipelined, and the operation
+   * to be measured is hoisted from the loop. Morale: don't overuse loops, rely on JMH
+   * to get the measurement right.
+   *
+   * You can run this test:
+   *
+   * a) Via the command line:
+   *    $ mvn clean install
+   *    $ java -jar target/benchmarks.jar JMHSample_11 -f 1
+   *    (we requested single fork; there are also other options, see -h)
+   *
+   * b) Via the Java API:
+   *    (see the JMH homepage for possible caveats when running from IDE:
+   *      http://openjdk.java.net/projects/code-tools/jmh/)
+   */
+
+  /*
+   * Idea 下载 JMH 插件：
+   *        https://plugins.jetbrains.com/plugin/7529-jmh-java-microbenchmark-harness
+   * 就可以直接下面的运行下面的 main 方法。注意请直接使用 run 模式，不要使用 debug 模式！！！
+   *
+   * 所有的报告均在 prettier-frameworks/jmh/result 目录下
+   */
+
+  public static void main(String[] args) throws RunnerException {
+    String simpleName = JMHSample_11_Loops.class.getSimpleName();
+    Options opt =
+        new OptionsBuilder()
+            .include(simpleName)
+            .forks(1)
+            .resultFormat(ResultFormatType.JSON)
+            .result("prettier-frameworks/jmh/result/" + simpleName + ".json")
+            .build();
+
+    new Runner(opt).run();
+  }
+}
