@@ -13,22 +13,19 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.jakartaee.beanvalidation.coreapi;
+package io.github.code13.jakartaee.beanvalidation.coreapi;
 
 /**
- * ClockProviderRunner.
+ * ValueExtractorRunner.
  *
- * @see javax.validation.ClockProvider
- * @see org.hibernate.validator.internal.engine.DefaultClockProvider
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @since 2022/10/24 16:54
+ * @since 2022/10/24 17:02
  */
-class ClockProviderRunner {
+public class ValueExtractorRunner {
 
   /*
-   * 时钟提供器。这个接口很简单，就是提供一个Clock，给@Past、@Future等阅读判断提供参考。
-   *
-   * 唯一实现为DefaultClockProvider：DefaultClockProvider
+   * 值提取器。2.0版本新增一个比较重要的组件API，作用：把值从容器内提取出来。
+   * 这里的容器包括：数组、集合、Map、Optional等等。
    */
 
 }

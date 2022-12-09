@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.jakartaee.beanvalidation.examples;
+package io.github.code13.jakartaee.beanvalidation.examples;
 
-import io.github.code13.javastack.jakartaee.beanvalidation.ValidationUtils;
-import io.github.code13.javastack.jakartaee.beanvalidation.examples.ValidateBeanRunner.Person;
+import io.github.code13.jakartaee.beanvalidation.ValidationUtils;
+import io.github.code13.jakartaee.beanvalidation.examples.ValidateBeanRunner.Person;
 import java.lang.reflect.Method;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
@@ -32,15 +32,18 @@ import org.junit.jupiter.api.Test;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/10/24 14:17
  */
-@DisplayName("校验方法")
-class ValidateMethodRunner {
+@DisplayName("校验方法返回值")
+class ValidateMethodReturnValueRunner {
 
   @Test
   @DisplayName("test")
   void test() throws NoSuchMethodException {
     PersonService personService = new PersonService();
     Assertions.assertThrowsExactly(
-        IllegalArgumentException.class, () -> personService.getOne(0, "..."));
+        IllegalArgumentException.class,
+        () -> {
+          @NotNull ValidateBeanRunner.Person person = personService.getOne(1, "name");
+        });
   }
 
   static class PersonService {
@@ -50,19 +53,22 @@ class ValidateMethodRunner {
      *
      * 2. 返回值不能为null
      */
-    public Person getOne(@NotNull @Min(1) Integer id, String name) throws NoSuchMethodException {
+    public @NotNull ValidateBeanRunner.Person getOne(@NotNull @Min(1) Integer id, String name)
+        throws NoSuchMethodException {
+
+      Person person = null;
+
       Method method = getClass().getMethod("getOne", Integer.class, String.class);
 
       Set<ConstraintViolation<PersonService>> violations =
-          ValidationUtils.obtainExecutableValidator()
-              .validateParameters(this, method, new Object[] {id, name});
+          ValidationUtils.obtainExecutableValidator().validateReturnValue(this, method, person);
 
       if (!violations.isEmpty()) {
         ValidationUtils.printViolations(violations);
         throw new IllegalArgumentException("参数错误");
       }
 
-      return null;
+      return person;
     }
   }
 }

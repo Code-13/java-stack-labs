@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.jakartaee.beanvalidation.customer;
+package io.github.code13.jakartaee.beanvalidation.customer;
 
-import io.github.code13.javastack.jakartaee.beanvalidation.ValidationUtils;
+import io.github.code13.jakartaee.beanvalidation.ValidationUtils;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import javax.validation.Valid;

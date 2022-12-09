@@ -13,25 +13,20 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.jakartaee.beanvalidation.coreapi;
+package io.github.code13.jakartaee.beanvalidation.coreapi;
 
 /**
- * ConstraintValidatorFactoryRunner.
+ * TraversableResolverRunner.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @since 2022/10/24 16:38
+ * @since 2022/10/24 16:36
  */
-class ConstraintValidatorFactoryRunner {
+class TraversableResolverRunner {
 
   /*
-   * 约束校验器工厂。
-   * ConstraintValidator约束校验器我们应该不陌生：每个约束注解都得指定一个/多个约束校验器，
-   * 形如这样：@Constraint(validatedBy = { xxx.class })。
-   *
-   * ConstraintValidatorFactory就是工厂：可以根据Class生成对象实例。
+   * 能跨越的处理器。从字面是非常不好理解，
+   * 用粗暴的语言解释为：确定某个属性是否能被ValidationProvider访问，当没访问一个属性时都会通过它来判断一下子，提供两个判断方法
+   * 该接口主要根据配置项来进行判断，并不负责。内部使用，调用者基本无需关心，也不见更改其默认机制，暂且略过。
    */
 
-  /*
-   * Hibernate提供了唯一实现ConstraintValidatorFactoryImpl：使用空构造器生成实例 clazz.getConstructor().newInstance();。
-   */
 }

@@ -13,11 +13,10 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.jakartaee.beanvalidation.examples;
+package io.github.code13.jakartaee.beanvalidation.examples;
 
-import io.github.code13.javastack.jakartaee.beanvalidation.ValidationUtils;
-import io.github.code13.javastack.jakartaee.beanvalidation.examples.ValidateBeanRunner.Person;
-import java.lang.reflect.Method;
+import io.github.code13.jakartaee.beanvalidation.ValidationUtils;
+import java.lang.reflect.Constructor;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.Min;
@@ -32,43 +31,41 @@ import org.junit.jupiter.api.Test;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/10/24 14:17
  */
-@DisplayName("校验方法返回值")
-class ValidateMethodReturnValueRunner {
+@DisplayName("校验构造方法")
+class ValidateConstructorRunner {
 
   @Test
   @DisplayName("test")
   void test() throws NoSuchMethodException {
-    PersonService personService = new PersonService();
     Assertions.assertThrowsExactly(
         IllegalArgumentException.class,
         () -> {
-          @NotNull Person person = personService.getOne(1, "name");
+          new Person("name", -1);
         });
   }
 
-  static class PersonService {
+  record Person(@NotNull String name, @NotNull @Min(0) Integer age) {
 
-    /*
-     * 1. id是必传（不为null）且最小值为1，但对name没有要求
-     *
-     * 2. 返回值不能为null
-     */
-    public @NotNull Person getOne(@NotNull @Min(1) Integer id, String name)
-        throws NoSuchMethodException {
+    Person(@NotNull String name, @NotNull @Min(0) Integer age) {
 
-      Person person = null;
+      try {
+        Constructor<? extends Person> constructor =
+            getClass().getDeclaredConstructor(String.class, Integer.class);
+        Set<? extends ConstraintViolation<? extends Person>> violations =
+            ValidationUtils.obtainExecutableValidator()
+                .validateConstructorParameters(constructor, new Object[] {name, age});
 
-      Method method = getClass().getMethod("getOne", Integer.class, String.class);
+        if (!violations.isEmpty()) {
+          ValidationUtils.printViolations(violations);
+          throw new IllegalArgumentException("参数错误");
+        }
 
-      Set<ConstraintViolation<PersonService>> violations =
-          ValidationUtils.obtainExecutableValidator().validateReturnValue(this, method, person);
-
-      if (!violations.isEmpty()) {
-        ValidationUtils.printViolations(violations);
-        throw new IllegalArgumentException("参数错误");
+      } catch (NoSuchMethodException e) {
+        throw new RuntimeException(e);
       }
 
-      return person;
+      this.name = name;
+      this.age = age;
     }
   }
 }

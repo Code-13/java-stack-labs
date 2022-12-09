@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.jakartaee.beanvalidation.coreapi;
+package io.github.code13.jakartaee.beanvalidation.coreapi;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import io.github.code13.javastack.jakartaee.beanvalidation.ValidationUtils;
+import io.github.code13.jakartaee.beanvalidation.ValidationUtils;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.NotNull;

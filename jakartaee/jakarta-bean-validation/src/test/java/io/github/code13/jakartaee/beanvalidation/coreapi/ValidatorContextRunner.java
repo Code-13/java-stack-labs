@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.jakartaee.beanvalidation.coreapi;
+package io.github.code13.jakartaee.beanvalidation.coreapi;
 
-import io.github.code13.javastack.jakartaee.beanvalidation.ValidationUtils;
+import io.github.code13.jakartaee.beanvalidation.ValidationUtils;
 import javax.validation.Validator;
 import javax.validation.ValidatorContext;
 import org.hibernate.validator.internal.engine.DefaultClockProvider;

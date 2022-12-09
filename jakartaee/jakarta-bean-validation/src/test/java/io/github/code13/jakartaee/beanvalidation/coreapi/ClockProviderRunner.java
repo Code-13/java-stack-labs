@@ -13,25 +13,22 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.jakartaee.beanvalidation.coreapi;
+package io.github.code13.jakartaee.beanvalidation.coreapi;
 
 /**
- * ConstraintViolationRunner.
+ * ClockProviderRunner.
  *
+ * @see javax.validation.ClockProvider
+ * @see org.hibernate.validator.internal.engine.DefaultClockProvider
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @since 2022/10/24 15:52
+ * @since 2022/10/24 16:54
  */
-class ConstraintViolationRunner {
+class ClockProviderRunner {
 
   /*
-   * 已经插值（interpolated）的消息
-   *     String getMessage();
-   * 未插值的消息模版（里面变量还未替换，若存在的话）
-   *     String getMessageTemplate();
+   * 时钟提供器。这个接口很简单，就是提供一个Clock，给@Past、@Future等阅读判断提供参考。
    *
-   * 从rootBean开始的属性路径。如：parent.fullName
-   *     Path getPropertyPath();
-   * 告诉是哪个约束没有通过（的详情）
-   *     ConstraintDescriptor<?> getConstraintDescriptor();
+   * 唯一实现为DefaultClockProvider：DefaultClockProvider
    */
+
 }

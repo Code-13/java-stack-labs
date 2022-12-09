@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.jakartaee.beanvalidation.examples;
+package io.github.code13.jakartaee.beanvalidation.examples;
 
-import io.github.code13.javastack.jakartaee.beanvalidation.ValidationUtils;
+import io.github.code13.jakartaee.beanvalidation.ValidationUtils;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.Min;

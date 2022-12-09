@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.jakartaee.beanvalidation.coreapi;
+package io.github.code13.jakartaee.beanvalidation.coreapi;
 
 import java.util.Arrays;
 import javax.validation.ParameterNameProvider;

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.jakartaee.beanvalidation;
+package io.github.code13.jakartaee.beanvalidation;
 
 import java.util.Set;
 import java.util.function.Supplier;

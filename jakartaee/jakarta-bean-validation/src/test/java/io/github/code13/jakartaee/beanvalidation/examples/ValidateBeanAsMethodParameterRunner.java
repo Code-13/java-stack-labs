@@ -13,12 +13,14 @@
  * limitations under the License.
  */
 
-package io.github.code13.javastack.jakartaee.beanvalidation.examples;
+package io.github.code13.jakartaee.beanvalidation.examples;
 
-import io.github.code13.javastack.jakartaee.beanvalidation.ValidationUtils;
+import io.github.code13.jakartaee.beanvalidation.ValidationUtils;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.junit.jupiter.api.Assertions;
@@ -26,22 +28,33 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * ValidateBeanRunner.
+ * ValidateBeanAsMethodParameterRunner.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @since 2022/10/24 14:17
+ * @since 2022/10/24 14:54
  */
-@DisplayName("校验构造方法")
-class ValidateConstructorRunner {
+@DisplayName("Java Bean作为入参如何校验？")
+class ValidateBeanAsMethodParameterRunner {
 
   @Test
   @DisplayName("test")
   void test() throws NoSuchMethodException {
     Assertions.assertThrowsExactly(
-        IllegalArgumentException.class,
-        () -> {
-          new Person("name", -1);
-        });
+        IllegalArgumentException.class, () -> new PersonService().save(new Person(null, null)));
+  }
+
+  static class PersonService {
+
+    public void save(@NotNull @Valid Person person) throws NoSuchMethodException {
+      Method method = getClass().getMethod("save", Person.class);
+      Set<ConstraintViolation<PersonService>> violations =
+          ValidationUtils.obtainExecutableValidator()
+              .validateParameters(this, method, new Object[] {person});
+      if (!violations.isEmpty()) {
+        ValidationUtils.printViolations(violations);
+        throw new IllegalArgumentException("参数错误");
+      }
+    }
   }
 
   record Person(@NotNull String name, @NotNull @Min(0) Integer age) {
