@@ -16,3 +16,4 @@ logging:
     org.springframework.security: debug
     org.springframework.security.oauth2: debug
     org.springframework.jdbc.datasource.embedded: info
+    org.springframework.security.oauth2.server.authorization.web.OAuth2AuthorizationEndpointFilter: trace

@@ -13,23 +13,30 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.client;
+package io.github.code13.spring.security.oauth2.client.sso;
 
-import io.github.code13.spring.security.oauth2.client.sso.EnableSsoOnClient;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * OAuth2ClientApplication.
+ * OAuth2SsoProperties.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @date 2022/2/15 21:56
+ * @since 2022/12/12 15:29
  */
-@EnableSsoOnClient
-@SpringBootApplication
-public class OAuth2ClientApplication {
+@Getter
+@Setter
+@ConfigurationProperties(prefix = "sso.web")
+class OAuth2SsoProperties {
 
-  public static void main(String[] args) {
-    SpringApplication.run(OAuth2ClientApplication.class, args);
-  }
+  private boolean enable = true;
+
+  private List<String> whiteList = new ArrayList<>();
+
+  private String redirectUriKey = "redirectUrl";
+
+  private String homePage = "/";
 }

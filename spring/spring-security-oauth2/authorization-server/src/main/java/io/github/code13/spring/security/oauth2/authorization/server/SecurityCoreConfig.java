@@ -15,7 +15,10 @@
 
 package io.github.code13.spring.security.oauth2.authorization.server;
 
+import java.nio.charset.StandardCharsets;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -38,7 +41,9 @@ public class SecurityCoreConfig {
   // @formatter:off
   @Bean
   SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-    http.authorizeRequests(
+    http.csrf()
+        .disable()
+        .authorizeRequests(
             authorizeRequests ->
                 authorizeRequests
                     .antMatchers("/login.html", "/login/oauth2")
@@ -47,9 +52,18 @@ public class SecurityCoreConfig {
         .formLogin()
         .loginPage("/login.html")
         .loginProcessingUrl("/login/form")
-        .and()
-        .csrf()
-        .disable();
+        .failureHandler(
+            (request, response, exception) -> {
+              response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+              response.setCharacterEncoding(StandardCharsets.UTF_8.displayName());
+              response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+              response
+                  .getWriter()
+                  .write(
+                      """
+                         {"code": 401, "message": "账号或密码错误"}
+                         """);
+            });
     return http.build();
   }
   // @formatter:on

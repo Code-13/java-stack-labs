@@ -35,12 +35,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class OAuth2ClientController {
 
   /**
-   * redirect_uri.
+   * client idm.
    *
-   * @param client ID为{@code code13-auth}的客户端信息，注意ClientRegistration中必须包含该ID
    * @return the map
    */
-  @GetMapping("/foo/bar")
+  @GetMapping("/iam")
   public Map<String, Object> bar(
       @RegisteredOAuth2AuthorizedClient("iam") OAuth2AuthorizedClient client) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -51,12 +50,12 @@ public class OAuth2ClientController {
   }
 
   /**
-   * 登录成功后默认跳转页.
+   * client iam-oidc.
    *
    * @param authentication 当前认证信息
    * @return the map
    */
-  @GetMapping("/")
+  @GetMapping("/iam-oidc")
   public Map<String, Object> index(
       @RegisteredOAuth2AuthorizedClient("iam-oidc") OAuth2AuthorizedClient client,
       @CurrentSecurityContext(expression = "authentication") Authentication authentication) {
@@ -67,15 +66,18 @@ public class OAuth2ClientController {
   }
 
   /**
-   * 登录成功后默认跳转页.
+   * 受保护接口.
    *
    * @return the map
    */
-  @GetMapping("/code13")
+  @GetMapping("/")
   public Map<String, Object> code13() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
     HashMap<String, Object> map = new HashMap<>();
     map.put("code", 0);
-    map.put("msg", "这是一个受保护的接口");
+    map.put("msg", "Spring Security OAuth2 Client 与 Spring Security Authorization Server 集成成功");
+    map.put("principal", authentication.getPrincipal());
     return map;
   }
 }

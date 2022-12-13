@@ -13,15 +13,37 @@
   ~ limitations under the License.
   -->
 
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    const importMap = {
+      imports: {
+        "vue": "https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.prod.js"
+      },
+    };
+
+    const im = document.createElement('script');
+    im.type = 'importmap';
+    im.textContent = JSON.stringify(importMap);
+    document.currentScript.after(im);
+  </script>
+</head>
+<body>
 <form action="/login/form" method="post">
   <div class="input">
     <label for="username">用户名</label>
-    <input type="text" name="username" id="username">
+    <input type="text" name="username" id="username" required>
     <span class="spin"></span>
   </div>
   <div class="input">
     <label for="password">密码</label>
-    <input type="password" name="password" id="password">
+    <input type="password" name="password" id="password" required>
     <span class="spin"></span>
   </div>
   <div class="button login">
@@ -31,3 +53,5 @@
     </button>
   </div>
 </form>
+</body>
+</html>

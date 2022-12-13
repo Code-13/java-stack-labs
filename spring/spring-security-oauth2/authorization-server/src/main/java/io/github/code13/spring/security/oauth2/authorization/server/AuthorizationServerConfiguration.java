@@ -101,10 +101,10 @@ public class AuthorizationServerConfiguration {
             .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
             // 回调地址名单，不在此列将被拒绝 而且只能使用IP或者域名  不能使用 localhost
             // 根据 Oauth2 标准，回调地址应该是 oauth2 client 端
-            .redirectUri("http://127.0.0.1:8080/login/oauth2/code/iam")
-            .redirectUri("http://127.0.0.1:8080/login/oauth2/code/iam-oidc")
-            //            .redirectUri("http://127.0.0.1:8080/authorized")
-            //            .redirectUri("http://127.0.0.1:8080/foo/bar")
+            .redirectUri("http://127.0.0.1:9001/login/oauth2/code/iam")
+            .redirectUri("http://127.0.0.1:9001/login/oauth2/code/iam-oidc")
+            //            .redirectUri("http://127.0.0.1:9001/authorized")
+            //            .redirectUri("http://127.0.0.1:9001/foo/bar")
             .redirectUri("https://www.baidu.com")
             .scope(OidcScopes.OPENID)
             .scope("message.read")

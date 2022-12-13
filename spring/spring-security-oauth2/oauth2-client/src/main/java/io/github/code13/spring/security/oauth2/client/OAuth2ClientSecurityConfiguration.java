@@ -15,9 +15,10 @@
 
 package io.github.code13.spring.security.oauth2.client;
 
+import java.util.Collections;
+import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
@@ -26,8 +27,10 @@ import org.springframework.security.web.SecurityFilterChain;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2022/2/15 22:01
  */
-@EnableWebSecurity(debug = true)
+// @EnableWebSecurity(debug = true)
 public class OAuth2ClientSecurityConfiguration {
+
+  private final List<String> whiteList = Collections.emptyList();
 
   /**
    * 放开对{@code redirect_uri}的访问，否则会出现{@code 403}，授权服务器需要回调该地址
@@ -41,17 +44,21 @@ public class OAuth2ClientSecurityConfiguration {
     httpSecurity
         .csrf()
         .disable()
-        .authorizeRequests()
-        .anyRequest()
-        .authenticated()
+        .cors()
         .and()
+        .authorizeRequests(
+            registry -> registry.antMatchers(whiteList.toArray(new String[0])).permitAll())
+        .authorizeRequests(registry -> registry.anyRequest().authenticated())
         // oauth2.0 login
         .oauth2Login();
+
     return httpSecurity.build();
   }
 }
 
-//       /oauth2/authorization/{registrationId}
+/*
+ * 前端访问 /oauth2/authorization/{registrationId}
+ */
 
 /*
  * 如果需要拿授权方的用户信息需要走 oauth2Login()
