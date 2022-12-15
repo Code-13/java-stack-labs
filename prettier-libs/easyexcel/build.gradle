@@ -10,9 +10,8 @@ targetCompatibility = "${javaVersion}"
 
 dependencies {
     //https://www.yuque.com/easyexcel
-    implementation 'com.alibaba:easyexcel'
-
-    implementation 'ch.qos.logback:logback-classic'
-
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'com.alibaba:easyexcel'
+    testImplementation 'ch.qos.logback:logback-classic'
+    testImplementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.apache.commons:commons-lang3'
 }

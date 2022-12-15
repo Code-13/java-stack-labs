@@ -20,7 +20,7 @@ configure(subprojects) {
     group 'io.github.code13.libs'
 
     dependencies {
-        implementation 'org.apache.commons:commons-lang3'
+        //implementation 'org.apache.commons:commons-lang3'
     }
 
 }

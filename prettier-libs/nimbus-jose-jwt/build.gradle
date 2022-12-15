@@ -1,4 +1,4 @@
 dependencies {
-    implementation 'com.nimbusds:nimbus-jose-jwt:9.25.1'
-    testImplementation 'org.springframework:spring-core'
+    testImplementation 'com.nimbusds:nimbus-jose-jwt'
+    testCompileOnly 'org.springframework:spring-core'
 }
