@@ -3,9 +3,16 @@ server:
 spring:
   application:
     name: authorization-server
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:authorization-server;MODE=MySQL;DATABASE_TO_LOWER=TRUE
   h2:
     console:
       enabled: true
+      settings:
+        trace: true
+        web-allow-others: true
+      path: /h2-console
   freemarker:
     suffix: .html
 

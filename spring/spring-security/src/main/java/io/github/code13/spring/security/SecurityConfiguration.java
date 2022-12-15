@@ -19,6 +19,7 @@ import io.github.code13.spring.security.old.CaptchaAuthenticationFilterConfigure
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -26,7 +27,6 @@ import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -142,9 +142,22 @@ public class SecurityConfiguration {
     return http.build();
   }
 
+  /**
+   * @see https://github.com/spring-projects/spring-security/issues/10938
+   */
   @Bean
-  WebSecurityCustomizer webSecurityCustomizer() {
-    return web -> web.ignoring().antMatchers("/h2-console/**");
+  @Order(0)
+  SecurityFilterChain resources(HttpSecurity http) throws Exception {
+    http.requestMatchers(matchers -> matchers.antMatchers("/h2-console/**"))
+        .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
+        .requestCache()
+        .disable()
+        .securityContext()
+        .disable()
+        .sessionManagement()
+        .disable();
+
+    return http.build();
   }
 }
 

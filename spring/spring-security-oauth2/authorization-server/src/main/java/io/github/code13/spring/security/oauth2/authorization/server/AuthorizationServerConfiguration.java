@@ -93,9 +93,9 @@ public class AuthorizationServerConfiguration {
             .clientId("test-client")
             .clientSecret("{noop}secret")
             .clientName("test")
-            // 授权方法
+            // client 认证方法
             .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-            // 授权类型
+            // 授权类型 (implicit 和 password 均已被废弃)
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
             .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
             .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
