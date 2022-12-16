@@ -1,5 +1,6 @@
-import {defineConfig} from 'vite'
-import vue from '@vitejs/plugin-vue'
+import {defineConfig} from 'vite';
+import vue from '@vitejs/plugin-vue';
+import windiCSS from 'vite-plugin-windicss';
 import {resolve} from 'path';
 
 function pathResolve(dir: string) {
@@ -19,7 +20,7 @@ export default defineConfig({
         find: /@\//,
         replacement: pathResolve('src') + '/',
       },
-    ]
+    ],
   },
-  plugins: [vue()],
-})
+  plugins: [vue(), windiCSS()],
+});

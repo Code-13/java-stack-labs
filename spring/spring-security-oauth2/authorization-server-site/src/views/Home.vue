@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import HelloWorld from '../components/SpringAuthorizationServer.vue'</script>
+import HelloWorld from '../components/SpringAuthorizationServer.vue';</script>
 
 <template>
   <div>
