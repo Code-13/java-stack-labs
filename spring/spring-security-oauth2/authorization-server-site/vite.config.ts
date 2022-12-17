@@ -1,7 +1,7 @@
-import {defineConfig} from 'vite';
+import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import windiCSS from 'vite-plugin-windicss';
-import {resolve} from 'path';
+import { resolve } from 'path';
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);

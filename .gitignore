@@ -44,7 +44,6 @@ secrets.yml
 # front end project
 node_modules
 dist
-.npmrc
 .cache
 
 tests/server/static
