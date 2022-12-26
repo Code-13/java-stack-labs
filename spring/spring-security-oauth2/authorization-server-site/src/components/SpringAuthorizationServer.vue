@@ -5,7 +5,7 @@
 <template>
   <h1>{{ msg }}</h1>
   <p class="read-the-docs">
-    Click on the OAuth2 OIDC and Spring Authorization Server logos to learn more
+    Click on the OAuth2、OIDC and Spring Authorization Server logos to learn more
   </p>
 </template>
 
