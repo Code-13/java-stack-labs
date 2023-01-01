@@ -79,8 +79,8 @@ class JwksConfiguration {
             .getClaims()
             .claims(
                 claims -> {
-                  claims.put("claim-1", "value-1");
-                  claims.put("claim-2", "value-2");
+                  claims.put("user_info", context.getPrincipal().getPrincipal());
+                  claims.put("测试字段", "这是一个测试字段");
                 });
       }
     };
