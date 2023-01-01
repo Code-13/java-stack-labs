@@ -59,6 +59,21 @@ Authorization: Basic bWVzc2FnaW5nLWNsaWVudDpzZWNyZXQ=
 
 ### 7. 授权服务器将Token返回给客户端，完成请求，
 
+## 
+
+```bash
+# 生成RSA证书
+# genkey 生成密钥
+# alias 别名
+# keyalg 密钥算法
+# keypass 密钥口令
+# keystore 生成密钥库的存储路径和名称
+# storepass 密钥库口令
+
+keytool -genkey -alias authorization-server -keyalg RSA -keypass 123456 -storepass 123456 -keystore jwt.jks
+keytool -genkey -alias <alias> -keyalg RSA -keypass <keypass> -keystore <filename>.jks -storepass <storepass>
+```
+
 ## [流程解析](https://www.yuque.com/pig4cloud/pig/dqnyuc)
 
 ### /oauth2/authorize

@@ -20,6 +20,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
+import org.springframework.core.Ordered;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
@@ -94,8 +95,9 @@ class OAuth2SsoAutoConfiguration {
     config.addAllowedHeader("*");
     config.addAllowedMethod("*");
     source.registerCorsConfiguration("/**", config);
-    FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
-    bean.setOrder(Integer.MIN_VALUE);
-    return bean;
+    FilterRegistrationBean<CorsFilter> filterRegistrationBean =
+        new FilterRegistrationBean<>(new CorsFilter(source));
+    filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    return filterRegistrationBean;
   }
 }

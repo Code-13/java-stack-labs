@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.authorization.server;
+package io.github.code13.spring.security.oauth2.authorization.server.config;
 
 import java.nio.charset.StandardCharsets;
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +36,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * @date 2022/2/15 20:15
  */
 @EnableWebSecurity(debug = true)
-public class SecurityCoreConfig {
+class SecurityCoreConfig {
 
   // @formatter:off
   @Bean

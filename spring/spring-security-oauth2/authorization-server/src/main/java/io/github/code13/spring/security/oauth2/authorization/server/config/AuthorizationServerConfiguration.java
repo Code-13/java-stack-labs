@@ -13,24 +13,13 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.authorization.server;
+package io.github.code13.spring.security.oauth2.authorization.server.config;
 
-import com.nimbusds.jose.JOSEException;
-import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.jwk.source.JWKSource;
-import com.nimbusds.jose.proc.SecurityContext;
-import java.io.IOException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
 import java.util.UUID;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -41,7 +30,6 @@ import org.springframework.security.config.annotation.web.configurers.oauth2.ser
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
@@ -64,7 +52,7 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
  * @date 2022/2/15 20:14
  */
 @Configuration
-public class AuthorizationServerConfiguration {
+class AuthorizationServerConfiguration {
 
   @Bean
   @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -131,30 +119,6 @@ public class AuthorizationServerConfiguration {
   OAuth2AuthorizationConsentService authorizationConsentService(
       JdbcTemplate jdbcTemplate, RegisteredClientRepository registeredClientRepository) {
     return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
-  }
-
-  @Bean
-  JWKSource<SecurityContext> jwkSource()
-      throws KeyStoreException, IOException, JOSEException, CertificateException,
-          NoSuchAlgorithmException {
-    // 这里优化到配置
-    String path = "felordcn.jks";
-    String alias = "felordcn";
-    String pass = "123456";
-
-    ClassPathResource resource = new ClassPathResource(path);
-    KeyStore jks = KeyStore.getInstance("jks");
-    char[] pin = pass.toCharArray();
-    jks.load(resource.getInputStream(), pin);
-    RSAKey rsaKey = RSAKey.load(jks, alias, pin);
-
-    JWKSet jwkSet = new JWKSet(rsaKey);
-    return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
-  }
-
-  @Bean
-  public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
-    return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
   }
 
   /**
