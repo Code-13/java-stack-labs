@@ -15,9 +15,8 @@
 
 package io.github.code13.spring.security.oauth2.authorization.server.config;
 
-import io.github.code13.spring.security.oauth2.authorization.server.extension.password.OAuth2PasswordAuthenticationConverter;
-import io.github.code13.spring.security.oauth2.authorization.server.extension.password.OAuth2PasswordAuthenticationProvider;
-import java.util.Arrays;
+import io.github.code13.spring.security.oauth2.authorization.server.extension.AuthorizationGrantTypes;
+import io.github.code13.spring.security.oauth2.authorization.server.extension.configurer.OAuth2AuthorizationServerExtensionConfigurer;
 import java.util.UUID;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,13 +26,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
@@ -46,14 +45,7 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
-import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
-import org.springframework.security.oauth2.server.authorization.web.authentication.DelegatingAuthenticationConverter;
-import org.springframework.security.oauth2.server.authorization.web.authentication.OAuth2AuthorizationCodeAuthenticationConverter;
-import org.springframework.security.oauth2.server.authorization.web.authentication.OAuth2AuthorizationCodeRequestAuthenticationConverter;
-import org.springframework.security.oauth2.server.authorization.web.authentication.OAuth2ClientCredentialsAuthenticationConverter;
-import org.springframework.security.oauth2.server.authorization.web.authentication.OAuth2RefreshTokenAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
@@ -78,13 +70,7 @@ class AuthorizationServerConfiguration {
         .authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
         .csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
         .apply(authorizationServerConfigurer)
-        .tokenEndpoint(
-            tokenEndpoint ->
-                // 注入自定义的授权认证Converter
-                tokenEndpoint.accessTokenRequestConverter(accessTokenRequestConverter()));
-
-    // Enable OpenID Connect 1.0
-    http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(Customizer.withDefaults());
+        .oidc(Customizer.withDefaults()); // Enable OpenID Connect 1.0
 
     // @formatter:off
     http.exceptionHandling(
@@ -96,38 +82,23 @@ class AuthorizationServerConfiguration {
 
     http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 
-    SecurityFilterChain securityFilterChain = http.build();
+    // 注入自定义的授权类型
+    http.apply(new OAuth2AuthorizationServerExtensionConfigurer())
+        .sms( // 配置 SMS
+            sms ->
+                sms.smsService((phone, code) -> true)
+                    .smsUserDetailsService(
+                        phone ->
+                            User.builder()
+                                .username("sms-user")
+                                .password("sms")
+                                .passwordEncoder(
+                                    PasswordEncoderFactories.createDelegatingPasswordEncoder()
+                                        ::encode)
+                                .roles("USER")
+                                .build()));
 
-    // 注入自定义授权模式实现
-    // 必须在 HttpSecurity.build 之后注入
-    addCustomOAuth2GrantAuthenticationProvider(http);
-
-    return securityFilterChain;
-  }
-
-  private AuthenticationConverter accessTokenRequestConverter() {
-    return new DelegatingAuthenticationConverter(
-        Arrays.asList(
-            new OAuth2PasswordAuthenticationConverter(),
-            new OAuth2RefreshTokenAuthenticationConverter(),
-            new OAuth2ClientCredentialsAuthenticationConverter(),
-            new OAuth2AuthorizationCodeAuthenticationConverter(),
-            new OAuth2AuthorizationCodeRequestAuthenticationConverter()));
-  }
-
-  private void addCustomOAuth2GrantAuthenticationProvider(HttpSecurity http) {
-    AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
-    OAuth2AuthorizationService authorizationService =
-        http.getSharedObject(OAuth2AuthorizationService.class);
-    OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator =
-        http.getSharedObject(OAuth2TokenGenerator.class);
-
-    OAuth2PasswordAuthenticationProvider oAuth2PasswordAuthenticationProvider =
-        new OAuth2PasswordAuthenticationProvider(
-            authorizationService, tokenGenerator, authenticationManager);
-
-    // 处理 OAuth2ResourceOwnerPasswordAuthenticationToken
-    http.authenticationProvider(oAuth2PasswordAuthenticationProvider);
+    return http.build();
   }
 
   @Bean
@@ -145,7 +116,8 @@ class AuthorizationServerConfiguration {
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
             .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
             .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-            .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+            .authorizationGrantType(AuthorizationGrantType.PASSWORD) // password
+            .authorizationGrantType(AuthorizationGrantTypes.SMS) // SMS
             // 回调地址名单，不在此列将被拒绝 而且只能使用IP或者域名  不能使用 localhost
             // 根据 Oauth2 标准，回调地址应该是 oauth2 client 端
             .redirectUri("http://127.0.0.1:9001/login/oauth2/code/iam")

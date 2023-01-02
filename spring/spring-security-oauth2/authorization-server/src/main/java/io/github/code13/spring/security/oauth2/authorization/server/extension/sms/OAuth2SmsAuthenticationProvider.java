@@ -13,33 +13,29 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.authorization.server.extension.password;
+package io.github.code13.spring.security.oauth2.authorization.server.extension.sms;
 
-import io.github.code13.spring.security.oauth2.authorization.server.extension.OAuth2ErrorCodesExtension;
+import io.github.code13.spring.security.oauth2.authorization.server.extension.AuthorizationGrantTypes;
+import io.github.code13.spring.security.oauth2.authorization.server.extension.OAuth2ParameterNamesExtension;
 import io.github.code13.spring.security.oauth2.authorization.server.extension.OAuth2ResourceOwnerAuthenticationProvider;
 import java.util.Map;
-import java.util.Set;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Token;
-import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 
 /**
- * OAuth2PasswordAuthenticationProvider.
+ * OAuth2SmsAuthenticationProvider.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @since 2023/1/1 14:15
+ * @since 2023/1/2 18:22
  */
-public class OAuth2PasswordAuthenticationProvider
-    extends OAuth2ResourceOwnerAuthenticationProvider<OAuth2PasswordAuthenticationToken> {
+public class OAuth2SmsAuthenticationProvider
+    extends OAuth2ResourceOwnerAuthenticationProvider<OAuth2SmsAuthenticationToken> {
 
-  public OAuth2PasswordAuthenticationProvider(
+  protected OAuth2SmsAuthenticationProvider(
       OAuth2AuthorizationService authorizationService,
       OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator,
       AuthenticationManager authenticationManager) {
@@ -48,29 +44,21 @@ public class OAuth2PasswordAuthenticationProvider
 
   @Override
   protected AuthorizationGrantType getSupportGrantType() {
-    return AuthorizationGrantType.PASSWORD;
+    return AuthorizationGrantTypes.SMS;
   }
 
   @Override
-  protected Set<String> getAuthorizedScopes(
-      OAuth2PasswordAuthenticationToken token, RegisteredClient registeredClient) {
-    Set<String> authorizedScopes = super.getAuthorizedScopes(token, registeredClient);
-    if (authorizedScopes.isEmpty()) {
-      throw new OAuth2AuthenticationException(OAuth2ErrorCodesExtension.SCOPE_IS_EMPTY);
-    }
-    return authorizedScopes;
-  }
-
-  @Override
-  protected Authentication buildAuthenticationToken(OAuth2PasswordAuthenticationToken token) {
+  protected Authentication buildAuthenticationToken(OAuth2SmsAuthenticationToken token) {
     Map<String, Object> additionalParameters = token.getAdditionalParameters();
-    String username = (String) additionalParameters.get(OAuth2ParameterNames.USERNAME);
-    String password = (String) additionalParameters.get(OAuth2ParameterNames.PASSWORD);
-    return new UsernamePasswordAuthenticationToken(username, password);
+    String phone =
+        (String) additionalParameters.get(OAuth2ParameterNamesExtension.SMS_PHONE_PARAMETER_NAME);
+    String code =
+        (String) additionalParameters.get(OAuth2ParameterNamesExtension.SMS_CODE_PARAMETER_NAME);
+    return SmsAuthenticationToken.unauthenticated(phone, code);
   }
 
   @Override
   public boolean supports(Class<?> authentication) {
-    return OAuth2PasswordAuthenticationToken.class.isAssignableFrom(authentication);
+    return OAuth2SmsAuthenticationToken.class.isAssignableFrom(authentication);
   }
 }

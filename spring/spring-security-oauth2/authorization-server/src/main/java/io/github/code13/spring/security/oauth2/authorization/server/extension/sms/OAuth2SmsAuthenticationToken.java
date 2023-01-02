@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.authorization.server.extension.password;
+package io.github.code13.spring.security.oauth2.authorization.server.extension.sms;
 
 import io.github.code13.spring.security.oauth2.authorization.server.extension.OAuth2ResourceOwnerAuthenticationToken;
 import java.io.Serial;
@@ -23,16 +23,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 
 /**
- * OAuth2PasswordAuthenticationToken.
+ * OAuth2SmsAuthenticationToken.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @since 2023/1/1 14:03
+ * @since 2023/1/2 18:15
  */
-public class OAuth2PasswordAuthenticationToken extends OAuth2ResourceOwnerAuthenticationToken {
+public class OAuth2SmsAuthenticationToken extends OAuth2ResourceOwnerAuthenticationToken {
 
-  @Serial private static final long serialVersionUID = -7377091333086175044L;
+  @Serial private static final long serialVersionUID = 3517168880376549032L;
 
-  public OAuth2PasswordAuthenticationToken(
+  public OAuth2SmsAuthenticationToken(
       AuthorizationGrantType authorizationGrantType,
       Authentication clientPrincipal,
       Set<String> scopes,
