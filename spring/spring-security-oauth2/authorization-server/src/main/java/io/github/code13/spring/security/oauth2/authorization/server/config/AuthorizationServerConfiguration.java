@@ -15,8 +15,12 @@
 
 package io.github.code13.spring.security.oauth2.authorization.server.config;
 
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.code13.spring.security.oauth2.authorization.server.extension.AuthorizationGrantTypes;
-import io.github.code13.spring.security.oauth2.authorization.server.extension.configurer.OAuth2AuthorizationServerExtensionConfigurer;
+import io.github.code13.spring.security.oauth2.authorization.server.extension.configurers.OAuth2AuthorizationServerExtensionConfigurer;
+import io.github.code13.spring.security.oauth2.authorization.server.extension.jackson2.OAuth2AuthorizationServerExtensionJackson2Module;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,17 +35,23 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService.OAuth2AuthorizationParametersMapper;
+import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService.OAuth2AuthorizationRowMapper;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository.RegisteredClientParametersMapper;
+import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository.RegisteredClientRowMapper;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
+import org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
@@ -58,6 +68,8 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 @Configuration
 class AuthorizationServerConfiguration {
 
+  static final ObjectMapper objectMapper = createObjectMapper();
+
   @Bean
   @Order(Ordered.HIGHEST_PRECEDENCE)
   SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -70,15 +82,12 @@ class AuthorizationServerConfiguration {
         .authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
         .csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
         .apply(authorizationServerConfigurer)
-        .oidc(Customizer.withDefaults()); // Enable OpenID Connect 1.0
-
-    // @formatter:off
-    http.exceptionHandling(
-        exceptions ->
-            exceptions.authenticationEntryPoint(
-                new LoginUrlAuthenticationEntryPoint("/login.html"))); // 此处可直接跳转至登录页面，也可中转
-    // new LoginUrlAuthenticationEntryPoint("/login/oauth2")
-    // @formatter:on
+        .oidc(Customizer.withDefaults()) // Enable OIDC
+        .and()
+        .exceptionHandling(
+            exceptions ->
+                exceptions.authenticationEntryPoint(
+                    new LoginUrlAuthenticationEntryPoint("/login.html")));
 
     http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 
@@ -135,6 +144,17 @@ class AuthorizationServerConfiguration {
     // 每次都会初始化  生产的话 只初始化JdbcRegisteredClientRepository
     JdbcRegisteredClientRepository registeredClientRepository =
         new JdbcRegisteredClientRepository(jdbcTemplate);
+
+    RegisteredClientRowMapper registeredClientRowMapper = new RegisteredClientRowMapper();
+    registeredClientRowMapper.setObjectMapper(objectMapper);
+    registeredClientRepository.setRegisteredClientRowMapper(registeredClientRowMapper);
+
+    RegisteredClientParametersMapper registeredClientParametersMapper =
+        new RegisteredClientParametersMapper();
+    registeredClientParametersMapper.setObjectMapper(objectMapper);
+    registeredClientRepository.setRegisteredClientParametersMapper(
+        registeredClientParametersMapper);
+
     registeredClientRepository.save(registeredClient);
 
     return registeredClientRepository;
@@ -143,7 +163,20 @@ class AuthorizationServerConfiguration {
   @Bean
   OAuth2AuthorizationService authorizationService(
       JdbcTemplate jdbcTemplate, RegisteredClientRepository registeredClientRepository) {
-    return new JdbcOAuth2AuthorizationService(jdbcTemplate, registeredClientRepository);
+    JdbcOAuth2AuthorizationService authorizationService =
+        new JdbcOAuth2AuthorizationService(jdbcTemplate, registeredClientRepository);
+
+    OAuth2AuthorizationRowMapper authorizationRowMapper =
+        new OAuth2AuthorizationRowMapper(registeredClientRepository);
+    authorizationRowMapper.setObjectMapper(objectMapper);
+    authorizationService.setAuthorizationRowMapper(authorizationRowMapper);
+
+    OAuth2AuthorizationParametersMapper authorizationParametersMapper =
+        new OAuth2AuthorizationParametersMapper();
+    authorizationParametersMapper.setObjectMapper(objectMapper);
+    authorizationService.setAuthorizationParametersMapper(authorizationParametersMapper);
+
+    return authorizationService;
   }
 
   @Bean
@@ -170,5 +203,15 @@ class AuthorizationServerConfiguration {
         .addScript(
             "org/springframework/security/oauth2/server/authorization/client/oauth2-registered-client-schema.sql")
         .build();
+  }
+
+  private static ObjectMapper createObjectMapper() {
+    ObjectMapper objectMapper = new ObjectMapper();
+    ClassLoader classLoader = AuthorizationServerConfiguration.class.getClassLoader();
+    List<Module> securityModules = SecurityJackson2Modules.getModules(classLoader);
+    objectMapper.registerModules(securityModules);
+    objectMapper.registerModule(new OAuth2AuthorizationServerJackson2Module());
+    objectMapper.registerModule(new OAuth2AuthorizationServerExtensionJackson2Module());
+    return objectMapper;
   }
 }

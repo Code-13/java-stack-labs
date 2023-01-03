@@ -13,11 +13,13 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.authorization.server.extension.password;
+package io.github.code13.spring.security.oauth2.authorization.server.extension.configurers;
 
+import io.github.code13.spring.security.oauth2.authorization.server.extension.password.OAuth2PasswordAuthenticationConverter;
+import io.github.code13.spring.security.oauth2.authorization.server.extension.password.OAuth2PasswordAuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
@@ -29,11 +31,14 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2023/1/2 22:13
  */
-public class OAuth2PasswordConfigurer
-    extends AbstractHttpConfigurer<OAuth2PasswordConfigurer, HttpSecurity> {
+public class OAuth2PasswordConfigurer extends AbstractOAuth2Configurer {
+
+  public OAuth2PasswordConfigurer(ObjectPostProcessor<Object> objectPostProcessor) {
+    super(objectPostProcessor);
+  }
 
   @Override
-  public void init(HttpSecurity http) throws Exception {
+  public void init(HttpSecurity http) {
     http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
         .tokenEndpoint(
             token ->
@@ -41,7 +46,7 @@ public class OAuth2PasswordConfigurer
   }
 
   @Override
-  public void configure(HttpSecurity http) throws Exception {
+  public void configure(HttpSecurity http) {
     AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
     OAuth2AuthorizationService authorizationService =
         http.getSharedObject(OAuth2AuthorizationService.class);
@@ -52,7 +57,7 @@ public class OAuth2PasswordConfigurer
         new OAuth2PasswordAuthenticationProvider(
             authorizationService, tokenGenerator, authenticationManager);
 
-    // 处理 OAuth2ResourceOwnerPasswordAuthenticationToken
+    // 处理 OAuth2PasswordAuthenticationToken
     http.authenticationProvider(oAuth2PasswordAuthenticationProvider);
   }
 }

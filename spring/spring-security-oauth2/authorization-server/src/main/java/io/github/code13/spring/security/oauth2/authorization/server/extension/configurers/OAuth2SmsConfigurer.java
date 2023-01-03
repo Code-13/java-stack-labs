@@ -13,18 +13,20 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.authorization.server.extension.sms;
+package io.github.code13.spring.security.oauth2.authorization.server.extension.configurers;
 
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.context.ApplicationContext;
+import io.github.code13.spring.security.oauth2.authorization.server.extension.sms.OAuth2SmsAuthenticationConverter;
+import io.github.code13.spring.security.oauth2.authorization.server.extension.sms.OAuth2SmsAuthenticationProvider;
+import io.github.code13.spring.security.oauth2.authorization.server.extension.sms.SmsAuthenticationProvider;
+import io.github.code13.spring.security.oauth2.authorization.server.extension.sms.SmsService;
+import io.github.code13.spring.security.oauth2.authorization.server.extension.sms.SmsUserDetailsService;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
-import org.springframework.util.Assert;
 
 /**
  * OAuth2SmsConfigurer.
@@ -32,24 +34,30 @@ import org.springframework.util.Assert;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2023/1/2 22:38
  */
-public class OAuth2SmsConfigurer extends AbstractHttpConfigurer<OAuth2SmsConfigurer, HttpSecurity> {
+public class OAuth2SmsConfigurer extends AbstractOAuth2Configurer {
 
   private SmsService smsService;
   private SmsUserDetailsService smsUserDetailsService;
 
+  public OAuth2SmsConfigurer(ObjectPostProcessor<Object> objectPostProcessor) {
+    super(objectPostProcessor);
+  }
+
   @Override
-  public void init(HttpSecurity http) throws Exception {
+  public void init(HttpSecurity http) {
     http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
         .tokenEndpoint(
             token -> token.accessTokenRequestConverter(new OAuth2SmsAuthenticationConverter()));
   }
 
   @Override
-  public void configure(HttpSecurity http) throws Exception {
+  public void configure(HttpSecurity http) {
     // ----- OAuth2SmsAuthenticationProvider / OAuth2SmsAuthenticationToken -----
     AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
     OAuth2AuthorizationService authorizationService =
         http.getSharedObject(OAuth2AuthorizationService.class);
+
+    @SuppressWarnings("unchecked")
     OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator =
         http.getSharedObject(OAuth2TokenGenerator.class);
 
@@ -60,16 +68,13 @@ public class OAuth2SmsConfigurer extends AbstractHttpConfigurer<OAuth2SmsConfigu
     http.authenticationProvider(oAuth2PasswordAuthenticationProvider);
 
     // ----- SmsAuthenticationProvider / SmsAuthenticationToken -----
-    ApplicationContext applicationContext = http.getSharedObject(ApplicationContext.class);
     if (smsService == null) {
-      smsService = getBeanOrNull(applicationContext, SmsService.class);
+      smsService = OAuth2ConfigurerUtils.getBean(http, SmsService.class);
     }
-    Assert.notNull(smsService, "SmsService must be configurer");
 
     if (smsUserDetailsService == null) {
-      smsUserDetailsService = getBeanOrNull(applicationContext, SmsUserDetailsService.class);
+      smsUserDetailsService = OAuth2ConfigurerUtils.getBean(http, SmsUserDetailsService.class);
     }
-    Assert.notNull(smsUserDetailsService, "SmsUserDetailsService must be configurer");
 
     http.authenticationProvider(new SmsAuthenticationProvider(smsService, smsUserDetailsService));
   }
@@ -82,13 +87,5 @@ public class OAuth2SmsConfigurer extends AbstractHttpConfigurer<OAuth2SmsConfigu
   public OAuth2SmsConfigurer smsUserDetailsService(SmsUserDetailsService smsUserDetailsService) {
     this.smsUserDetailsService = smsUserDetailsService;
     return this;
-  }
-
-  protected static <T> T getBeanOrNull(ApplicationContext applicationContext, Class<T> type) {
-    try {
-      return applicationContext.getBean(type);
-    } catch (NoSuchBeanDefinitionException notFound) {
-      return null;
-    }
   }
 }

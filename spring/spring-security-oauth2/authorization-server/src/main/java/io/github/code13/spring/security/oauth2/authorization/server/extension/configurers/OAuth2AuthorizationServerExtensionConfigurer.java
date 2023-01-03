@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.authorization.server.extension.configurer;
+package io.github.code13.spring.security.oauth2.authorization.server.extension.configurers;
 
-import io.github.code13.spring.security.oauth2.authorization.server.extension.password.OAuth2PasswordConfigurer;
-import io.github.code13.spring.security.oauth2.authorization.server.extension.sms.OAuth2SmsConfigurer;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -24,36 +24,54 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 /**
  * OAuth2AuthorizationServerExtensionConfigurer.
  *
+ * <p>参考 {@link
+ * org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer}
+ *
+ * @see
+ *     org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2023/1/2 22:10
  */
 public class OAuth2AuthorizationServerExtensionConfigurer
     extends AbstractHttpConfigurer<OAuth2AuthorizationServerExtensionConfigurer, HttpSecurity> {
 
-  OAuth2PasswordConfigurer passwordConfigurer = new OAuth2PasswordConfigurer();
-  OAuth2SmsConfigurer smsConfigurer = new OAuth2SmsConfigurer();
+  private final Map<Class<? extends AbstractOAuth2Configurer>, AbstractOAuth2Configurer>
+      configurers = createConfigurers();
+
+  private Map<Class<? extends AbstractOAuth2Configurer>, AbstractOAuth2Configurer>
+      createConfigurers() {
+    Map<Class<? extends AbstractOAuth2Configurer>, AbstractOAuth2Configurer> initConfigurers =
+        new LinkedHashMap<>();
+    initConfigurers.put(
+        OAuth2PasswordConfigurer.class, new OAuth2PasswordConfigurer(this::postProcess));
+    initConfigurers.put(OAuth2SmsConfigurer.class, new OAuth2SmsConfigurer(this::postProcess));
+    return initConfigurers;
+  }
 
   @Override
   public void init(HttpSecurity http) throws Exception {
-    passwordConfigurer.init(http);
-    smsConfigurer.init(http);
+    configurers.values().forEach(configurer -> configurer.init(http));
   }
 
   @Override
   public void configure(HttpSecurity http) throws Exception {
-    passwordConfigurer.configure(http);
-    smsConfigurer.configure(http);
+    configurers.values().forEach(configurer -> configurer.configure(http));
   }
 
   public OAuth2AuthorizationServerExtensionConfigurer password(
       Customizer<OAuth2PasswordConfigurer> passwordConfigurerCustomizer) {
-    passwordConfigurerCustomizer.customize(passwordConfigurer);
+    passwordConfigurerCustomizer.customize(getConfigurer(OAuth2PasswordConfigurer.class));
     return this;
   }
 
   public OAuth2AuthorizationServerExtensionConfigurer sms(
       Customizer<OAuth2SmsConfigurer> smsConfigurerCustomizer) {
-    smsConfigurerCustomizer.customize(smsConfigurer);
+    smsConfigurerCustomizer.customize(getConfigurer(OAuth2SmsConfigurer.class));
     return this;
+  }
+
+  @SuppressWarnings("unchecked")
+  private <T> T getConfigurer(Class<T> type) {
+    return (T) configurers.get(type);
   }
 }

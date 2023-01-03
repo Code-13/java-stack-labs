@@ -15,6 +15,7 @@
 
 package io.github.code13.spring.security.oauth2.authorization.server.extension.sms;
 
+import io.github.code13.spring.security.oauth2.authorization.server.extension.AuthorizationServerMessageSource;
 import java.util.Collection;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -23,7 +24,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.authority.mapping.NullAuthoritiesMapper;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,13 +38,14 @@ import org.springframework.util.Assert;
 public class SmsAuthenticationProvider implements AuthenticationProvider {
 
   private final GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();
-  private MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
+  private MessageSourceAccessor messages = AuthorizationServerMessageSource.getAccessor();
 
   private final SmsService smsService;
   private final SmsUserDetailsService smsUserDetailsService;
 
   public SmsAuthenticationProvider(
       SmsService smsService, SmsUserDetailsService smsUserDetailsService) {
+    Assert.notNull(smsService, "");
     this.smsService = smsService;
     this.smsUserDetailsService = smsUserDetailsService;
   }
@@ -89,7 +90,7 @@ public class SmsAuthenticationProvider implements AuthenticationProvider {
     return SmsAuthenticationToken.class.isAssignableFrom(authentication);
   }
 
-  public void setMessages(MessageSource messageSource) {
+  public void setMessageSource(MessageSource messageSource) {
     messages = new MessageSourceAccessor(messageSource);
   }
 }

@@ -35,7 +35,7 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
 public class OAuth2SmsAuthenticationProvider
     extends OAuth2ResourceOwnerAuthenticationProvider<OAuth2SmsAuthenticationToken> {
 
-  protected OAuth2SmsAuthenticationProvider(
+  public OAuth2SmsAuthenticationProvider(
       OAuth2AuthorizationService authorizationService,
       OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator,
       AuthenticationManager authenticationManager) {

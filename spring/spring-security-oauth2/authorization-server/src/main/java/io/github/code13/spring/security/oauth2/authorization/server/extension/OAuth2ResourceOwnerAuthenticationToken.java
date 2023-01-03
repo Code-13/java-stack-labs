@@ -41,7 +41,7 @@ public abstract class OAuth2ResourceOwnerAuthenticationToken extends AbstractAut
   private final Set<String> scopes;
   private final Map<String, Object> additionalParameters;
 
-  public OAuth2ResourceOwnerAuthenticationToken(
+  protected OAuth2ResourceOwnerAuthenticationToken(
       AuthorizationGrantType authorizationGrantType,
       Authentication clientPrincipal,
       Set<String> scopes,

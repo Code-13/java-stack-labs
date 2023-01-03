@@ -22,6 +22,8 @@ import java.util.Objects;
 import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -66,6 +68,8 @@ public abstract class OAuth2ResourceOwnerAuthenticationProvider<
   private final OAuth2AuthorizationService authorizationService;
   private final OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator;
   private final AuthenticationManager authenticationManager;
+
+  protected MessageSourceAccessor messages = AuthorizationServerMessageSource.getAccessor();
 
   protected OAuth2ResourceOwnerAuthenticationProvider(
       OAuth2AuthorizationService authorizationService,
@@ -190,6 +194,11 @@ public abstract class OAuth2ResourceOwnerAuthenticationProvider<
         Objects.requireNonNull(authorization.getAccessToken().getClaims()));
   }
 
+  /**
+   * Gets support grant_type.
+   *
+   * @return the support grant_type
+   */
   protected abstract AuthorizationGrantType getSupportGrantType();
 
   protected Set<String> getAuthorizedScopes(T token, RegisteredClient registeredClient) {
@@ -209,6 +218,15 @@ public abstract class OAuth2ResourceOwnerAuthenticationProvider<
 
   /** Authentication for custom grant_type */
   protected abstract Authentication buildAuthenticationToken(T token);
+
+  /**
+   * Sets MessageSource.
+   *
+   * @param messageSource the message source
+   */
+  public void setMessageSource(MessageSource messageSource) {
+    messages = new MessageSourceAccessor(messageSource);
+  }
 
   /**
    * copy form {@link
