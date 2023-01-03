@@ -28,6 +28,7 @@ public final class AuthorizationServerMessageSource extends ResourceBundleMessag
 
   public AuthorizationServerMessageSource() {
     setBasename("io.github.code13.spring.security.oauth2.authorization.server.messages");
+    setDefaultEncoding("UTF-8");
   }
 
   public static MessageSourceAccessor getAccessor() {
