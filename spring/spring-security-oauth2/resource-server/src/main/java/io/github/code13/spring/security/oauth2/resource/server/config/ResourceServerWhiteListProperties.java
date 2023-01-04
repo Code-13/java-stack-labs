@@ -13,27 +13,24 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.resource.server;
+package io.github.code13.spring.security.oauth2.resource.server.config;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * ResourceController.
+ * ResourceServerWhiteListProperties.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @date 2022/2/27 13:12
+ * @since 2023/1/4 23:09
  */
-@RestController
-public class ResourceController {
+@ConfigurationProperties(prefix = "security.oauth2.ignores")
+@Getter
+@Setter
+class ResourceServerWhiteListProperties {
 
-  @GetMapping("/api/v1/resources")
-  public Object resource() {
-    return "resource";
-  }
-
-  @GetMapping("/api/v1/permit/resources")
-  public Object permitResource() {
-    return "permitResource";
-  }
+  private List<String> urls = new ArrayList<>();
 }

@@ -5,6 +5,18 @@ spring:
   security:
     oauth2:
       resourceserver:
+        # jwt 和 opaque 只能使用一个，如果都配置，只有 jwt 生效
         jwt:
-          public-key-location: jwt.jks
-          issuer-uri: http://localhost:9000
+          # jwt 配置如下两个皆可
+          # issuer-uri: http://localhost:9000
+          jwk-set-uri: http://localhost:9000/oauth2/jwks
+        opaquetoken:
+          introspection-uri: http://localhost:9000/oauth2/introspect
+          client-id: test-client-without-jwt
+          client-secret: test-client-without-jwt-secret
+
+security:
+  oauth2:
+    ignores:
+      urls:
+        - /api/v1/permit/**
