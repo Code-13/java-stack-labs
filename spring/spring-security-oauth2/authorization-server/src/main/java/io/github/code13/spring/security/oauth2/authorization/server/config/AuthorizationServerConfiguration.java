@@ -54,6 +54,7 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
+import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -112,13 +113,15 @@ class AuthorizationServerConfiguration {
 
   @Bean
   public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
-    //    生产上 注册客户端需要使用接口 不应该采用下面的方式
-    RegisteredClient registeredClient =
+    // 生产上 注册客户端需要使用接口 不应该采用下面的方式
+
+    // 使用 JWT
+    RegisteredClient registeredClientWithJwt =
         RegisteredClient.withId(UUID.randomUUID().toString())
             // 客户端ID和密码
-            .clientId("test-client")
-            .clientSecret("{noop}secret")
-            .clientName("test")
+            .clientId("test-client-with-jwt")
+            .clientSecret("{noop}test-client-with-jwt-secret")
+            .clientName("test-client-with-jwt")
             // client 认证方法
             .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
             // 授权类型 (implicit 和 password 均已被废弃)
@@ -137,7 +140,40 @@ class AuthorizationServerConfiguration {
             .scope(OidcScopes.OPENID)
             .scope("message.read")
             .scope("message.write")
-            .tokenSettings(TokenSettings.builder().build())
+            .tokenSettings(
+                // 使用 JWT 需要在此处将 OAuth2TokenFormat 设置为 OAuth2TokenFormat.SELF_CONTAINED (默认值)
+                TokenSettings.builder().accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED).build())
+            .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+            .build();
+
+    // 不使用 JWT
+    RegisteredClient registeredClientWithoutJwt =
+        RegisteredClient.withId(UUID.randomUUID().toString())
+            // 客户端ID和密码
+            .clientId("test-client-without-jwt")
+            .clientSecret("{noop}test-client-without-jwt-secret")
+            .clientName("test-client-without-jwt")
+            // client 认证方法
+            .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+            // 授权类型 (implicit 和 password 均已被废弃)
+            .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+            .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+            .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+            .authorizationGrantType(AuthorizationGrantType.PASSWORD) // password
+            .authorizationGrantType(AuthorizationGrantTypes.SMS) // SMS
+            // 回调地址名单，不在此列将被拒绝 而且只能使用IP或者域名  不能使用 localhost
+            // 根据 Oauth2 标准，回调地址应该是 oauth2 client 端
+            .redirectUri("http://127.0.0.1:9001/login/oauth2/code/iam")
+            .redirectUri("http://127.0.0.1:9001/login/oauth2/code/iam-oidc")
+            //            .redirectUri("http://127.0.0.1:9001/authorized")
+            //            .redirectUri("http://127.0.0.1:9001/foo/bar")
+            .redirectUri("https://www.baidu.com")
+            .scope(OidcScopes.OPENID)
+            .scope("message.read")
+            .scope("message.write")
+            .tokenSettings(
+                // 不使用 JWT 需要在此处将 OAuth2TokenFormat 设置为 OAuth2TokenFormat.REFERENCE
+                TokenSettings.builder().accessTokenFormat(OAuth2TokenFormat.REFERENCE).build())
             .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
             .build();
 
@@ -155,7 +191,8 @@ class AuthorizationServerConfiguration {
     registeredClientRepository.setRegisteredClientParametersMapper(
         registeredClientParametersMapper);
 
-    registeredClientRepository.save(registeredClient);
+    registeredClientRepository.save(registeredClientWithJwt);
+    registeredClientRepository.save(registeredClientWithoutJwt);
 
     return registeredClientRepository;
   }
@@ -193,7 +230,7 @@ class AuthorizationServerConfiguration {
   @Bean
   EmbeddedDatabase embeddedDatabase() {
     return new EmbeddedDatabaseBuilder()
-        .setName("authorization-server")
+        .setName("authorization-server-embedded")
         .setType(EmbeddedDatabaseType.H2)
         .setScriptEncoding("UTF-8")
         .addScript(

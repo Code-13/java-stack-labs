@@ -15,67 +15,30 @@
 
 package io.github.code13.spring.security.oauth2.authorization.server.config;
 
-import com.nimbusds.jose.JOSEException;
-import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.jwk.source.JWKSource;
-import com.nimbusds.jose.proc.SecurityContext;
-import java.io.IOException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
-import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
-import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenClaimsContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 
 /**
- * JwksConfiguration.
+ * OpaqueTokenConfiguration.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @since 2022/12/31 13:49
+ * @since 2023/1/4 22:52
  */
 @Configuration
-class JwksConfiguration {
-
-  @Bean
-  JWKSource<SecurityContext> jwkSource()
-      throws KeyStoreException, IOException, JOSEException, CertificateException,
-          NoSuchAlgorithmException {
-    // 这里优化到配置
-    String path = "jwt.jks";
-    String alias = "authorization-server";
-    String pass = "123456";
-
-    ClassPathResource resource = new ClassPathResource(path);
-    KeyStore jks = KeyStore.getInstance("jks");
-    char[] pin = pass.toCharArray();
-    jks.load(resource.getInputStream(), pin);
-    RSAKey rsaKey = RSAKey.load(jks, alias, pin);
-
-    JWKSet jwkSet = new JWKSet(rsaKey);
-    return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
-  }
-
-  @Bean
-  public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
-    return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
-  }
+class OpaqueTokenConfiguration {
 
   /**
-   * OAuth2TokenCustomizer for JWT
+   * OAuth2TokenCustomizer for opaqueToken
    *
    * <p><a
    * href="https://docs.spring.io/spring-authorization-server/docs/current/reference/html/guides/how-to-userinfo.html#customize-user-info">customize-user-info</a>
    */
   @Bean
-  public OAuth2TokenCustomizer<JwtEncodingContext> jwtTokenCustomizer() {
+  public OAuth2TokenCustomizer<OAuth2TokenClaimsContext> opaqueTokenCustomizer() {
     return context -> {
       if (context.getAuthorizationGrantType().equals(AuthorizationGrantType.CLIENT_CREDENTIALS)) {
         return;
