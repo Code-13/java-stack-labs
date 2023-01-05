@@ -15,7 +15,7 @@
 
 package io.github.code13.spring.security.oauth2.authorization.server.extension;
 
-import io.github.code13.spring.security.oauth2.authorization.server.extension.OAuth2ErrorCodesExtension.DefaultOAuth2ErrorCodesExtension;
+import io.github.code13.spring.security.oauth2.authorization.server.extension.OAuth2ErrorCodesExtension.SealedOAuth2ErrorCodesExtension;
 
 /**
  * OAuth2ErrorCodesExtension.
@@ -23,9 +23,13 @@ import io.github.code13.spring.security.oauth2.authorization.server.extension.OA
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2023/1/2 17:33
  */
-public sealed interface OAuth2ErrorCodesExtension permits DefaultOAuth2ErrorCodesExtension {
+public sealed interface OAuth2ErrorCodesExtension permits SealedOAuth2ErrorCodesExtension {
 
   String SCOPE_IS_EMPTY = "scope_is_empty";
 
-  final class DefaultOAuth2ErrorCodesExtension implements OAuth2ErrorCodesExtension {}
+  final class SealedOAuth2ErrorCodesExtension implements OAuth2ErrorCodesExtension {
+    private SealedOAuth2ErrorCodesExtension() {
+      // no instance
+    }
+  }
 }

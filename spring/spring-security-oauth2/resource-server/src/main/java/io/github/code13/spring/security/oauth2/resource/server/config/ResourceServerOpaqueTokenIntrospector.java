@@ -24,7 +24,7 @@ import org.springframework.security.oauth2.server.resource.introspection.OpaqueT
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2023/1/4 23:34
  */
-public class ResourceServerOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
+class ResourceServerOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
 
   @Override
   public OAuth2AuthenticatedPrincipal introspect(String token) {

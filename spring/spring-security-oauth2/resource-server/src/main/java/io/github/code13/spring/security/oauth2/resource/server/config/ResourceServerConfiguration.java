@@ -31,7 +31,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2023/1/5 17:53
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(ResourceServerWhiteListProperties.class)
 class ResourceServerConfiguration {
 

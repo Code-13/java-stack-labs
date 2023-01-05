@@ -81,8 +81,8 @@ class ResourceServerAuthenticationManagerResolver
         return false;
       }
 
-      String jsonSecondPart = new String(Base64.getDecoder().decode(jwtSplit[1]));
-      objectMapper.readTree(jsonSecondPart);
+      // String jsonSecondPart = new String(Base64.getDecoder().decode(jwtSplit[1]));
+      // objectMapper.readTree(jsonSecondPart);
     } catch (JsonProcessingException e) {
       return false;
     }

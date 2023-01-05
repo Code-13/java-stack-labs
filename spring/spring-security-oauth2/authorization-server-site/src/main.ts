@@ -1,8 +1,13 @@
 import { createApp } from 'vue';
 import 'normalize.css';
-import './style.css';
+// import './style.css';
 import App from './App.vue';
 import { setupRouter } from './router';
+
+// import 'virtual:windi-base.css';
+// import 'virtual:windi-components.css';
+// import 'virtual:windi-utilities.css';
+import 'virtual:windi-devtools';
 
 async function bootstrap() {
   const app = createApp(App);

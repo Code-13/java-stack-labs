@@ -33,8 +33,12 @@ import org.springframework.security.oauth2.server.resource.introspection.OpaqueT
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2023/1/4 23:11
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 class ResourceServerComponentConfiguration {
+
+  // OpaqueTokenIntrospector opaqueTokenIntrospector() {
+  //  return new ResourceServerOpaqueTokenIntrospector();
+  // }
 
   /**
    * Supporting both JWT and Opaque Token
