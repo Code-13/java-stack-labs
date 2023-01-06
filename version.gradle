@@ -50,9 +50,9 @@ ext {
     ]
 
     bom = [
-            "springBoot"        : "org.springframework.boot:spring-boot-dependencies:$version.springBootVersion",
-            "springCloud"       : "org.springframework.cloud:spring-cloud-dependencies:$version.springCloudVersion",
-            "springCloudAlibaba": "com.alibaba.cloud:spring-cloud-alibaba-dependencies:$version.springCloudAlibabaVersion",
+            "springBoot"        : "org.springframework.boot:spring-boot-dependencies:$springBootVersion",
+            "springCloud"       : "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion",
+            "springCloudAlibaba": "com.alibaba.cloud:spring-cloud-alibaba-dependencies:$springCloudAlibabaVersion",
     ]
 
     dependencies = [

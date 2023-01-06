@@ -15,7 +15,7 @@
  */
 import java.time.LocalDateTime
 
-apply from: "springboot2-dependencies.gradle"
+apply from: "version.gradle"
 
 buildscript {
 
@@ -55,8 +55,12 @@ subprojects {
     apply plugin: "maven-publish"
     apply plugin: 'org.springframework.boot'
 
-    sourceCompatibility = "${javaVersion}"
-    targetCompatibility = "${javaVersion}"
+    java {
+        sourceCompatibility = "$javaVersion"
+        targetCompatibility = "$javaVersion"
+        withSourcesJar()
+        withJavadocJar()
+    }
 
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
@@ -67,16 +71,6 @@ subprojects {
 
     tasks.withType(GenerateModuleMetadata) {
         enabled = true
-    }
-
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        archiveClassifier = 'sources'
-        from sourceSets.main.allSource
-    }
-
-    task javadocJar(type: Jar, dependsOn: javadoc) {
-        archiveClassifier = 'javadoc'
-        from javadoc.destinationDir
     }
 
     javadoc {
@@ -163,11 +157,6 @@ subprojects {
                 }
             }
         }
-    }
-
-    artifacts {
-        archives sourcesJar
-        archives javadocJar
     }
 
     repositories {
