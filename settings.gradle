@@ -117,6 +117,8 @@ include 'spring:spring-security-oauth2:resource-server'
 findProject(':spring:spring-security-oauth2:resource-server')?.name = 'resource-server'
 include 'spring:spring-kafka'
 findProject(':spring:spring-kafka')?.name = 'spring-kafka'
+include 'spring:spring-asciidoctor-backends'
+findProject(':spring:spring-asciidoctor-backends')?.name = 'spring-asciidoctor-backends'
 
 // spring boot
 include 'spring:spring-boot'
