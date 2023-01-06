@@ -63,7 +63,7 @@ class TransactionsRunner {
             // Synchronization data timeout between Redis master participating in transaction and
             // its slaves.
             // Default is 5000 milliseconds.
-            .syncSlavesTimeout(5, TimeUnit.SECONDS)
+            .syncSlaves(5, 3, TimeUnit.SECONDS)
 
             // Response timeout
             // Default is 3000 milliseconds.

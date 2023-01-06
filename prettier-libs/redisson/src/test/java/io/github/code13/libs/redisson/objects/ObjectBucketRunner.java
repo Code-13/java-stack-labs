@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import io.github.code13.libs.redisson.RedissonClientBuilder;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.BeforeAll;
@@ -69,23 +70,23 @@ class ObjectBucketRunner {
   void trySet() {
     bucket.delete();
 
-    var b = bucket.trySet(1);
+    var b = bucket.setIfAbsent(1);
     assertTrue(b);
 
-    var b1 = bucket.trySet(1);
+    var b1 = bucket.setIfAbsent(1);
     assertFalse(b1);
 
     bucket.delete();
 
-    var b2 = bucket.trySet(1, 3, TimeUnit.SECONDS);
+    var b2 = bucket.setIfAbsent(1, Duration.ofSeconds(3));
     assertTrue(b2);
 
-    var b3 = bucket.trySet(1, 3, TimeUnit.SECONDS);
+    var b3 = bucket.setIfAbsent(1, Duration.ofSeconds(3));
     assertFalse(b3);
 
     sleep(5);
 
-    var b4 = bucket.trySet(1, 3, TimeUnit.SECONDS);
+    var b4 = bucket.setIfAbsent(1, Duration.ofSeconds(3));
     assertTrue(b4);
   }
 
