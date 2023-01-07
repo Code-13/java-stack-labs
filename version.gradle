@@ -1,124 +1,49 @@
 ext {
-    version = [
-            "springBootVersion"                             : "$springBootVersion",
-            "springCloudVersion"                            : "$springCloudVersion",
-            "springCloudAlibabaVersion"                     : "$springCloudAlibabaVersion",
-            "springSecurityOauth2AuthorizationServerVersion": "0.4.0",
+    springBootVersion = "$springBootVersion"
+    springCloudVersion = "$springCloudVersion"
+    springCloudAlibabaVersion = "$springCloudAlibabaVersion"
+    springSecurityOauth2AuthorizationServerVersion = "0.4.0"
 
-            "checkerQualVersion"                            : "3.28.0",
+    checkerQualVersion = "3.28.0"
 
-            "mybatisPlusGeneratorVersion"                   : "3.5.3",
-            "mybatisPlusVersion"                            : "3.5.3",
+    mybatisPlusGeneratorVersion = "3.5.3"
+    mybatisPlusVersion = "3.5.3"
 
-            "mapstructVersion"                              : "1.5.3.Final",
+    mapstructVersion = "1.5.3.Final"
 
-            "druidSpringBootStarterVersion"                 : "1.2.15",
+    druidSpringBootStarterVersion = "1.2.15"
 
-            // vavr
-            "vavrVersin"                                    : "0.10.4",
-            "vavrJacksonVersin"                             : "0.10.3",
-            "vavrTestVersin"                                : "0.10.3",
-            "vavrGsonVersin"                                : "0.10.2",
-            "vavrBeanvalidation2Versin"                     : "0.10.0",
+    // vavr
+    vavrVersin = "0.10.4"
+    vavrJacksonVersin = "0.10.3"
+    vavrTestVersin = "0.10.3"
+    vavrGsonVersin = "0.10.2"
+    vavrBeanvalidation2Versin = "0.10.0"
 
-            // apache commons
-            "commonsIoVersion"                              : "2.11.0",
-            "commonsCollections4Version"                    : "4.4",
-            "commonsBeanutilsVersion"                       : "1.9.4",
-            "commonsFileuploadVersion"                      : "1.4",
-            "commonsNetVersion"                             : "3.8.0",
+    // apache commons
+    commonsIoVersion = "2.11.0"
+    commonsCollections4Version = "4.4"
+    commonsBeanutilsVersion = "1.9.4"
+    commonsFileuploadVersion = "1.4"
+    commonsNetVersion = "3.8.0"
 
-            "pdfboxVersion"                                 : "2.0.27",
-            "jsoupVersion"                                  : "1.15.3",
-            "reflectionsVersion"                            : "0.10.2",
-            "libphonenumberVersion"                         : "8.13.3",
-            "spatial4jVersion"                              : "0.8",
-            "zxingVersion"                                  : "3.5.1",
-            "hutoolVersion"                                 : "5.8.11",
-            "datafakerVersion"                              : "1.7.0",
-            "objenesisVersion"                              : "3.3",
-            "protostuffVersion"                             : "1.8.0",
-            "easyexcelVersion"                              : "3.1.4",
-            // redisson
-            "redissonVersion"                               : "3.19.0",
-            // jmh
-            "jmhVersion"                                    : "1.36",
-            "caffeineVersion"                               : "3.1.2",
-            // guava
-            "guavaTestLibVersion"                           : "31.1-jre",
-            "nimbusJoseJwtVersion"                          : "9.25.1",
-    ]
-
-    bom = [
-            "springBoot"        : "org.springframework.boot:spring-boot-dependencies:$springBootVersion",
-            "springCloud"       : "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion",
-            "springCloudAlibaba": "com.alibaba.cloud:spring-cloud-alibaba-dependencies:$springCloudAlibabaVersion",
-    ]
-
-    dependencies = [
-            "spring-security-oauth2-authorization-server": "org.springframework.security:spring-security-oauth2-authorization-server:$version.springSecurityOauth2AuthorizationServerVersion",
-
-            "checker-qual"                               : "org.checkerframework:checker-qual:$version.checkerQualVersion",
-
-            "mybatis-plus-generator"                     : "com.baomidou:mybatis-plus-generator:$version.mybatisPlusGeneratorVersion",
-            "mybatis-plus-boot-starter"                  : "com.baomidou:mybatis-plus-boot-starter:$version.mybatisPlusVersion",
-            "mybatis-plus-core"                          : "com.baomidou:mybatis-plus-core:$version.mybatisPlusVersion",
-            "mybatis-plus-extension"                     : "com.baomidou:mybatis-plus-extension:$version.mybatisPlusVersion",
-            "mybatis-plus-annotation"                    : "com.baomidou:mybatis-plus-annotation:$version.mybatisPlusVersion",
-
-            "mapstruct"                                  : "org.mapstruct:mapstruct:$version.mapstructVersion",
-            "mapstruct-processor"                        : "org.mapstruct:mapstruct-processor:$version.mapstructVersion",
-
-            "druid-spring-boot-starter"                  : "com.alibaba:druid-spring-boot-starter:$version.druidSpringBootStarterVersion",
-
-            "vavr"                                       : "io.vavr:vavr:$version.vavrVersin",
-            "vavr-jackson"                               : "io.vavr:vavr-jackson:$version.vavrJacksonVersin",
-            "vavr-test"                                  : "io.vavr:vavr-test:$version.vavrTestVersin",
-            "vavr-gson"                                  : "io.vavr:vavr-gson:$version.vavrGsonVersin",
-            "vavr-beanvalidation2"                       : "io.vavr:vavr-beanvalidation2:$version.vavrBeanvalidation2Versin",
-
-            "commons-io"                                 : "commons-io:commons-io:$version.commonsIoVersion",
-            "commons-collections4"                       : "org.apache.commons:commons-collections4:$version.commonsCollections4Version",
-            "commons-beanutils"                          : "commons-beanutils:commons-beanutils:$version.commonsBeanutilsVersion",
-            "commons-fileupload"                         : "commons-fileupload:commons-fileupload:$version.commonsFileuploadVersion",
-            "commons-net"                                : "commons-net:commons-net:$version.commonsNetVersion",
-
-            "pdfbox"                                     : "org.apache.pdfbox:pdfbox:$version.pdfboxVersion",
-            "pdfbox-fontbox"                             : "org.apache.pdfbox:fontbox:$version.pdfboxVersion",
-            "pdfbox-preflight"                           : "org.apache.pdfbox:preflight:$version.pdfboxVersion",
-            "pdfbox-tools"                               : "org.apache.pdfbox:pdfbox-tools:$version.pdfboxVersion",
-
-            "jsoup"                                      : "org.jsoup:jsoup:$version.jsoupVersion",
-            "reflections"                                : "org.reflections:reflections:$version.reflectionsVersion",
-            "libphonenumber"                             : "com.googlecode.libphonenumber:libphonenumber:$version.libphonenumberVersion",
-            "spatial4j"                                  : "org.locationtech.spatial4j:spatial4j:$version.spatial4jVersion",
-            "zxing"                                      : "com.google.zxing:core:$version.zxingVersion",
-            // https://www.datafaker.net/
-            "datafaker"                                  : "net.datafaker:datafaker:$version.datafakerVersion",
-            "objenesis"                                  : "org.objenesis:objenesis:$version.objenesisVersion",
-            "protostuff-core"                            : "io.protostuff:protostuff-core:$version.protostuffVersion",
-            "protostuff-runtime"                         : "io.protostuff:protostuff-runtime:$version.protostuffVersion",
-            "easyexcel"                                  : "com.alibaba:easyexcel:$version.easyexcelVersion",
-
-            // redisson
-            "redisson"                                   : "org.redisson:redisson:$version.redissonVersion",
-            "redisson-spring-boot-starter"               : "org.redisson:redisson-spring-boot-starter:$version.redissonVersion",
-            "redisson-mybatis"                           : "org.redisson:redisson-mybatis:$version.redissonVersion",
-            "redisson-spring-data-27"                    : "org.redisson:redisson-spring-data-27:$version.redissonVersion",
-
-            // https://mvnrepository.com/artifact/org.openjdk.jmh
-            "jmh"                                        : "org.openjdk.jmh:jmh-core:$version.jmhVersion",
-            "jmh-generator-annprocess"                   : "org.openjdk.jmh:jmh-generator-annprocess:$version.jmhVersion",
-
-            // caffeine
-            "caffeine"                                   : "com.github.ben-manes.caffeine:caffeine:$version.caffeineVersion",
-            "caffeine-guava"                             : "com.github.ben-manes.caffeine:guava:$version.caffeineVersion",
-            "caffeine-jcache"                            : "com.github.ben-manes.caffeine:jcache:$version.caffeineVersion",
-
-            // guava
-            "guava-testlib"                              : "com.google.guava:guava-testlib:$version.guavaTestLibVersion",
-
-            // nimbus-jose-jwt
-            "nimbus-jose-jwt"                            : "com.nimbusds:nimbus-jose-jwt:$version.nimbusJoseJwtVersion"
-    ]
+    pdfboxVersion = "2.0.27"
+    jsoupVersion = "1.15.3"
+    reflectionsVersion = "0.10.2"
+    libphonenumberVersion = "8.13.3"
+    spatial4jVersion = "0.8"
+    zxingVersion = "3.5.1"
+    hutoolVersion = "5.8.11"
+    datafakerVersion = "1.7.0"
+    objenesisVersion = "3.3"
+    protostuffVersion = "1.8.0"
+    easyexcelVersion = "3.1.4"
+    // redisson
+    redissonVersion = "3.19.0"
+    // jmh
+    jmhVersion = "1.36"
+    caffeineVersion = "3.1.2"
+    // guava
+    guavaTestLibVersion = "31.1-jre"
+    nimbusJoseJwtVersion = "9.25.1"
 }

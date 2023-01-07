@@ -16,6 +16,8 @@
 
 rootProject.name = 'java-stack-labs'
 
+include 'dependencies'
+
 // javase
 file("$rootDir/javase").eachDirMatch(~/java-.*/) {
     include "javase:${it.name}"

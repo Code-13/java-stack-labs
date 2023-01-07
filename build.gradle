@@ -15,12 +15,29 @@
  */
 import java.time.LocalDateTime
 
-apply from: "version.gradle"
+ext {
+    javaVersion = JavaVersion.VERSION_17
+    bom = Set.of(project(":dependencies"))
+    excluedBom = (subprojects - bom)
+}
 
-buildscript {
+allprojects {
+    group = GROUPID
+    version = VERSION
+}
 
-    ext {
-        javaVersion = JavaVersion.VERSION_17
+configure(excluedBom) {
+
+    apply plugin: "java-library"
+    apply plugin: "idea"
+    apply plugin: "maven-publish"
+    //apply plugin: 'org.springframework.boot'
+
+    java {
+        sourceCompatibility = "$javaVersion"
+        targetCompatibility = "$javaVersion"
+        withSourcesJar()
+        withJavadocJar()
     }
 
     repositories {
@@ -36,41 +53,19 @@ buildscript {
         }
     }
 
-    dependencies {
-        classpath "io.spring.gradle:dependency-management-plugin:1.0.15.RELEASE"
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
-    }
-}
-
-allprojects {
-    group = GROUPID
-    version = VERSION
-}
-
-subprojects {
-
-    apply plugin: "java-library"
-    apply plugin: "io.spring.dependency-management"
-    apply plugin: "idea"
-    apply plugin: "maven-publish"
-    apply plugin: 'org.springframework.boot'
-
-    java {
-        sourceCompatibility = "$javaVersion"
-        targetCompatibility = "$javaVersion"
-        withSourcesJar()
-        withJavadocJar()
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.encoding = "UTF-8"
+            options.compilerArgs << "-parameters" << "-Xlint:unchecked" << "-Xlint:deprecation"
+            options.forkOptions.jvmArgs << "-J--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED"
+            options.forkOptions.jvmArgs << "--add-opens=java.base/java.lang=ALL-UNNAMED"
+        }
     }
 
-    tasks.withType(JavaCompile) {
-        options.encoding = "UTF-8"
-        options.compilerArgs << "-parameters" << "-Xlint:unchecked" << "-Xlint:deprecation"
-        options.forkOptions.jvmArgs << "-J--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED"
-        options.forkOptions.jvmArgs << "--add-opens=java.base/java.lang=ALL-UNNAMED"
-    }
-
-    tasks.withType(GenerateModuleMetadata) {
-        enabled = true
+    tasks.withType(GenerateModuleMetadata).tap {
+        configureEach {
+            enabled = true
+        }
     }
 
     javadoc {
@@ -169,20 +164,23 @@ subprojects {
         mavenCentral()
     }
 
-    dependencyManagement {
-        imports {
-            for (dep in rootProject.ext.bom) {
-                mavenBom dep.value
-            }
+    configurations {
+        management {
+            canBeConsumed = false
+            canBeResolved = false
+            visible = false
         }
-        dependencies {
-            for (dep in rootProject.ext.dependencies) {
-                dependency dep.value
-            }
-        }
+        compileClasspath.extendsFrom(management)
+        testCompileClasspath.extendsFrom(management)
+        runtimeClasspath.extendsFrom(management)
+        testRuntimeClasspath.extendsFrom(management)
+        annotationProcessor.extendsFrom(management)
+        testAnnotationProcessor.extendsFrom(management)
     }
 
     dependencies {
+        management platform(project(":dependencies"))
+
         implementation "org.checkerframework:checker-qual"
 
         compileOnly "org.slf4j:slf4j-api"
