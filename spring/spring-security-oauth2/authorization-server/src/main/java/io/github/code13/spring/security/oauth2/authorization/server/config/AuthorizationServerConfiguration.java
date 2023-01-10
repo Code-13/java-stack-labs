@@ -177,6 +177,34 @@ class AuthorizationServerConfiguration {
             .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
             .build();
 
+    // PKCE client
+    RegisteredClient pkceClientWithJwt =
+        RegisteredClient.withId(UUID.randomUUID().toString())
+            // 客户端ID (不需要密码)
+            .clientId("pkce-client")
+            .clientName("pkce-client")
+            // 客户端认证模式为none
+            .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
+            // 授权类型 (implicit 和 password 均已被废弃)
+            .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+            // 回调地址名单，不在此列将被拒绝 而且只能使用IP或者域名  不能使用 localhost
+            // 根据 Oauth2 标准，回调地址应该是 oauth2 client 端
+            .redirectUri("http://127.0.0.1:9001/login/oauth2/code/iam")
+            .redirectUri("http://127.0.0.1:9001/login/oauth2/code/iam-oidc")
+            .redirectUri("https://www.baidu.com")
+            .scope(OidcScopes.OPENID)
+            .scope("message.read")
+            .scope("message.write")
+            .tokenSettings(
+                // 生成JWT令牌
+                TokenSettings.builder().accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED).build())
+            .clientSettings(
+                ClientSettings.builder()
+                    .requireAuthorizationConsent(true)
+                    .requireProofKey(true) // 仅支持PKCE
+                    .build())
+            .build();
+
     // 每次都会初始化  生产的话 只初始化JdbcRegisteredClientRepository
     JdbcRegisteredClientRepository registeredClientRepository =
         new JdbcRegisteredClientRepository(jdbcTemplate);
@@ -193,6 +221,7 @@ class AuthorizationServerConfiguration {
 
     registeredClientRepository.save(registeredClientWithJwt);
     registeredClientRepository.save(registeredClientWithoutJwt);
+    registeredClientRepository.save(pkceClientWithJwt);
 
     return registeredClientRepository;
   }

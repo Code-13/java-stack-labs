@@ -15,6 +15,7 @@
 
 package io.github.code13.spring.security.oauth2.authorization.server.extension;
 
+import java.nio.charset.StandardCharsets;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
@@ -28,7 +29,7 @@ public final class AuthorizationServerMessageSource extends ResourceBundleMessag
 
   public AuthorizationServerMessageSource() {
     setBasename("io.github.code13.spring.security.oauth2.authorization.server.messages");
-    setDefaultEncoding("UTF-8");
+    setDefaultEncoding(StandardCharsets.UTF_8.displayName());
   }
 
   public static MessageSourceAccessor getAccessor() {
