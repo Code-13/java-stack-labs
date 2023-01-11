@@ -1,0 +1,1032 @@
+{
+	"info": {
+		"_postman_id": "b378f759-7b74-4b8e-98dd-4fb27cd8a294",
+		"name": "Spring Security OAuth2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "OAuth2",
+			"item": [
+				{
+					"name": "Authorization Server With Jwt",
+					"item": [
+						{
+							"name": "authorize",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:9000/oauth2/authorize?client_id=test-client-with-jwt&response_type=code&redirect_uri=https://www.baidu.com&scope=message.read%20message.write",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"authorize"
+									],
+									"query": [
+										{
+											"key": "client_id",
+											"value": "test-client-with-jwt"
+										},
+										{
+											"key": "response_type",
+											"value": "code"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "https://www.baidu.com"
+										},
+										{
+											"key": "scope",
+											"value": "message.read%20message.write"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "authorize PKCE",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:9000/oauth2/authorize?client_id=pkce-client&response_type=code&redirect_uri=https://www.baidu.com&scope=message.read%20message.write&code_challenge_method=S256&code_challenge=3P6kopgvD5SwlNXyxCW-1DnPGJSNGGYn3H0vos0Xu4o",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"authorize"
+									],
+									"query": [
+										{
+											"key": "client_id",
+											"value": "pkce-client"
+										},
+										{
+											"key": "response_type",
+											"value": "code"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "https://www.baidu.com"
+										},
+										{
+											"key": "scope",
+											"value": "message.read%20message.write"
+										},
+										{
+											"key": "code_challenge_method",
+											"value": "S256"
+										},
+										{
+											"key": "code_challenge",
+											"value": "3P6kopgvD5SwlNXyxCW-1DnPGJSNGGYn3H0vos0Xu4o"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token authorization_code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/token?code=kbofkdpbpQqBdEQrmKzgCsg21BHiSQr9jRbzAwY_oUxpqwRV94ZSs1ssnmgvgvYZEGX2UQqCg9iPwIOylMlkUURREcZwnN4FvzWowb7rT4NORmMChZs-hTmOzka8kbqK&grant_type=authorization_code&redirect_uri=https://www.baidu.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"token"
+									],
+									"query": [
+										{
+											"key": "code",
+											"value": "kbofkdpbpQqBdEQrmKzgCsg21BHiSQr9jRbzAwY_oUxpqwRV94ZSs1ssnmgvgvYZEGX2UQqCg9iPwIOylMlkUURREcZwnN4FvzWowb7rT4NORmMChZs-hTmOzka8kbqK"
+										},
+										{
+											"key": "grant_type",
+											"value": "authorization_code"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "https://www.baidu.com"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token authorization_code PKCE",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/token?code=R5kzS36MUJSeHfJg4rO4ldw8GFo2r4IMOSJhD8BbQXQrmnjMDvxhmm8dlaFPHXZA5IFeNKVyVC5T9-D0z6uxGZeiEUjleSk2LARlM8BiLB4g-s0lTnTShigUDiaf2oRa&grant_type=authorization_code&redirect_uri=https://www.baidu.com&code_verifier=xx123&client_id=pkce-client",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"token"
+									],
+									"query": [
+										{
+											"key": "code",
+											"value": "R5kzS36MUJSeHfJg4rO4ldw8GFo2r4IMOSJhD8BbQXQrmnjMDvxhmm8dlaFPHXZA5IFeNKVyVC5T9-D0z6uxGZeiEUjleSk2LARlM8BiLB4g-s0lTnTShigUDiaf2oRa"
+										},
+										{
+											"key": "grant_type",
+											"value": "authorization_code"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "https://www.baidu.com"
+										},
+										{
+											"key": "code_verifier",
+											"value": "xx123"
+										},
+										{
+											"key": "client_id",
+											"value": "pkce-client"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token refresh_token",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/token?grant_type=refresh_token&refresh_token=mOOq27Pmhdg8uDZQMcUJjmGpN0YV-0hBPLItgaGUn8DEk3wYGQSC8InIXm3rcRVI34f0GS5uR4eXnWDlLpRFiqthFnkFltaBuIUkdgXYTLtD-3elKOSeqtz4YWOqUUHX",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"token"
+									],
+									"query": [
+										{
+											"key": "grant_type",
+											"value": "refresh_token"
+										},
+										{
+											"key": "refresh_token",
+											"value": "mOOq27Pmhdg8uDZQMcUJjmGpN0YV-0hBPLItgaGUn8DEk3wYGQSC8InIXm3rcRVI34f0GS5uR4eXnWDlLpRFiqthFnkFltaBuIUkdgXYTLtD-3elKOSeqtz4YWOqUUHX"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token client_credentials",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/token?grant_type=client_credentials",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"token"
+									],
+									"query": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/token?grant_type=password&username=test&password=test&scope=message.read message.write openid",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"token"
+									],
+									"query": [
+										{
+											"key": "grant_type",
+											"value": "password"
+										},
+										{
+											"key": "username",
+											"value": "test"
+										},
+										{
+											"key": "password",
+											"value": "test"
+										},
+										{
+											"key": "scope",
+											"value": "message.read message.write openid"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token sms",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/token?grant_type=sms&phone=18888888888&code=789654&scope=message.read message.write openid",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"token"
+									],
+									"query": [
+										{
+											"key": "grant_type",
+											"value": "sms"
+										},
+										{
+											"key": "phone",
+											"value": "18888888888"
+										},
+										{
+											"key": "code",
+											"value": "789654"
+										},
+										{
+											"key": "scope",
+											"value": "message.read message.write openid"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token introspect",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/introspect?token=3u_r2LQCTyoh-jJyXVH1ooGH0NH1NVYjwy6whnQV1vzy_eYIUOweP1VjahZ21pkYXTqHJ31fEhHvelFLemCJAV2jj1r3XtihA5841bWbVSCTyUuMjLrgq77Fq-1f8g1D&client_id=pkce-client&code_verifier=xx123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"introspect"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "3u_r2LQCTyoh-jJyXVH1ooGH0NH1NVYjwy6whnQV1vzy_eYIUOweP1VjahZ21pkYXTqHJ31fEhHvelFLemCJAV2jj1r3XtihA5841bWbVSCTyUuMjLrgq77Fq-1f8g1D"
+										},
+										{
+											"key": "client_id",
+											"value": "pkce-client"
+										},
+										{
+											"key": "code_verifier",
+											"value": "xx123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token introspect pkce",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/introspect/pkce?token=eyJ4NXQjUzI1NiI6Ii1VanhPNTdzWjMyMURKaXcwdGFjSHpKeEM3cFY2SVNoQ2ZPQzJqcHZpWHciLCJraWQiOiJhdXRob3JpemF0aW9uLXNlcnZlciIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJ0ZXN0IiwiYXVkIjoicGtjZS1jbGllbnQiLCJuYmYiOjE2NzM0NDMyMTEsInVzZXJfaW5mbyI6eyJwYXNzd29yZCI6bnVsbCwidXNlcm5hbWUiOiJ0ZXN0IiwiYXV0aG9yaXRpZXMiOlt7InJvbGUiOiJST0xFX1VTRVIifV0sImFjY291bnROb25FeHBpcmVkIjp0cnVlLCJhY2NvdW50Tm9uTG9ja2VkIjp0cnVlLCJjcmVkZW50aWFsc05vbkV4cGlyZWQiOnRydWUsImVuYWJsZWQiOnRydWV9LCJzY29wZSI6WyJtZXNzYWdlLnJlYWQiLCJtZXNzYWdlLndyaXRlIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTAwMCIsImV4cCI6MTY3MzQ0MzUxMSwiaWF0IjoxNjczNDQzMjExLCLmtYvor5XlrZfmrrUiOiLov5nmmK_kuIDkuKrmtYvor5XlrZfmrrUifQ.aH9Lt06pbuawCsqM8veP352eC8k4ouAhsXGFPa_N0Y3dMphCAm1Wupf342BXequWk80XgUnGaWp30vVz8knB_zj-dE0NDiloa88jnnb9TCwn6c5RA9cYPYg_L-NZ6Zq_-hPUSS8sO4m-htGFF61eo5WHp8FSPTWMAkMgjFalkqDP9cQbXQmt4eBhkP-Gnj8UDLDXkDIWS4PwDOzETLgx8DQ_hP-qD_GsMy0o2rJndjLxxqfWpxMMdG2KygGmhvG8KiNUnC-D6R09RoNs_7d12sOK02ALveFsuhwic1LJ3WxhZSr4tcYrK69-IZiTXHFf5rnHzEQE8u4TCTaWcivQOsksTTa2beiIQNkYUMqQ7rnAEUQ5T7y92X3Z80qq3Xk01pWoAvMK2x7JE87l1NueQhO_vtipsFBtzpZsxKyIqoOruse2aVq0tucW7DUrM2wTiq638y-eg-zVFyPh6Z4_RKYTWYPBzJXjjRazQBnRQz0rAN01D1E34-xxWqEqvjZ3&client_id=pkce-client",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"introspect",
+										"pkce"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "eyJ4NXQjUzI1NiI6Ii1VanhPNTdzWjMyMURKaXcwdGFjSHpKeEM3cFY2SVNoQ2ZPQzJqcHZpWHciLCJraWQiOiJhdXRob3JpemF0aW9uLXNlcnZlciIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJ0ZXN0IiwiYXVkIjoicGtjZS1jbGllbnQiLCJuYmYiOjE2NzM0NDMyMTEsInVzZXJfaW5mbyI6eyJwYXNzd29yZCI6bnVsbCwidXNlcm5hbWUiOiJ0ZXN0IiwiYXV0aG9yaXRpZXMiOlt7InJvbGUiOiJST0xFX1VTRVIifV0sImFjY291bnROb25FeHBpcmVkIjp0cnVlLCJhY2NvdW50Tm9uTG9ja2VkIjp0cnVlLCJjcmVkZW50aWFsc05vbkV4cGlyZWQiOnRydWUsImVuYWJsZWQiOnRydWV9LCJzY29wZSI6WyJtZXNzYWdlLnJlYWQiLCJtZXNzYWdlLndyaXRlIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTAwMCIsImV4cCI6MTY3MzQ0MzUxMSwiaWF0IjoxNjczNDQzMjExLCLmtYvor5XlrZfmrrUiOiLov5nmmK_kuIDkuKrmtYvor5XlrZfmrrUifQ.aH9Lt06pbuawCsqM8veP352eC8k4ouAhsXGFPa_N0Y3dMphCAm1Wupf342BXequWk80XgUnGaWp30vVz8knB_zj-dE0NDiloa88jnnb9TCwn6c5RA9cYPYg_L-NZ6Zq_-hPUSS8sO4m-htGFF61eo5WHp8FSPTWMAkMgjFalkqDP9cQbXQmt4eBhkP-Gnj8UDLDXkDIWS4PwDOzETLgx8DQ_hP-qD_GsMy0o2rJndjLxxqfWpxMMdG2KygGmhvG8KiNUnC-D6R09RoNs_7d12sOK02ALveFsuhwic1LJ3WxhZSr4tcYrK69-IZiTXHFf5rnHzEQE8u4TCTaWcivQOsksTTa2beiIQNkYUMqQ7rnAEUQ5T7y92X3Z80qq3Xk01pWoAvMK2x7JE87l1NueQhO_vtipsFBtzpZsxKyIqoOruse2aVq0tucW7DUrM2wTiq638y-eg-zVFyPh6Z4_RKYTWYPBzJXjjRazQBnRQz0rAN01D1E34-xxWqEqvjZ3"
+										},
+										{
+											"key": "client_id",
+											"value": "pkce-client"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token revoke",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/revoke?token=eyJ4NXQjUzI1NiI6Ii1VanhPNTdzWjMyMURKaXcwdGFjSHpKeEM3cFY2SVNoQ2ZPQzJqcHZpWHciLCJraWQiOiJhdXRob3JpemF0aW9uLXNlcnZlciIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJ0ZXN0IiwiYXVkIjoidGVzdC1jbGllbnQiLCJuYmYiOjE2NzI0Njc3NDUsInNjb3BlIjpbIm1lc3NhZ2UucmVhZCIsIm1lc3NhZ2Uud3JpdGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNjcyNDY4MDQ1LCJjbGFpbS0xIjoidmFsdWUtMSIsImlhdCI6MTY3MjQ2Nzc0NSwiY2xhaW0tMiI6InZhbHVlLTIifQ.kmBlaEEL639CjNF9C-1FfvH6uWPjUOIy_u5dorCJtQglk8m9yBYM4WPSH3lE-PFk9c2tRU0kFxwRKSTLtxJpLl6x_DdEE14TGeIokiMJpeg7ZeQgCRdCYHMLbGWz7AmpLi9jo70kk6nyPX9eHyz6OIpWcnjOvi8hfbYCyYwu_tUpdnrlWyT62k-6dVx3UCnUw40Fo8cLo7oRi7Krk_KWRAQk4vYZ1QZtiez2K4-Omr03mu_ImwtFQf-gixlrJYVoXyNz4XbQp8rk-h2w0DgsYj4-jdDEH1rGH-LQR_YDNDNsdRukAA01A2ZFH81Cp2rVthRg3f3zxK8eMfpYFWYTOFft_iHScqV1i8VGw6TNwoskPnwM87aXzQosZ9BV24cfe_vgR-58rMd9_8Joa_0Vo4Ns5Ch2Hxw9mZOwfbhgiHvTrHVX6EM7dAlV3eF6RCu3ITrdhNj7sK7la0UTyQmZrTswnJ9Nll4KZFHKIcADCPpYRHBRl0mdxM4oXpuo3WEf",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"revoke"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "eyJ4NXQjUzI1NiI6Ii1VanhPNTdzWjMyMURKaXcwdGFjSHpKeEM3cFY2SVNoQ2ZPQzJqcHZpWHciLCJraWQiOiJhdXRob3JpemF0aW9uLXNlcnZlciIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJ0ZXN0IiwiYXVkIjoidGVzdC1jbGllbnQiLCJuYmYiOjE2NzI0Njc3NDUsInNjb3BlIjpbIm1lc3NhZ2UucmVhZCIsIm1lc3NhZ2Uud3JpdGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNjcyNDY4MDQ1LCJjbGFpbS0xIjoidmFsdWUtMSIsImlhdCI6MTY3MjQ2Nzc0NSwiY2xhaW0tMiI6InZhbHVlLTIifQ.kmBlaEEL639CjNF9C-1FfvH6uWPjUOIy_u5dorCJtQglk8m9yBYM4WPSH3lE-PFk9c2tRU0kFxwRKSTLtxJpLl6x_DdEE14TGeIokiMJpeg7ZeQgCRdCYHMLbGWz7AmpLi9jo70kk6nyPX9eHyz6OIpWcnjOvi8hfbYCyYwu_tUpdnrlWyT62k-6dVx3UCnUw40Fo8cLo7oRi7Krk_KWRAQk4vYZ1QZtiez2K4-Omr03mu_ImwtFQf-gixlrJYVoXyNz4XbQp8rk-h2w0DgsYj4-jdDEH1rGH-LQR_YDNDNsdRukAA01A2ZFH81Cp2rVthRg3f3zxK8eMfpYFWYTOFft_iHScqV1i8VGw6TNwoskPnwM87aXzQosZ9BV24cfe_vgR-58rMd9_8Joa_0Vo4Ns5Ch2Hxw9mZOwfbhgiHvTrHVX6EM7dAlV3eF6RCu3ITrdhNj7sK7la0UTyQmZrTswnJ9Nll4KZFHKIcADCPpYRHBRl0mdxM4oXpuo3WEf"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "jwks",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/jwks",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"jwks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": ".well-known/openid-configuration",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:9000/.well-known/openid-configuration",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "9000",
+									"path": [
+										".well-known",
+										"openid-configuration"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "basic",
+						"basic": [
+							{
+								"key": "password",
+								"value": "test-client-with-jwt-secret",
+								"type": "string"
+							},
+							{
+								"key": "username",
+								"value": "test-client-with-jwt",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Authorization Server Without Jwt",
+					"item": [
+						{
+							"name": "authorize",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:9000/oauth2/authorize?client_id=test-client&response_type=code&redirect_uri=https://www.baidu.com&scope=message.read%20message.write",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"authorize"
+									],
+									"query": [
+										{
+											"key": "client_id",
+											"value": "test-client"
+										},
+										{
+											"key": "response_type",
+											"value": "code"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "https://www.baidu.com"
+										},
+										{
+											"key": "scope",
+											"value": "message.read%20message.write"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "authorize PKCE",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:9000/oauth2/authorize?client_id=pkce-client&response_type=code&redirect_uri=https://www.baidu.com&scope=message.read%20message.write&code_challenge_method=S256&code_challenge=3P6kopgvD5SwlNXyxCW-1DnPGJSNGGYn3H0vos0Xu4o",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"authorize"
+									],
+									"query": [
+										{
+											"key": "client_id",
+											"value": "pkce-client"
+										},
+										{
+											"key": "response_type",
+											"value": "code"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "https://www.baidu.com"
+										},
+										{
+											"key": "scope",
+											"value": "message.read%20message.write"
+										},
+										{
+											"key": "code_challenge_method",
+											"value": "S256"
+										},
+										{
+											"key": "code_challenge",
+											"value": "3P6kopgvD5SwlNXyxCW-1DnPGJSNGGYn3H0vos0Xu4o"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token authorization_code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/token?code=kbofkdpbpQqBdEQrmKzgCsg21BHiSQr9jRbzAwY_oUxpqwRV94ZSs1ssnmgvgvYZEGX2UQqCg9iPwIOylMlkUURREcZwnN4FvzWowb7rT4NORmMChZs-hTmOzka8kbqK&grant_type=authorization_code&redirect_uri=https://www.baidu.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"token"
+									],
+									"query": [
+										{
+											"key": "code",
+											"value": "kbofkdpbpQqBdEQrmKzgCsg21BHiSQr9jRbzAwY_oUxpqwRV94ZSs1ssnmgvgvYZEGX2UQqCg9iPwIOylMlkUURREcZwnN4FvzWowb7rT4NORmMChZs-hTmOzka8kbqK"
+										},
+										{
+											"key": "grant_type",
+											"value": "authorization_code"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "https://www.baidu.com"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token authorization_code PKCE",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/token?code=VZC_0TqKd97t4nSMregEhUdVQW-S1Hd024ATp-o55f9dQjwGX38y0t8jwglbuEPWz_4yzuJyrHotwkgZhL-TYwdWH4IlsF0WJYn0a6bURFkyPt6j1UGqIC9rtTMAkkL3&grant_type=authorization_code&redirect_uri=https://www.baidu.com&code_verifier=xx123&client_id=pkce-client",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"token"
+									],
+									"query": [
+										{
+											"key": "code",
+											"value": "VZC_0TqKd97t4nSMregEhUdVQW-S1Hd024ATp-o55f9dQjwGX38y0t8jwglbuEPWz_4yzuJyrHotwkgZhL-TYwdWH4IlsF0WJYn0a6bURFkyPt6j1UGqIC9rtTMAkkL3"
+										},
+										{
+											"key": "grant_type",
+											"value": "authorization_code"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "https://www.baidu.com"
+										},
+										{
+											"key": "code_verifier",
+											"value": "xx123"
+										},
+										{
+											"key": "client_id",
+											"value": "pkce-client"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token refresh_token",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/token?grant_type=refresh_token&refresh_token=mOOq27Pmhdg8uDZQMcUJjmGpN0YV-0hBPLItgaGUn8DEk3wYGQSC8InIXm3rcRVI34f0GS5uR4eXnWDlLpRFiqthFnkFltaBuIUkdgXYTLtD-3elKOSeqtz4YWOqUUHX",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"token"
+									],
+									"query": [
+										{
+											"key": "grant_type",
+											"value": "refresh_token"
+										},
+										{
+											"key": "refresh_token",
+											"value": "mOOq27Pmhdg8uDZQMcUJjmGpN0YV-0hBPLItgaGUn8DEk3wYGQSC8InIXm3rcRVI34f0GS5uR4eXnWDlLpRFiqthFnkFltaBuIUkdgXYTLtD-3elKOSeqtz4YWOqUUHX"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token client_credentials",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/token?grant_type=client_credentials",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"token"
+									],
+									"query": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/token?grant_type=password&username=test&password=test&scope=message.read message.write openid",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"token"
+									],
+									"query": [
+										{
+											"key": "grant_type",
+											"value": "password"
+										},
+										{
+											"key": "username",
+											"value": "test"
+										},
+										{
+											"key": "password",
+											"value": "test"
+										},
+										{
+											"key": "scope",
+											"value": "message.read message.write openid"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token sms",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/token?grant_type=sms&phone=18888888888&code=789654&scope=message.read message.write openid",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"token"
+									],
+									"query": [
+										{
+											"key": "grant_type",
+											"value": "sms"
+										},
+										{
+											"key": "phone",
+											"value": "18888888888"
+										},
+										{
+											"key": "code",
+											"value": "789654"
+										},
+										{
+											"key": "scope",
+											"value": "message.read message.write openid"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token introspect",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/introspect?token=Z1sPlc1e8p8_-guI0heuaS0_k_Lzv_Tzu4XRtad4Wk439m471sCKqiv4GF-I1GFqgVjjJR-EB3CAkCQrSN3GbMRppYKMxJe9rYvM7pxyqcBD3vtC6ctLjVYBIF6LbnTt",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"introspect"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "Z1sPlc1e8p8_-guI0heuaS0_k_Lzv_Tzu4XRtad4Wk439m471sCKqiv4GF-I1GFqgVjjJR-EB3CAkCQrSN3GbMRppYKMxJe9rYvM7pxyqcBD3vtC6ctLjVYBIF6LbnTt"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token introspect pkce",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/introspect/pkce?token=rELEk7vbhirV2GvgOxZRE-IH-uto-jftCr7n_SaVczpxW-s3zxOc0f2w2T_qPKpWQRCMM5JQ93zfUYQ_nA0KpK9lfXevvDe-rgOu-tLx_Dy7D11DizgUlFTUEg-2GP4p&client_id=pkce-client",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"introspect",
+										"pkce"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "rELEk7vbhirV2GvgOxZRE-IH-uto-jftCr7n_SaVczpxW-s3zxOc0f2w2T_qPKpWQRCMM5JQ93zfUYQ_nA0KpK9lfXevvDe-rgOu-tLx_Dy7D11DizgUlFTUEg-2GP4p"
+										},
+										{
+											"key": "client_id",
+											"value": "pkce-client"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "token revoke",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/revoke?token=eyJ4NXQjUzI1NiI6Ii1VanhPNTdzWjMyMURKaXcwdGFjSHpKeEM3cFY2SVNoQ2ZPQzJqcHZpWHciLCJraWQiOiJhdXRob3JpemF0aW9uLXNlcnZlciIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJ0ZXN0IiwiYXVkIjoidGVzdC1jbGllbnQiLCJuYmYiOjE2NzI0Njc3NDUsInNjb3BlIjpbIm1lc3NhZ2UucmVhZCIsIm1lc3NhZ2Uud3JpdGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNjcyNDY4MDQ1LCJjbGFpbS0xIjoidmFsdWUtMSIsImlhdCI6MTY3MjQ2Nzc0NSwiY2xhaW0tMiI6InZhbHVlLTIifQ.kmBlaEEL639CjNF9C-1FfvH6uWPjUOIy_u5dorCJtQglk8m9yBYM4WPSH3lE-PFk9c2tRU0kFxwRKSTLtxJpLl6x_DdEE14TGeIokiMJpeg7ZeQgCRdCYHMLbGWz7AmpLi9jo70kk6nyPX9eHyz6OIpWcnjOvi8hfbYCyYwu_tUpdnrlWyT62k-6dVx3UCnUw40Fo8cLo7oRi7Krk_KWRAQk4vYZ1QZtiez2K4-Omr03mu_ImwtFQf-gixlrJYVoXyNz4XbQp8rk-h2w0DgsYj4-jdDEH1rGH-LQR_YDNDNsdRukAA01A2ZFH81Cp2rVthRg3f3zxK8eMfpYFWYTOFft_iHScqV1i8VGw6TNwoskPnwM87aXzQosZ9BV24cfe_vgR-58rMd9_8Joa_0Vo4Ns5Ch2Hxw9mZOwfbhgiHvTrHVX6EM7dAlV3eF6RCu3ITrdhNj7sK7la0UTyQmZrTswnJ9Nll4KZFHKIcADCPpYRHBRl0mdxM4oXpuo3WEf",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"revoke"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "eyJ4NXQjUzI1NiI6Ii1VanhPNTdzWjMyMURKaXcwdGFjSHpKeEM3cFY2SVNoQ2ZPQzJqcHZpWHciLCJraWQiOiJhdXRob3JpemF0aW9uLXNlcnZlciIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJ0ZXN0IiwiYXVkIjoidGVzdC1jbGllbnQiLCJuYmYiOjE2NzI0Njc3NDUsInNjb3BlIjpbIm1lc3NhZ2UucmVhZCIsIm1lc3NhZ2Uud3JpdGUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNjcyNDY4MDQ1LCJjbGFpbS0xIjoidmFsdWUtMSIsImlhdCI6MTY3MjQ2Nzc0NSwiY2xhaW0tMiI6InZhbHVlLTIifQ.kmBlaEEL639CjNF9C-1FfvH6uWPjUOIy_u5dorCJtQglk8m9yBYM4WPSH3lE-PFk9c2tRU0kFxwRKSTLtxJpLl6x_DdEE14TGeIokiMJpeg7ZeQgCRdCYHMLbGWz7AmpLi9jo70kk6nyPX9eHyz6OIpWcnjOvi8hfbYCyYwu_tUpdnrlWyT62k-6dVx3UCnUw40Fo8cLo7oRi7Krk_KWRAQk4vYZ1QZtiez2K4-Omr03mu_ImwtFQf-gixlrJYVoXyNz4XbQp8rk-h2w0DgsYj4-jdDEH1rGH-LQR_YDNDNsdRukAA01A2ZFH81Cp2rVthRg3f3zxK8eMfpYFWYTOFft_iHScqV1i8VGw6TNwoskPnwM87aXzQosZ9BV24cfe_vgR-58rMd9_8Joa_0Vo4Ns5Ch2Hxw9mZOwfbhgiHvTrHVX6EM7dAlV3eF6RCu3ITrdhNj7sK7la0UTyQmZrTswnJ9Nll4KZFHKIcADCPpYRHBRl0mdxM4oXpuo3WEf"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "jwks",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9000/oauth2/jwks",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"oauth2",
+										"jwks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": ".well-known/openid-configuration",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:9000/.well-known/openid-configuration",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "9000",
+									"path": [
+										".well-known",
+										"openid-configuration"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "basic",
+						"basic": [
+							{
+								"key": "password",
+								"value": "test-client-without-jwt-secret",
+								"type": "string"
+							},
+							{
+								"key": "username",
+								"value": "test-client-without-jwt",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Resource Server",
+					"item": [
+						{
+							"name": "Resources",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ4NXQjUzI1NiI6Ii1VanhPNTdzWjMyMURKaXcwdGFjSHpKeEM3cFY2SVNoQ2ZPQzJqcHZpWHciLCJraWQiOiJhdXRob3JpemF0aW9uLXNlcnZlciIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJ0ZXN0IiwiYXVkIjoidGVzdC1jbGllbnQtd2l0aC1qd3QiLCJuYmYiOjE2NzMwNzA5MDQsInVzZXJfaW5mbyI6eyJwYXNzd29yZCI6bnVsbCwidXNlcm5hbWUiOiJ0ZXN0IiwiYXV0aG9yaXRpZXMiOlt7InJvbGUiOiJST0xFX1VTRVIifV0sImFjY291bnROb25FeHBpcmVkIjp0cnVlLCJhY2NvdW50Tm9uTG9ja2VkIjp0cnVlLCJjcmVkZW50aWFsc05vbkV4cGlyZWQiOnRydWUsImVuYWJsZWQiOnRydWV9LCJzY29wZSI6WyJvcGVuaWQiLCJtZXNzYWdlLnJlYWQiLCJtZXNzYWdlLndyaXRlIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTAwMCIsImV4cCI6MTY3MzA3MTIwNCwiaWF0IjoxNjczMDcwOTA0LCLmtYvor5XlrZfmrrUiOiLov5nmmK_kuIDkuKrmtYvor5XlrZfmrrUifQ.qu9qNIt_Avk_pYPmi-A6-WdsEqziC6w6A-fCig4eE9C1JjpGSGOknPdcCWp-VF6G-dTUHQEPZSXCYKQb9aYOnMeRsniqtNTFi0dhxch2LzJWSgQelTlK2OLjtrAnK4g0GfDCZpyYTY4xG8XBZiaedNsFBSGAiXGJG-_hxxZSAq5kkw8tA_jvGgSmbn77w3dfWZLzu1O8CCwJEMlf87mwuQg0yLgm8XO_o7ow9xcBCHEr0outY_DiL6Dr2zgy-RTw9g2dUOCXnpFK_VRckAT_obH0XhjTv55H6yeRIOgcnqr6kh1s7VkerooJ1Hg3R9hSgat4hWNxeVtow6MdpeyQ76pCNgx9HFKCE7IKkLbATSYGtnCABg2Ml-EQWj3nXwzj5GpRLTnxTO20e4sAQU0eqCfJxrlfZslhwakz360bFdXlD1LwIyvHJn9k719_mbxOkiyrAOJijdJQ-TID-th3CLXqsE1lMvEI4jE7HdtxLZUg1rwCTC0uVaBhDZLt8TLi",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9001/api/v1/resources",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9001",
+									"path": [
+										"api",
+										"v1",
+										"resources"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "permit  Resources",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9001/api/v1/permit/resources",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9001",
+									"path": [
+										"api",
+										"v1",
+										"permit",
+										"resources"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
