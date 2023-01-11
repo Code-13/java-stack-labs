@@ -15,11 +15,15 @@
 
 package io.github.code13.spring.security.oauth2.authorization.server.extension.configurers;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 /**
  * OAuth2AuthorizationServerExtensionConfigurer.
@@ -37,6 +41,7 @@ public class OAuth2AuthorizationServerExtensionConfigurer
 
   private final Map<Class<? extends AbstractOAuth2Configurer>, AbstractOAuth2Configurer>
       configurers = createConfigurers();
+  private RequestMatcher endpointsMatcher;
 
   private Map<Class<? extends AbstractOAuth2Configurer>, AbstractOAuth2Configurer>
       createConfigurers() {
@@ -45,12 +50,28 @@ public class OAuth2AuthorizationServerExtensionConfigurer
     initConfigurers.put(
         OAuth2PasswordConfigurer.class, new OAuth2PasswordConfigurer(this::postProcess));
     initConfigurers.put(OAuth2SmsConfigurer.class, new OAuth2SmsConfigurer(this::postProcess));
+    initConfigurers.put(
+        OAuth2PkceTokenIntrospectionEndpointConfigurer.class,
+        new OAuth2PkceTokenIntrospectionEndpointConfigurer(this::postProcess));
     return initConfigurers;
   }
 
   @Override
   public void init(HttpSecurity http) throws Exception {
-    configurers.values().forEach(configurer -> configurer.init(http));
+    List<RequestMatcher> requestMatchers = new ArrayList<>();
+
+    configurers
+        .values()
+        .forEach(
+            configurer -> {
+              configurer.init(http);
+              RequestMatcher requestMatcher = configurer.getRequestMatcher();
+              if (requestMatcher != null) {
+                requestMatchers.add(requestMatcher);
+              }
+            });
+
+    endpointsMatcher = new OrRequestMatcher(requestMatchers);
   }
 
   @Override
@@ -73,5 +94,16 @@ public class OAuth2AuthorizationServerExtensionConfigurer
   @SuppressWarnings("unchecked")
   private <T> T getConfigurer(Class<T> type) {
     return (T) configurers.get(type);
+  }
+
+  /**
+   * Returns a {@link RequestMatcher} for the authorization server endpoints.
+   *
+   * @return a {@link RequestMatcher} for the authorization server endpoints
+   */
+  public RequestMatcher getEndpointsMatcher() {
+    // Return a deferred RequestMatcher
+    // since endpointsMatcher is constructed in init(HttpSecurity).
+    return request -> endpointsMatcher.matches(request);
   }
 }

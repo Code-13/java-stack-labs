@@ -17,6 +17,7 @@ package io.github.code13.spring.security.oauth2.authorization.server.extension.c
 
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 /**
  * AbstractOAuth2Configurer.
@@ -41,7 +42,9 @@ abstract class AbstractOAuth2Configurer {
 
   abstract void configure(HttpSecurity httpSecurity);
 
-  // abstract RequestMatcher getRequestMatcher();
+  RequestMatcher getRequestMatcher() {
+    return null;
+  }
 
   protected final <T> T postProcess(T object) {
     return objectPostProcessor.postProcess(object);

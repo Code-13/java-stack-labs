@@ -58,6 +58,7 @@ import org.springframework.security.oauth2.server.authorization.settings.OAuth2T
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 /**
@@ -75,9 +76,20 @@ class AuthorizationServerConfiguration {
   @Order(Ordered.HIGHEST_PRECEDENCE)
   SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
 
+    // OAuth2AuthorizationServer 自带的 Endpoint
     OAuth2AuthorizationServerConfigurer authorizationServerConfigurer =
         new OAuth2AuthorizationServerConfigurer();
-    RequestMatcher endpointsMatcher = authorizationServerConfigurer.getEndpointsMatcher();
+    RequestMatcher serverEndpointsMatcher = authorizationServerConfigurer.getEndpointsMatcher();
+
+    // 拓展增加的 Endpoint
+    OAuth2AuthorizationServerExtensionConfigurer authorizationServerExtensionConfigurer =
+        new OAuth2AuthorizationServerExtensionConfigurer();
+    RequestMatcher extensionEndpointsMatcher =
+        authorizationServerExtensionConfigurer.getEndpointsMatcher();
+
+    // 将自带与拓展的相结合
+    RequestMatcher endpointsMatcher =
+        new OrRequestMatcher(serverEndpointsMatcher, extensionEndpointsMatcher);
 
     http.requestMatcher(endpointsMatcher)
         .authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
@@ -93,7 +105,7 @@ class AuthorizationServerConfiguration {
     http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 
     // 注入自定义的授权类型
-    http.apply(new OAuth2AuthorizationServerExtensionConfigurer())
+    http.apply(authorizationServerExtensionConfigurer)
         .sms( // 配置 SMS
             sms ->
                 sms.smsService((phone, code) -> true)
@@ -197,7 +209,7 @@ class AuthorizationServerConfiguration {
             .scope("message.write")
             .tokenSettings(
                 // 生成JWT令牌
-                TokenSettings.builder().accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED).build())
+                TokenSettings.builder().accessTokenFormat(OAuth2TokenFormat.REFERENCE).build())
             .clientSettings(
                 ClientSettings.builder()
                     .requireAuthorizationConsent(true)
