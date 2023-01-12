@@ -18,6 +18,7 @@ package io.github.code13.spring.security.oauth2.authorization.server.config;
 import java.nio.charset.StandardCharsets;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -87,28 +88,40 @@ class SecurityCoreConfig {
   }
   // @formatter:on
 
-  //  @Bean
-  //  WebSecurityCustomizer webSecurityCustomizer() {
-  //    return web -> web.ignoring().antMatchers("/actuator/health", "/h2-console/**",
-  // "/favicon.ico");
-  //  }
+  @Configuration(proxyBeanMethods = false)
+  public static class PermitResourceSecurityConfig {
 
-  /**
-   * @see https://github.com/spring-projects/spring-security/issues/10938
-   */
-  @Bean
-  @Order(0)
-  SecurityFilterChain resources(HttpSecurity http) throws Exception {
-    http.requestMatchers(
-            matchers -> matchers.antMatchers("/actuator/*", "/h2-console/*", "/favicon.ico"))
-        .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
-        .requestCache()
-        .disable()
-        .securityContext()
-        .disable()
-        .sessionManagement()
-        .disable();
+    private static final String[] permitResources =
+        new String[] {
+          "/actuator/**",
+          "/h2-console/**",
+          "/favicon.ico",
+          "/**/*.json",
+          "/**/*.html",
+          "/**/*.js",
+          "/**/*.js.gz",
+          "/**/*.css",
+          "/**/*.ttf",
+          "/**/*.png",
+          "/**/*.svg",
+        };
 
-    return http.build();
+    /**
+     * @see https://github.com/spring-projects/spring-security/issues/10938
+     */
+    @Bean
+    @Order(0)
+    SecurityFilterChain resources(HttpSecurity http) throws Exception {
+      http.requestMatchers(matchers -> matchers.antMatchers(permitResources))
+          .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
+          .requestCache()
+          .disable()
+          .securityContext()
+          .disable()
+          .sessionManagement()
+          .disable();
+
+      return http.build();
+    }
   }
 }

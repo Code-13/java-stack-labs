@@ -15,6 +15,7 @@
 
 package io.github.code13.spring.security.oauth2.authorization.server.extension.password;
 
+import io.github.code13.spring.security.oauth2.authorization.server.extension.AuthorizationGrantTypes;
 import io.github.code13.spring.security.oauth2.authorization.server.extension.OAuth2ErrorCodesExtension;
 import io.github.code13.spring.security.oauth2.authorization.server.extension.OAuth2ResourceOwnerAuthenticationProvider;
 import java.util.Map;
@@ -48,7 +49,7 @@ public class OAuth2PasswordAuthenticationProvider
 
   @Override
   protected AuthorizationGrantType getSupportGrantType() {
-    return AuthorizationGrantType.PASSWORD;
+    return AuthorizationGrantTypes.PASSWORD;
   }
 
   @Override

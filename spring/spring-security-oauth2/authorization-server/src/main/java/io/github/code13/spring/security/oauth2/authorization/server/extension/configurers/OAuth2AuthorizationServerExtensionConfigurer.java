@@ -28,6 +28,12 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 /**
  * OAuth2AuthorizationServerExtensionConfigurer.
  *
+ * <pre>
+ *   1. password: OAuth2PasswordConfigurer
+ *   2. sms: OAuth2SmsConfigurer
+ *   3. token introspect for pkce: OAuth2PkceTokenIntrospectionEndpointConfigurer
+ * </pre>
+ *
  * <p>参考 {@link
  * org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer}
  *

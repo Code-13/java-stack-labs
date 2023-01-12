@@ -29,12 +29,15 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 
 /**
- * TokenIntrospectionPublicClientAuthenticationConverter.
+ * PkceTokenIntrospectionClientAuthenticationConverter.
  *
+ * @see
+ *     org.springframework.security.oauth2.server.authorization.web.authentication.PublicClientAuthenticationConverter
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2023/1/10 21:49
  */
-public final class PublicClientAuthenticationConverter implements AuthenticationConverter {
+public final class PkceTokenIntrospectionClientAuthenticationConverter
+    implements AuthenticationConverter {
 
   @Override
   public Authentication convert(HttpServletRequest request) {

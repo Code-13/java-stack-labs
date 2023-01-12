@@ -15,13 +15,13 @@
 
 package io.github.code13.spring.security.oauth2.authorization.server.extension.password;
 
+import io.github.code13.spring.security.oauth2.authorization.server.extension.AuthorizationGrantTypes;
 import io.github.code13.spring.security.oauth2.authorization.server.extension.OAuth2EndpointUtils;
 import io.github.code13.spring.security.oauth2.authorization.server.extension.OAuth2ResourceOwnerAuthenticationConverter;
 import java.util.Map;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.util.MultiValueMap;
@@ -38,7 +38,7 @@ public class OAuth2PasswordAuthenticationConverter
 
   @Override
   protected boolean supportGrantType(String grantType) {
-    return AuthorizationGrantType.PASSWORD.getValue().equals(grantType);
+    return AuthorizationGrantTypes.PASSWORD.getValue().equals(grantType);
   }
 
   @Override
@@ -71,6 +71,6 @@ public class OAuth2PasswordAuthenticationConverter
       Set<String> requestedScopes,
       Map<String, Object> additionalParameters) {
     return new OAuth2PasswordAuthenticationToken(
-        AuthorizationGrantType.PASSWORD, clientPrincipal, requestedScopes, additionalParameters);
+        AuthorizationGrantTypes.PASSWORD, clientPrincipal, requestedScopes, additionalParameters);
   }
 }

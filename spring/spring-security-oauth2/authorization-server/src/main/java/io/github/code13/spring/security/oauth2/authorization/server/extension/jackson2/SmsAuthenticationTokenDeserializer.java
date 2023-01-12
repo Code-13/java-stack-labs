@@ -28,7 +28,6 @@ import com.fasterxml.jackson.databind.node.MissingNode;
 import io.github.code13.spring.security.oauth2.authorization.server.extension.sms.SmsAuthenticationToken;
 import java.io.IOException;
 import java.util.List;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -45,7 +44,7 @@ final class SmsAuthenticationTokenDeserializer extends JsonDeserializer<SmsAuthe
   private static final TypeReference<Object> OBJECT = new TypeReference<Object>() {};
 
   /**
-   * This method construct {@link UsernamePasswordAuthenticationToken} object from serialized json.
+   * This method construct {@link SmsAuthenticationToken} object from serialized json.
    *
    * @param jp the JsonParser
    * @param ctxt the DeserializationContext

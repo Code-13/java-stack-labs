@@ -32,19 +32,22 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.util.Assert;
 
 /**
- * PublicClientAuthenticationProvider.
+ * PkceTokenIntrospectionClientAuthenticationProvider.
  *
+ * @see PkceTokenIntrospectionClientAuthenticationConverter
+ * @see OAuth2PkceTokenIntrospectionEndpointFilter
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2023/1/11 20:24
  */
-public class PublicClientAuthenticationProvider implements AuthenticationProvider {
+public class PkceTokenIntrospectionClientAuthenticationProvider implements AuthenticationProvider {
   private static final String ERROR_URI =
       "https://datatracker.ietf.org/doc/html/rfc6749#section-3.2.1";
 
   private final Log logger = LogFactory.getLog(getClass());
   private final RegisteredClientRepository registeredClientRepository;
 
-  public PublicClientAuthenticationProvider(RegisteredClientRepository registeredClientRepository) {
+  public PkceTokenIntrospectionClientAuthenticationProvider(
+      RegisteredClientRepository registeredClientRepository) {
     Assert.notNull(registeredClientRepository, "registeredClientRepository cannot be null");
     this.registeredClientRepository = registeredClientRepository;
   }

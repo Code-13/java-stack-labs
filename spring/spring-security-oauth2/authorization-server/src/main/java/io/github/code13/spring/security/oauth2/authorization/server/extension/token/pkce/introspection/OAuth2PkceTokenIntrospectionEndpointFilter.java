@@ -92,7 +92,7 @@ public class OAuth2PkceTokenIntrospectionEndpointFilter extends OncePerRequestFi
     tokenIntrospectionEndpointMatcher =
         new AntPathRequestMatcher(tokenIntrospectionEndpointUri, HttpMethod.POST.name());
     authenticationConverter = new OAuth2TokenIntrospectionAuthenticationConverter();
-    clientAuthenticationConverter = new PublicClientAuthenticationConverter();
+    clientAuthenticationConverter = new PkceTokenIntrospectionClientAuthenticationConverter();
   }
 
   @Override

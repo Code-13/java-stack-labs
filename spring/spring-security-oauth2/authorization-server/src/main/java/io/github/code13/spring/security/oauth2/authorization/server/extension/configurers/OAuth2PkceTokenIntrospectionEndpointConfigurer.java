@@ -16,7 +16,7 @@
 package io.github.code13.spring.security.oauth2.authorization.server.extension.configurers;
 
 import io.github.code13.spring.security.oauth2.authorization.server.extension.token.pkce.introspection.OAuth2PkceTokenIntrospectionEndpointFilter;
-import io.github.code13.spring.security.oauth2.authorization.server.extension.token.pkce.introspection.PublicClientAuthenticationProvider;
+import io.github.code13.spring.security.oauth2.authorization.server.extension.token.pkce.introspection.PkceTokenIntrospectionClientAuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -48,9 +48,10 @@ public class OAuth2PkceTokenIntrospectionEndpointConfigurer extends AbstractOAut
     RegisteredClientRepository registeredClientRepository =
         OAuth2ConfigurerUtils.getRegisteredClientRepository(http);
 
-    PublicClientAuthenticationProvider publicClientAuthenticationProvider =
-        new PublicClientAuthenticationProvider(registeredClientRepository);
-    http.authenticationProvider(postProcess(publicClientAuthenticationProvider));
+    PkceTokenIntrospectionClientAuthenticationProvider
+        pkceTokenIntrospectionClientAuthenticationProvider =
+            new PkceTokenIntrospectionClientAuthenticationProvider(registeredClientRepository);
+    http.authenticationProvider(postProcess(pkceTokenIntrospectionClientAuthenticationProvider));
   }
 
   @Override

@@ -18,7 +18,7 @@ package io.github.code13.spring.security.oauth2.authorization.server.extension;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 
 /**
- * extensions for {@link AuthorizationGrantType}.
+ * extensions for {@link AuthorizationGrantType}. use for {@code AuthorizationGrantType} extension.
  *
  * @see AuthorizationGrantType
  * @author <a href="https://github.com/Code-13/">code13</a>
