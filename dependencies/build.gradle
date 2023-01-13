@@ -9,9 +9,9 @@ javaPlatform {
 }
 
 dependencies {
-    api(platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"))
-    api(platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"))
-    api(platform("com.alibaba.cloud:spring-cloud-alibaba-dependencies:$springCloudAlibabaVersion"))
+    api platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
+    api platform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+    api platform("com.alibaba.cloud:spring-cloud-alibaba-dependencies:$springCloudAlibabaVersion")
     constraints {
         api "org.springframework.security:spring-security-oauth2-authorization-server:$springSecurityOauth2AuthorizationServerVersion"
 
