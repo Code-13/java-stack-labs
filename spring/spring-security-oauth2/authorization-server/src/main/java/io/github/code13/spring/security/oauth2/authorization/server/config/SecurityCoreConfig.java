@@ -44,12 +44,12 @@ class SecurityCoreConfig {
   SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
     http.csrf()
         .disable()
-        .authorizeRequests(
+        .authorizeHttpRequests(
             authorizeRequests ->
                 authorizeRequests
-                    .antMatchers("/login.html", "/login/oauth2")
+                    .requestMatchers("/login.html", "/login/oauth2")
                     .permitAll()) // 重要；作为非默认值，必须放开，否则会无限重定向
-        .authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
+        .authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
         .formLogin()
         .loginPage("/login.html")
         .loginProcessingUrl("/login/form")
@@ -112,7 +112,7 @@ class SecurityCoreConfig {
     @Bean
     @Order(0)
     SecurityFilterChain resources(HttpSecurity http) throws Exception {
-      http.requestMatchers(matchers -> matchers.antMatchers(permitResources))
+      http.authorizeHttpRequests(matchers -> matchers.requestMatchers(permitResources))
           .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
           .requestCache()
           .disable()

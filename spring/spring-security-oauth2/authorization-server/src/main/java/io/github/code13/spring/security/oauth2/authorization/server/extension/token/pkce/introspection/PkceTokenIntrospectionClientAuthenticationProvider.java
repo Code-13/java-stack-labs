@@ -16,11 +16,13 @@
 package io.github.code13.spring.security.oauth2.authorization.server.extension.token.pkce.introspection;
 
 import java.time.Instant;
+import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
@@ -72,15 +74,28 @@ public class PkceTokenIntrospectionClientAuthenticationProvider implements Authe
       logger.trace("Retrieved registered client");
     }
 
-    if (!registeredClient
-        .getClientAuthenticationMethods()
-        .contains(clientAuthentication.getClientAuthenticationMethod())) {
+    Set<ClientAuthenticationMethod> clientAuthenticationMethods =
+        registeredClient.getClientAuthenticationMethods();
+    if (clientAuthenticationMethods.size() != 1
+        || !clientAuthenticationMethods.contains(
+            clientAuthentication.getClientAuthenticationMethod())) {
       throwInvalidClient("authentication_method");
     }
 
     if (registeredClient.getClientSecretExpiresAt() != null
         && Instant.now().isAfter(registeredClient.getClientSecretExpiresAt())) {
       throwInvalidClient("client_secret_expires_at");
+    }
+
+    if (!registeredClient.getClientSettings().isRequireProofKey()) {
+      throwInvalidClient("require_proof_key");
+    }
+
+    Set<AuthorizationGrantType> authorizationGrantTypes =
+        registeredClient.getAuthorizationGrantTypes();
+    if (authorizationGrantTypes.size() != 1
+        || !authorizationGrantTypes.contains(AuthorizationGrantType.AUTHORIZATION_CODE)) {
+      throwInvalidClient("authorization_grant_type");
     }
 
     if (logger.isTraceEnabled()) {

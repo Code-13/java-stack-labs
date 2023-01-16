@@ -49,9 +49,9 @@ public class OAuth2PasswordConfigurer extends AbstractOAuth2Configurer {
   public void configure(HttpSecurity http) {
     AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
     OAuth2AuthorizationService authorizationService =
-        http.getSharedObject(OAuth2AuthorizationService.class);
+        OAuth2ConfigurerUtils.getAuthorizationService(http);
     OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator =
-        http.getSharedObject(OAuth2TokenGenerator.class);
+        OAuth2ConfigurerUtils.getTokenGenerator(http);
 
     OAuth2PasswordAuthenticationProvider oAuth2PasswordAuthenticationProvider =
         new OAuth2PasswordAuthenticationProvider(

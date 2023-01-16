@@ -55,11 +55,10 @@ public class OAuth2SmsConfigurer extends AbstractOAuth2Configurer {
     // ----- OAuth2SmsAuthenticationProvider / OAuth2SmsAuthenticationToken -----
     AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
     OAuth2AuthorizationService authorizationService =
-        http.getSharedObject(OAuth2AuthorizationService.class);
+        OAuth2ConfigurerUtils.getAuthorizationService(http);
 
-    @SuppressWarnings("unchecked")
     OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator =
-        http.getSharedObject(OAuth2TokenGenerator.class);
+        OAuth2ConfigurerUtils.getTokenGenerator(http);
 
     OAuth2SmsAuthenticationProvider oAuth2PasswordAuthenticationProvider =
         new OAuth2SmsAuthenticationProvider(

@@ -38,6 +38,12 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
 /**
  * JwksConfiguration.
  *
+ * <pre>
+ * - `JWT`：指的是 `JSON Web Token`，由 `header.payload.signature` 组成。不存在签名的 `JWT` 是不安全的，存在签名的 `JWT` 是不可窜改的。
+ * - `JWS`：指的是签过名的 `JWT`，即拥有签名的 `JWT`。
+ * - `JWK`：既然涉及到签名，就涉及到签名算法，对称加密还是非对称加密，那么就需要加密的 密钥或者公私钥对。此处我们将 `JWT` 的密钥或者公私钥对统一称为 `JSON WEB KEY`，即 `JWK`。
+ * </pre>
+ *
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/12/31 13:49
  */

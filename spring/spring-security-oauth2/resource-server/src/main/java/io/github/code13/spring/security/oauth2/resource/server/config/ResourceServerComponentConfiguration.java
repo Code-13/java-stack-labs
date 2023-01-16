@@ -36,8 +36,10 @@ import org.springframework.security.oauth2.server.resource.introspection.OpaqueT
 @Configuration(proxyBeanMethods = false)
 class ResourceServerComponentConfiguration {
 
-  // OpaqueTokenIntrospector opaqueTokenIntrospector() {
-  //  return new ResourceServerOpaqueTokenIntrospector();
+  // OpaqueTokenIntrospector opaqueTokenIntrospector(OAuth2ResourceServerProperties properties) {
+  //  RestTemplate restTemplate = new RestTemplate();
+  //  return new NimbusOpaqueTokenIntrospector(
+  //      properties.getOpaquetoken().getIntrospectionUri(), restTemplate);
   // }
 
   /**
