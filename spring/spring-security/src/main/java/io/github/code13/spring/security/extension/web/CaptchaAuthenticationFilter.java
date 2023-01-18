@@ -13,8 +13,9 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.captcha;
+package io.github.code13.spring.security.extension.web;
 
+import io.github.code13.spring.security.extension.authentication.captcha.CaptchaAuthenticationToken;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

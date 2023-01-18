@@ -15,11 +15,11 @@
 
 package io.github.code13.spring.security.old;
 
-import io.github.code13.spring.security.captcha.CaptchaAuthenticationFilter;
-import io.github.code13.spring.security.captcha.CaptchaAuthenticationProvider;
-import io.github.code13.spring.security.captcha.CaptchaAuthenticationToken;
-import io.github.code13.spring.security.captcha.CaptchaService;
-import io.github.code13.spring.security.captcha.CaptchaUserDetailsService;
+import io.github.code13.spring.security.extension.authentication.captcha.CaptchaAuthenticationProvider;
+import io.github.code13.spring.security.extension.authentication.captcha.CaptchaAuthenticationToken;
+import io.github.code13.spring.security.extension.authentication.captcha.CaptchaService;
+import io.github.code13.spring.security.extension.authentication.captcha.CaptchaUserDetailsService;
+import io.github.code13.spring.security.extension.web.CaptchaAuthenticationFilter;
 import java.util.Arrays;
 import java.util.Collections;
 import javax.servlet.http.HttpServletRequest;

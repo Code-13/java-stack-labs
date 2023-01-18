@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.commons;
+package io.github.code13.spring.security.extension.web;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

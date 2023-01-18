@@ -13,25 +13,25 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.captcha;
+package io.github.code13.spring.security.extension.token;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import java.io.Serial;
 
 /**
- * CaptchaUserDetailsService.
+ * TokenException.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @date 2/10/2022 2:27 PM
+ * @since 2022/9/27 20:50
  */
-public interface CaptchaUserDetailsService {
+public class TokenException extends RuntimeException {
 
-  /**
-   * load user by phone.
-   *
-   * @param phone phone
-   * @return userDetails
-   * @throws UsernameNotFoundException not found user
-   */
-  UserDetails loadUserByPhone(String phone) throws UsernameNotFoundException;
+  @Serial private static final long serialVersionUID = -4967299306450471492L;
+
+  public TokenException(String message, Exception e) {
+    super(message, e);
+  }
+
+  public TokenException(String message) {
+    super(message);
+  }
 }

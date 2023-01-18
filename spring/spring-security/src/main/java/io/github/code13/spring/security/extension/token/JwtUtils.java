@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.commons.token;
+package io.github.code13.spring.security.extension.token;
 
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JOSEObjectType;

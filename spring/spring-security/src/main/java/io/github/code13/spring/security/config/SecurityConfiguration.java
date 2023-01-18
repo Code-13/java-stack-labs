@@ -13,8 +13,9 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security;
+package io.github.code13.spring.security.config;
 
+import io.github.code13.spring.security.ResponseData;
 import io.github.code13.spring.security.old.CaptchaAuthenticationFilterConfigurer;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -134,7 +135,8 @@ public class SecurityConfiguration {
         .and()
         // 应用 Captcha 的配置
         .apply(
-            new io.github.code13.spring.security.captcha.CaptchaAuthenticationFilterConfigurer<>())
+            new io.github.code13.spring.security.extension.configurers
+                .CaptchaAuthenticationFilterConfigurer<>())
         .captchaService((phone, rawCode) -> true) // 此处自己去自定义
         .captchaUserDetailsService(
             phone -> userDetailsService.loadUserByUsername("code13")); // 此处应该自定义用户信息

@@ -13,9 +13,13 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.captcha;
+package io.github.code13.spring.security.extension.configurers;
 
-import io.github.code13.spring.security.commons.CustomAbstractAuthenticationFilterConfigurer;
+import io.github.code13.spring.security.extension.authentication.captcha.CaptchaAuthenticationProvider;
+import io.github.code13.spring.security.extension.authentication.captcha.CaptchaAuthenticationToken;
+import io.github.code13.spring.security.extension.authentication.captcha.CaptchaService;
+import io.github.code13.spring.security.extension.authentication.captcha.CaptchaUserDetailsService;
+import io.github.code13.spring.security.extension.web.CaptchaAuthenticationFilter;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.convert.converter.Converter;

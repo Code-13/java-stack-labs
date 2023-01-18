@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.captcha;
+package io.github.code13.spring.security.extension.authentication.captcha;
 
 import java.io.Serial;
 import java.util.Collection;

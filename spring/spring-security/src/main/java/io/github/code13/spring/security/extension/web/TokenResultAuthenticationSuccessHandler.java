@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.commons;
+package io.github.code13.spring.security.extension.web;
 
-import io.github.code13.spring.security.commons.token.JwtTokenResult;
-import io.github.code13.spring.security.commons.token.JwtUtils;
+import io.github.code13.spring.security.extension.token.JwtUtils;
+import io.github.code13.spring.security.extension.token.TokenResult;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Map;
@@ -72,7 +72,7 @@ public class TokenResultAuthenticationSuccessHandler implements AuthenticationSu
         JwtUtils.createToken(
             Map.of("userinfo", user), "qwertyuiopasdfghjklzxcvbnm1234567890", refreshTokenExpire);
 
-    return new JwtTokenResult(
+    return new TokenResult(
         accessToken,
         (int) accessTokenExpire.getSeconds(),
         refreshToken,

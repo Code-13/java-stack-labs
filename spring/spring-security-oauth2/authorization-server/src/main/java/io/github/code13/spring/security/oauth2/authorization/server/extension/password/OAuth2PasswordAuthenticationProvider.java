@@ -67,7 +67,7 @@ public class OAuth2PasswordAuthenticationProvider
     Map<String, Object> additionalParameters = token.getAdditionalParameters();
     String username = (String) additionalParameters.get(OAuth2ParameterNames.USERNAME);
     String password = (String) additionalParameters.get(OAuth2ParameterNames.PASSWORD);
-    return new UsernamePasswordAuthenticationToken(username, password);
+    return UsernamePasswordAuthenticationToken.unauthenticated(username, password);
   }
 
   @Override

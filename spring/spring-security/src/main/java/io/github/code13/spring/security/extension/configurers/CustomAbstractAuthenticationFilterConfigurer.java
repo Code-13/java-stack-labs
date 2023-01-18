@@ -13,8 +13,10 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.commons;
+package io.github.code13.spring.security.extension.configurers;
 
+import io.github.code13.spring.security.extension.web.JsonHttp401AuthenticationEntryPoint;
+import io.github.code13.spring.security.extension.web.TokenResultAuthenticationSuccessHandler;
 import java.util.Arrays;
 import java.util.Collections;
 import javax.servlet.http.HttpServletRequest;

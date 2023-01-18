@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.commons.token;
+package io.github.code13.spring.security.extension.token;
 
 /**
- * JwtTokenResult.
+ * TokenResult.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2022/9/26 22:04
  */
-public record JwtTokenResult(
+public record TokenResult(
     String accessToken, int accessExpire, String refreshToken, int refreshExpire) {}
