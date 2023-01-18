@@ -39,7 +39,7 @@ ext {
     protostuffVersion = "1.8.0"
     easyexcelVersion = "3.1.4"
     // redisson
-    redissonVersion = "3.19.0"
+    redissonVersion = "3.19.1"
     // jmh
     jmhVersion = "1.36"
     caffeineVersion = "3.1.2"

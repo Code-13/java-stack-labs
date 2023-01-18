@@ -13,20 +13,28 @@
  * limitations under the License.
  */
 
+package io.github.code13.libs.redisson.frameworks.spring;
+
+import org.redisson.api.RedissonClient;
+import org.redisson.spring.data.connection.RedissonConnectionFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 /**
- * package-info.
- *
- * <p>captcha security config
+ * SpringDataRedis.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @date 2/10/2022 2:20 PM
+ * @since 2023/1/18 12:32
  */
-package io.github.code13.spring.security.captcha;
+@Configuration
+public class SpringDataRedis {
 
-/*
- * POST /login/captcha HTTP/1.1
- * Host: localhost:8085
- * Content-Type: application/x-www-form-urlencoded
- *
- * phone=11111111111&captcha=123456
- */
+  @Configuration
+  public static class RedissonSpringDataConfig {
+
+    @Bean
+    public RedissonConnectionFactory redissonConnectionFactory(RedissonClient redissonClient) {
+      return new RedissonConnectionFactory(redissonClient);
+    }
+  }
+}

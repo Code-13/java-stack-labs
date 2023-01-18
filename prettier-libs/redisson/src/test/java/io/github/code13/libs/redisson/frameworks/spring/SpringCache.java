@@ -13,9 +13,8 @@
  * limitations under the License.
  */
 
-package io.github.code13.libs.redisson.frameworks;
+package io.github.code13.libs.redisson.frameworks.spring;
 
-import io.github.code13.libs.redisson.RedissonClientBuilder;
 import java.util.HashMap;
 import java.util.Map;
 import org.redisson.api.RedissonClient;
@@ -23,15 +22,11 @@ import org.redisson.spring.cache.CacheConfig;
 import org.redisson.spring.cache.RedissonSpringCacheManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,16 +37,11 @@ import org.springframework.web.bind.annotation.RestController;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2021/10/5 17:39
  */
-@SpringBootApplication
+@Configuration
 public class SpringCache {
 
-  public static void main(String[] args) {
-    SpringApplication.run(SpringCache.class, args);
-  }
-
-  @AutoConfiguration
+  @Configuration
   @EnableCaching
-  @EnableConfigurationProperties(RedisProperties.class)
   public static class Config {
 
     @Bean
@@ -61,15 +51,6 @@ public class SpringCache {
       // create "testMap" cache with ttl = 24 minutes and maxIdleTime = 12 minutes
       config.put("testMap", new CacheConfig(24 * 60 * 1000, 12 * 60 * 1000));
       return new RedissonSpringCacheManager(redissonClient, config);
-    }
-
-    @Bean(destroyMethod = "shutdown")
-    public static RedissonClient doBuild(RedisProperties properties) {
-      return RedissonClientBuilder.build(
-          properties.getHost(),
-          properties.getPort(),
-          properties.getPassword(),
-          properties.getDatabase());
     }
   }
 

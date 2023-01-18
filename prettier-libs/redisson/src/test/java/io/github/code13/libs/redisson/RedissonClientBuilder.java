@@ -30,7 +30,6 @@ import java.time.format.DateTimeFormatter;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
-import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
 import org.redisson.config.SingleServerConfig;
 
@@ -59,9 +58,8 @@ public final class RedissonClientBuilder {
       singleServerConfig.setPassword(password);
     }
 
-    ObjectMapper objectMapper = buildObjectMapper();
-
-    config.setCodec(new JsonJacksonCodec(objectMapper));
+    // ObjectMapper objectMapper = buildObjectMapper();
+    // config.setCodec(new JsonJacksonCodec(objectMapper));
 
     return Redisson.create(config);
   }
