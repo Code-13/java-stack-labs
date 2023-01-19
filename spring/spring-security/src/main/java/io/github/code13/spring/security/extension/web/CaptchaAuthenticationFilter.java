@@ -20,14 +20,13 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.util.Assert;
 
 /**
  * CaptchaAuthenticationFilter.
@@ -37,24 +36,22 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  */
 public class CaptchaAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
-  public static final String SPRING_SECURITY_FORM_USERNAME_KEY = "phone";
-  public static final String SPRING_SECURITY_FORM_CAPTCHA_KEY = "captcha";
+  public static final String SPRING_SECURITY_CAPTCHA_USERNAME_KEY = "phone";
+  public static final String SPRING_SECURITY_CAPTCHA_KEY = "captcha";
   private static final AntPathRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER =
       new AntPathRequestMatcher("/login/captcha", "POST");
-  private String usernameParameter = SPRING_SECURITY_FORM_USERNAME_KEY;
-  private String captchaParameter = SPRING_SECURITY_FORM_CAPTCHA_KEY;
-  private Converter<HttpServletRequest, CaptchaAuthenticationToken>
-      captchaAuthenticationTokenConverter;
-  private boolean postOnly = true;
+  private String usernameParameter = SPRING_SECURITY_CAPTCHA_USERNAME_KEY;
+  private String captchaParameter = SPRING_SECURITY_CAPTCHA_KEY;
+  private AuthenticationConverter converter;
 
   public CaptchaAuthenticationFilter() {
     super(DEFAULT_ANT_PATH_REQUEST_MATCHER);
-    captchaAuthenticationTokenConverter = defaultConverter();
+    converter = defaultConverter();
   }
 
   public CaptchaAuthenticationFilter(AuthenticationManager authenticationManager) {
     super(DEFAULT_ANT_PATH_REQUEST_MATCHER, authenticationManager);
-    captchaAuthenticationTokenConverter = defaultConverter();
+    converter = defaultConverter();
   }
 
   @Override
@@ -62,15 +59,12 @@ public class CaptchaAuthenticationFilter extends AbstractAuthenticationProcessin
       HttpServletRequest request, HttpServletResponse response)
       throws AuthenticationException, IOException, ServletException {
 
-    if (postOnly && !HttpMethod.POST.matches(request.getMethod())) {
-      throw new AuthenticationServiceException(
-          "Authentication method not supported: " + request.getMethod());
-    }
+    Authentication authenticationToken = converter.convert(request);
 
-    CaptchaAuthenticationToken authenticationToken =
-        captchaAuthenticationTokenConverter.convert(request);
+    Assert.isInstanceOf(CaptchaAuthenticationToken.class, authenticationToken);
+    CaptchaAuthenticationToken authentication = (CaptchaAuthenticationToken) authenticationToken;
 
-    setDetails(request, authenticationToken);
+    setDetails(request, authentication);
 
     return getAuthenticationManager().authenticate(authenticationToken);
   }
@@ -79,7 +73,7 @@ public class CaptchaAuthenticationFilter extends AbstractAuthenticationProcessin
     authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
   }
 
-  private Converter<HttpServletRequest, CaptchaAuthenticationToken> defaultConverter() {
+  private AuthenticationConverter defaultConverter() {
     return request -> {
       String username = request.getParameter(usernameParameter);
       username = (username != null) ? username : "";
@@ -105,22 +99,7 @@ public class CaptchaAuthenticationFilter extends AbstractAuthenticationProcessin
     this.captchaParameter = captchaParameter;
   }
 
-  public Converter<HttpServletRequest, CaptchaAuthenticationToken>
-      getCaptchaAuthenticationTokenConverter() {
-    return captchaAuthenticationTokenConverter;
-  }
-
-  public void setConverter(
-      Converter<HttpServletRequest, CaptchaAuthenticationToken>
-          captchaAuthenticationTokenConverter) {
-    this.captchaAuthenticationTokenConverter = captchaAuthenticationTokenConverter;
-  }
-
-  public boolean isPostOnly() {
-    return postOnly;
-  }
-
-  public void setPostOnly(boolean postOnly) {
-    this.postOnly = postOnly;
+  public void setConverter(AuthenticationConverter converter) {
+    this.converter = converter;
   }
 }

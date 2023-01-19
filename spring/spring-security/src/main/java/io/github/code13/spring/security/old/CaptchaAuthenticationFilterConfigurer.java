@@ -16,7 +16,6 @@
 package io.github.code13.spring.security.old;
 
 import io.github.code13.spring.security.extension.authentication.captcha.CaptchaAuthenticationProvider;
-import io.github.code13.spring.security.extension.authentication.captcha.CaptchaAuthenticationToken;
 import io.github.code13.spring.security.extension.authentication.captcha.CaptchaService;
 import io.github.code13.spring.security.extension.authentication.captcha.CaptchaUserDetailsService;
 import io.github.code13.spring.security.extension.web.CaptchaAuthenticationFilter;
@@ -25,7 +24,6 @@ import java.util.Collections;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,6 +34,7 @@ import org.springframework.security.config.annotation.web.configurers.ExceptionH
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.PortMapper;
+import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -236,7 +235,7 @@ public class CaptchaAuthenticationFilterConfigurer<H extends HttpSecurityBuilder
   }
 
   public CaptchaAuthenticationFilterConfigurer<H> parametersConverter(
-      Converter<HttpServletRequest, CaptchaAuthenticationToken> converter) {
+      AuthenticationConverter converter) {
     authFilter.setConverter(converter);
     return this;
   }

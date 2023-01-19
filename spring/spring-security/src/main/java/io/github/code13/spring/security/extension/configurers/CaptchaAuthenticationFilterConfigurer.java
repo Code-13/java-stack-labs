@@ -16,15 +16,13 @@
 package io.github.code13.spring.security.extension.configurers;
 
 import io.github.code13.spring.security.extension.authentication.captcha.CaptchaAuthenticationProvider;
-import io.github.code13.spring.security.extension.authentication.captcha.CaptchaAuthenticationToken;
 import io.github.code13.spring.security.extension.authentication.captcha.CaptchaService;
 import io.github.code13.spring.security.extension.authentication.captcha.CaptchaUserDetailsService;
 import io.github.code13.spring.security.extension.web.CaptchaAuthenticationFilter;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
+import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
@@ -84,7 +82,7 @@ public class CaptchaAuthenticationFilterConfigurer<H extends HttpSecurityBuilder
   }
 
   public CaptchaAuthenticationFilterConfigurer<H> parametersConverter(
-      Converter<HttpServletRequest, CaptchaAuthenticationToken> converter) {
+      AuthenticationConverter converter) {
     getAuthenticationFilter().setConverter(converter);
     return this;
   }
