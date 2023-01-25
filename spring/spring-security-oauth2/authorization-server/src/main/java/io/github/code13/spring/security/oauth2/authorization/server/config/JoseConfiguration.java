@@ -48,7 +48,7 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
  * @since 2022/12/31 13:49
  */
 @Configuration
-class JwksConfiguration {
+class JoseConfiguration {
 
   @Bean
   JWKSource<SecurityContext> jwkSource()
