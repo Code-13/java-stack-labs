@@ -38,7 +38,7 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
  * @since 2023/1/25 18:08
  */
 // @Configuration
-public class JweConfiguration {
+class JweConfiguration {
 
   // @Bean
   OAuth2TokenGenerator oAuth2TokenGenerator(

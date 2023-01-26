@@ -15,6 +15,29 @@
  */
 import java.time.LocalDateTime
 
+buildscript {
+
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+            mavenLocal()
+            maven { url "https://maven.aliyun.com/repository/public" }
+            maven { url "https://maven.aliyun.com/repository/spring" }
+            maven { url "https://maven.aliyun.com/repository/spring-plugin" }
+            maven { url "https://repo.spring.io/release" }
+            maven { url "https://repo.spring.io/milestone" }
+            mavenCentral()
+        }
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:1.1.0")
+        classpath("com.github.node-gradle:gradle-node-plugin:3.5.1")
+    }
+
+}
+
 ext {
     javaVersion = JavaVersion.VERSION_17
     bom = Set.of(project(":dependencies"))
@@ -38,19 +61,6 @@ configure(excluedBom) {
         targetCompatibility = "$javaVersion"
         withSourcesJar()
         withJavadocJar()
-    }
-
-    repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-            mavenLocal()
-            maven { url "https://maven.aliyun.com/repository/public" }
-            maven { url "https://maven.aliyun.com/repository/spring" }
-            maven { url "https://maven.aliyun.com/repository/spring-plugin" }
-            maven { url "https://repo.spring.io/release" }
-            maven { url "https://repo.spring.io/milestone" }
-            mavenCentral()
-        }
     }
 
     tasks.withType(JavaCompile).tap {

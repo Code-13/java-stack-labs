@@ -26,7 +26,12 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
  */
 public final class AuthorizationGrantTypes {
 
+  /**
+   * @deprecated use pkce instead
+   */
+  @Deprecated(forRemoval = false)
   public static final AuthorizationGrantType IMPLICIT = new AuthorizationGrantType("implicit");
+
   public static final AuthorizationGrantType PASSWORD = new AuthorizationGrantType("password");
 
   public static final AuthorizationGrantType SMS = new AuthorizationGrantType("sms");

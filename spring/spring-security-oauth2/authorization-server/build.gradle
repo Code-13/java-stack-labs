@@ -1,3 +1,7 @@
+plugins {
+    id 'org.springframework.boot'
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
@@ -17,4 +21,10 @@ dependencies {
     testImplementation "org.springframework.security:spring-security-test"
     testImplementation "org.junit.jupiter:junit-jupiter"
     testImplementation "net.sourceforge.htmlunit:htmlunit"
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+}
+
+processResources {
+    dependsOn ':spring:spring-security-oauth2:authorization-server-site:buildWeb'
 }

@@ -95,12 +95,14 @@ class AuthorizationServerConfiguration {
         .authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
         .csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
         .apply(authorizationServerConfigurer)
+        .authorizationEndpoint(
+            authorizationEndpoint -> authorizationEndpoint.consentPage("/oauth2/consent"))
         .oidc(Customizer.withDefaults()) // Enable OIDC
         .and()
         .exceptionHandling(
             exceptions ->
                 exceptions.authenticationEntryPoint(
-                    new LoginUrlAuthenticationEntryPoint("/login.html")));
+                    new LoginUrlAuthenticationEntryPoint("/login")));
 
     http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 
@@ -140,7 +142,7 @@ class AuthorizationServerConfiguration {
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
             .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
             .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-            .authorizationGrantType(AuthorizationGrantType.PASSWORD) // password
+            .authorizationGrantType(AuthorizationGrantTypes.PASSWORD) // password
             .authorizationGrantType(AuthorizationGrantTypes.SMS) // SMS
             // 回调地址名单，不在此列将被拒绝 而且只能使用IP或者域名  不能使用 localhost
             // 根据 Oauth2 标准，回调地址应该是 oauth2 client 端
@@ -171,7 +173,7 @@ class AuthorizationServerConfiguration {
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
             .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
             .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-            .authorizationGrantType(AuthorizationGrantType.PASSWORD) // password
+            .authorizationGrantType(AuthorizationGrantTypes.PASSWORD) // password
             .authorizationGrantType(AuthorizationGrantTypes.SMS) // SMS
             // 回调地址名单，不在此列将被拒绝 而且只能使用IP或者域名  不能使用 localhost
             // 根据 Oauth2 标准，回调地址应该是 oauth2 client 端

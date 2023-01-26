@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type {RouteRecordRaw} from 'vue-router';
 import Home from '@/views/Home.vue';
 
 /**
@@ -22,7 +22,7 @@ const login: RouteRecordRaw = {
 };
 
 const consent: RouteRecordRaw = {
-  path: '/consent',
+  path: '/oauth2/consent',
   name: 'Consent',
   component: () => import('@/views/Consent.vue'),
 };
