@@ -5,12 +5,12 @@
     <form action="/login/form" method="post">
       <div class="input">
         <label for="username">用户名</label>
-        <input type="text" name="username" id="username" required>
+        <input type="text" name="username" id="username" required />
         <span class="spin"></span>
       </div>
       <div class="input">
         <label for="password">密码</label>
-        <input type="password" name="password" id="password" required>
+        <input type="password" name="password" id="password" required />
         <span class="spin"></span>
       </div>
       <div class="button login">

@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import jsx from '@vitejs/plugin-vue-jsx';
 import windiCSS from 'vite-plugin-windicss';
 import { resolve } from 'path';
 
@@ -22,5 +23,5 @@ export default defineConfig({
       },
     ],
   },
-  plugins: [vue(), windiCSS()],
+  plugins: [vue(), jsx(), windiCSS()],
 });

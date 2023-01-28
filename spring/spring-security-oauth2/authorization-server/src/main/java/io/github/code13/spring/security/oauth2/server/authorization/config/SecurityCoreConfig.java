@@ -16,12 +16,8 @@
 package io.github.code13.spring.security.oauth2.server.authorization.config;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,11 +27,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.OrRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * SecurityCoreConfig.
@@ -86,62 +77,4 @@ class SecurityCoreConfig {
   }
   // @formatter:on
 
-  @Configuration(proxyBeanMethods = false)
-  public static class PermitResourceSecurityConfig implements WebMvcConfigurer {
-
-    private static final String[] permitResources =
-        new String[] {
-          // "/",
-          "/actuator/**",
-          "/h2-console/**",
-          "/favicon.ico",
-          "/**/*.json",
-          "/**/*.html",
-          "/**/*.js",
-          "/**/*.js.gz",
-          "/**/*.css",
-          "/**/*.ttf",
-          "/**/*.png",
-          "/**/*.jpg",
-          "/**/*.jpeg",
-          "/**/*.svg",
-        };
-
-    static RequestMatcher securityMatcher =
-        new OrRequestMatcher(createAntMatchers(permitResources));
-
-    private static List<RequestMatcher> createAntMatchers(String... patterns) {
-      List<RequestMatcher> matchers = new ArrayList<>(patterns.length);
-      for (String pattern : patterns) {
-        matchers.add(new AntPathRequestMatcher(pattern));
-      }
-      return matchers;
-    }
-
-    /**
-     * @see https://github.com/spring-projects/spring-security/issues/10938
-     */
-    @Bean
-    @Order(0)
-    SecurityFilterChain resources(HttpSecurity http) throws Exception {
-      http.securityMatcher(securityMatcher)
-          .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
-          .csrf(csrf -> csrf.ignoringRequestMatchers(securityMatcher))
-          .requestCache()
-          .disable()
-          .securityContext()
-          .disable()
-          .sessionManagement()
-          .disable();
-
-      return http.build();
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-      registry
-          .addResourceHandler("/**")
-          .addResourceLocations("classpath:/site/", "classpath:/site/assets/");
-    }
-  }
 }
