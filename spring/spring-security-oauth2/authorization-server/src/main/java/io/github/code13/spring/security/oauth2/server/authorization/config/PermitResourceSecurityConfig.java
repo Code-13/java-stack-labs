@@ -52,6 +52,7 @@ class PermitResourceSecurityConfig implements WebMvcConfigurer {
         "/**/*.js",
         "/**/*.js.gz",
         "/**/*.css",
+        "/**/*.css.gz",
         "/**/*.ttf",
         "/**/*.png",
         "/**/*.jpg",
@@ -91,6 +92,8 @@ class PermitResourceSecurityConfig implements WebMvcConfigurer {
         .disable()
         .sessionManagement()
         .disable();
+
+    http.headers().cacheControl().disable();
 
     return http.build();
   }

@@ -1,5 +1,10 @@
 server:
   port: 9000
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        secure: true
 spring:
   application:
     name: authorization-server
@@ -16,6 +21,14 @@ spring:
   freemarker:
     template-loader-path: classpath:/site/
     suffix: .html
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          max-age: 2592000
+          no-transform: true
+      chain:
+        compressed: true
 
 
 logging:
