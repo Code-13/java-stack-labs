@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.server.authorization.extension.sms;
+package io.github.code13.spring.security.sms;
 
 import java.io.Serial;
 import java.util.Collection;

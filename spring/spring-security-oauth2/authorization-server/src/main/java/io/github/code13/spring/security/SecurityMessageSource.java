@@ -13,17 +13,26 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.server.authorization.extension.sms;
+package io.github.code13.spring.security;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import java.nio.charset.StandardCharsets;
+import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.context.support.ResourceBundleMessageSource;
 
 /**
- * SmsUserDetailsService.
+ * SecurityMessageSource.
  *
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @since 2023/1/2 21:56
+ * @since 2023/2/9 17:42
  */
-public interface SmsUserDetailsService {
+public final class SecurityMessageSource extends ResourceBundleMessageSource {
 
-  UserDetails loadUserByPhone(String phone);
+  public SecurityMessageSource() {
+    setBasename("io.github.code13.spring.security.messages");
+    setDefaultEncoding(StandardCharsets.UTF_8.displayName());
+  }
+
+  public static MessageSourceAccessor getAccessor() {
+    return new MessageSourceAccessor(new SecurityMessageSource());
+  }
 }

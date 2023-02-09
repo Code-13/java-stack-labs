@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.server.authorization.extension.jackson2;
+package io.github.code13.spring.security.jackson2;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

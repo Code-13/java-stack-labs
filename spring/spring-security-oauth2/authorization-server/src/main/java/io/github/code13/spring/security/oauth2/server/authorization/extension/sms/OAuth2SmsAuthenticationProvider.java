@@ -18,6 +18,7 @@ package io.github.code13.spring.security.oauth2.server.authorization.extension.s
 import io.github.code13.spring.security.oauth2.server.authorization.extension.AuthorizationGrantTypes;
 import io.github.code13.spring.security.oauth2.server.authorization.extension.OAuth2ParameterNamesExtension;
 import io.github.code13.spring.security.oauth2.server.authorization.extension.OAuth2ResourceOwnerAuthenticationProvider;
+import io.github.code13.spring.security.sms.SmsAuthenticationToken;
 import java.util.Map;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;

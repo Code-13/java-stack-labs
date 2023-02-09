@@ -13,38 +13,34 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.server.authorization.extension.jackson2;
+package io.github.code13.spring.security.jackson2;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import io.github.code13.spring.security.sms.SmsAuthenticationToken;
 import java.io.Serial;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 
 /**
- * OAuth2AuthorizationServerExtensionJackson2Module.
+ * SecurityExtensionJackson2Module.
  *
- * <p>{@link
- * org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module}
- * {@link org.springframework.security.jackson2.SecurityJackson2Modules}
+ * <p>{@link org.springframework.security.jackson2.SecurityJackson2Modules}
  *
- * @see
- *     org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module
  * @see org.springframework.security.jackson2.SecurityJackson2Modules
  * @author <a href="https://github.com/Code-13/">code13</a>
- * @since 2023/1/3 16:11
+ * @since 2023/2/7 12:14
  */
-public class OAuth2AuthorizationServerExtensionJackson2Module extends SimpleModule {
+public class SecurityExtensionJackson2Module extends SimpleModule {
 
-  @Serial private static final long serialVersionUID = -6158869036683981674L;
+  @Serial private static final long serialVersionUID = -2580880647131380081L;
 
-  public OAuth2AuthorizationServerExtensionJackson2Module() {
-    super(
-        OAuth2AuthorizationServerExtensionJackson2Module.class.getName(),
-        new Version(1, 0, 0, null, null, null));
+  public SecurityExtensionJackson2Module() {
+    super(SecurityExtensionJackson2Module.class.getName(), new Version(1, 0, 0, null, null, null));
   }
 
   @Override
   public void setupModule(SetupContext context) {
     SecurityJackson2Modules.enableDefaultTyping(context.getOwner());
+    context.setMixInAnnotations(SmsAuthenticationToken.class, SmsAuthenticationTokenMixin.class);
   }
 }

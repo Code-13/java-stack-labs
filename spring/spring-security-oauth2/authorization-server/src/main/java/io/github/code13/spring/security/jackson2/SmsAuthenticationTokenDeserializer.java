@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.server.authorization.extension.jackson2;
+package io.github.code13.spring.security.jackson2;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.MissingNode;
-import io.github.code13.spring.security.oauth2.server.authorization.extension.sms.SmsAuthenticationToken;
+import io.github.code13.spring.security.sms.SmsAuthenticationToken;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;

@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-package io.github.code13.spring.security.oauth2.server.authorization.extension.sms;
+package io.github.code13.spring.security.sms;
 
-import io.github.code13.spring.security.oauth2.server.authorization.extension.AuthorizationServerMessageSource;
+import io.github.code13.spring.security.SecurityMessageSource;
 import java.util.Collection;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -38,7 +38,7 @@ import org.springframework.util.Assert;
 public class SmsAuthenticationProvider implements AuthenticationProvider {
 
   private final GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();
-  private MessageSourceAccessor messages = AuthorizationServerMessageSource.getAccessor();
+  private MessageSourceAccessor messages = SecurityMessageSource.getAccessor();
 
   private final SmsService smsService;
   private final SmsUserDetailsService smsUserDetailsService;

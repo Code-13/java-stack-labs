@@ -17,9 +17,9 @@ package io.github.code13.spring.security.oauth2.server.authorization.extension.c
 
 import io.github.code13.spring.security.oauth2.server.authorization.extension.sms.OAuth2SmsAuthenticationConverter;
 import io.github.code13.spring.security.oauth2.server.authorization.extension.sms.OAuth2SmsAuthenticationProvider;
-import io.github.code13.spring.security.oauth2.server.authorization.extension.sms.SmsAuthenticationProvider;
-import io.github.code13.spring.security.oauth2.server.authorization.extension.sms.SmsService;
-import io.github.code13.spring.security.oauth2.server.authorization.extension.sms.SmsUserDetailsService;
+import io.github.code13.spring.security.sms.SmsAuthenticationProvider;
+import io.github.code13.spring.security.sms.SmsService;
+import io.github.code13.spring.security.sms.SmsUserDetailsService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

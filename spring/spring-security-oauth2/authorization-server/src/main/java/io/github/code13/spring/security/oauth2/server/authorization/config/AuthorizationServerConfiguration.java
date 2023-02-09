@@ -17,6 +17,7 @@ package io.github.code13.spring.security.oauth2.server.authorization.config;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.code13.spring.security.jackson2.SecurityExtensionJackson2Module;
 import io.github.code13.spring.security.oauth2.server.authorization.extension.AuthorizationGrantTypes;
 import io.github.code13.spring.security.oauth2.server.authorization.extension.configurers.OAuth2AuthorizationServerExtensionConfigurer;
 import io.github.code13.spring.security.oauth2.server.authorization.extension.jackson2.OAuth2AuthorizationServerExtensionJackson2Module;
@@ -290,6 +291,7 @@ class AuthorizationServerConfiguration {
     ClassLoader classLoader = AuthorizationServerConfiguration.class.getClassLoader();
     List<Module> securityModules = SecurityJackson2Modules.getModules(classLoader);
     objectMapper.registerModules(securityModules);
+    objectMapper.registerModules(new SecurityExtensionJackson2Module());
     objectMapper.registerModule(new OAuth2AuthorizationServerJackson2Module());
     objectMapper.registerModule(new OAuth2AuthorizationServerExtensionJackson2Module());
     return objectMapper;
