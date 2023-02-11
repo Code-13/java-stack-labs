@@ -19,11 +19,13 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.CacheControl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -104,7 +106,12 @@ class PermitResourceSecurityConfig implements WebMvcConfigurer {
     registry
         .addResourceHandler(mvcProperties.getStaticPathPattern())
         .addResourceLocations(
-            combineArray(staticLocations, "classpath:/site/", "classpath:/site/assets/"));
+            combineArray(staticLocations, "classpath:/site/", "classpath:/site/assets/"))
+        .setCacheControl(
+            CacheControl.maxAge(60, TimeUnit.SECONDS)
+                .staleWhileRevalidate(7, TimeUnit.DAYS)
+                .cachePublic()
+                .noTransform());
   }
 
   private static String[] combineArray(String[] a, String... rest) {
