@@ -1,6 +1,6 @@
 import Footer from '@/components/Footer';
 // import { login } from '@/services/ant-design-pro/api';
-import { getFakeCaptcha } from '@/services/ant-design-pro/login';
+// import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import {
   AlipayOutlined,
   LockOutlined,
@@ -21,7 +21,9 @@ import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { FormattedMessage, SelectLang, useIntl, Helmet, useSearchParams } from '@umijs/max';
 import { Alert, message, Tabs } from 'antd';
 import Settings from '../../../config/defaultSettings';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { LoginResult } from '@/services/typings';
+import { getCaptcha } from '@/services/login';
 // import { flushSync } from 'react-dom';
 
 const ActionIcons = () => {
@@ -95,7 +97,7 @@ const LoginMessage: React.FC<{
 
 const Login: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [userLoginState] = useState<API.LoginResult>({});
+  const [userLoginState] = useState<LoginResult>({});
   // const [type, setType] = useState<string>('account');
   const [loginType, setLoginType] = useState<string>(searchParams.get('type') || 'account');
   // const { initialState, setInitialState } = useModel('@@initialState');
@@ -114,17 +116,14 @@ const Login: React.FC = () => {
 
   const intl = useIntl();
 
-  // const fetchUserInfo = async () => {
-  //   const userInfo = await initialState?.fetchUserInfo?.();
-  //   if (userInfo) {
-  //     flushSync(() => {
-  //       setInitialState((s) => ({
-  //         ...s,
-  //         currentUser: userInfo,
-  //       }));
-  //     });
-  //   }
-  // };
+    // @ts-ignore
+    const excMsg = window['excMsg'];
+
+    useEffect(() => {
+      if (excMsg) {
+        message.error('Bad credentials' === excMsg ? '账号或密码错误！' : excMsg);
+      }
+    }, [excMsg])
 
   const handleSubmit = async (values: any) => {
     const loginForm = document.createElement('form');
@@ -185,7 +184,7 @@ const Login: React.FC = () => {
             minWidth: 280,
             maxWidth: '75vw',
           }}
-          logo={<img alt="logo" src="/logo.svg" />}
+          // logo={<img alt="logo" src="/logo.svg" />}
           title="Authorization Server"
           subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
           initialValues={{
@@ -359,13 +358,13 @@ const Login: React.FC = () => {
                   },
                 ]}
                 onGetCaptcha={async (phone) => {
-                  const result = await getFakeCaptcha({
-                    phone,
-                  });
-                  if (!result) {
-                    return;
+                  try {
+                    await getCaptcha({phone});
+                    message.success('验证码已通过短信发送至您的手机，请查收！');
+                  } catch (error) {
+                    message.error('获取验证码错误！');
+                    throw new Error("获取验证码错误")
                   }
-                  message.success('获取验证码成功! 验证码为: 1234');
                 }}
               />
             </>

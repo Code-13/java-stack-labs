@@ -21,6 +21,8 @@ spring:
   freemarker:
     template-loader-path: classpath:/site/
     suffix: .html
+  thymeleaf:
+    prefix: classpath:/site/
   web:
     resources:
       cache:

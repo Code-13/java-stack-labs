@@ -18,10 +18,10 @@ export default [
     component: './Login',
   },
   {
-    path: '/welcome',
-    name: 'welcome',
-    icon: 'smile',
-    component: './Welcome',
+    path: '/account',
+    name: 'account',
+    // icon: 'smile',
+    component: './Account',
   },
   {
     path: '/admin',
@@ -41,14 +41,8 @@ export default [
     ],
   },
   {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
-  },
-  {
     path: '/',
-    redirect: '/welcome',
+    redirect: '/account',
   },
   {
     path: '*',

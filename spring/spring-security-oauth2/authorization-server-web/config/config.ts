@@ -5,7 +5,20 @@ import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
 
+// import headers from "./headerScript";
+
 const { REACT_APP_ENV = 'dev' } = process.env;
+const isProduction = process.env.NODE_ENV === 'production'
+
+const headScripts = isProduction ? {
+  'th:inline': 'javascript',
+  content:
+    'window.mvcModel = [[${mvcModel}]];' +
+    'window.userInfo = [[${session?.userInfo}]];' +
+    'window.excMsg = [[${session?.SPRING_SECURITY_LAST_EXCEPTION?.message}]];' +
+    'window.sucMsg = [[${session?.SUCCESS_MESSAGE}]];' +
+    'window.exc = [[${session?.SPRING_SECURITY_LAST_EXCEPTION}]];',
+} : undefined;
 
 export default defineConfig({
   /**
@@ -126,6 +139,7 @@ export default defineConfig({
   headScripts: [
     // 解决首次加载时白屏的问题
     { src: '/scripts/loading.js', async: true },
+    headScripts
   ],
   //================ pro 插件配置 =================
   presets: ['umi-presets-pro'],
