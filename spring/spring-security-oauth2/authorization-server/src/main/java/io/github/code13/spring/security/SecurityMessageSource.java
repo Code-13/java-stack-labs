@@ -27,12 +27,15 @@ import org.springframework.context.support.ResourceBundleMessageSource;
  */
 public final class SecurityMessageSource extends ResourceBundleMessageSource {
 
+  private static final MessageSourceAccessor messageSourceAccessor =
+      new MessageSourceAccessor(new SecurityMessageSource());
+
   public SecurityMessageSource() {
     setBasename("io.github.code13.spring.security.messages");
     setDefaultEncoding(StandardCharsets.UTF_8.displayName());
   }
 
   public static MessageSourceAccessor getAccessor() {
-    return new MessageSourceAccessor(new SecurityMessageSource());
+    return messageSourceAccessor;
   }
 }

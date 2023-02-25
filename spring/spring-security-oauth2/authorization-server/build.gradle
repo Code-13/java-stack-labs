@@ -26,5 +26,5 @@ dependencies {
 }
 
 processResources {
-    dependsOn ':spring:spring-security-oauth2:authorization-server-site:buildWeb'
+    dependsOn ':spring:spring-security-oauth2:authorization-server-web:buildWeb'
 }

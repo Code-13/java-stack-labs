@@ -15,10 +15,7 @@
 
 package io.github.code13.spring.security.oauth2.server.authorization.config;
 
-import java.nio.charset.StandardCharsets;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -40,20 +37,13 @@ class SecurityCoreConfig {
   // @formatter:off
   @Bean
   SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-    http.csrf()
-        .disable()
-        .authorizeHttpRequests(
+    http.authorizeHttpRequests(
             authorizeRequests -> authorizeRequests.requestMatchers("/login").permitAll())
         .authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
-        .formLogin()
-        .loginPage("/login")
-        .loginProcessingUrl("/login/form")
-        .failureHandler(
-            (request, response, exception) -> {
-              response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-              response.setCharacterEncoding(StandardCharsets.UTF_8.displayName());
-              response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            });
+        .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login/account"));
+
+    http.csrf().disable();
+
     return http.build();
   }
   // @formatter:on
