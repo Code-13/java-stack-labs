@@ -75,6 +75,8 @@ include 'prettier-libs:jsoup'
 findProject(':prettier-libs:jsoup')?.name = 'jsoup'
 include 'prettier-libs:apache-httpclient5'
 findProject(':prettier-libs:apache-httpclient5')?.name = 'apache-httpclient5'
+include 'prettier-libs:ip2region'
+findProject(':prettier-libs:ip2region')?.name = 'ip2region'
 
 // jvm
 include 'jvm'
