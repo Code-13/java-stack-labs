@@ -2,16 +2,16 @@ ext {
     springBootVersion = "$springBootVersion"
     springCloudVersion = "$springCloudVersion"
     springCloudAlibabaVersion = "$springCloudAlibabaVersion"
-    springSecurityOauth2AuthorizationServerVersion = "0.4.0"
+    springSecurityOauth2AuthorizationServerVersion = "0.4.1"
 
-    checkerQualVersion = "3.28.0"
+    checkerQualVersion = "3.31.0"
 
-    mybatisPlusGeneratorVersion = "3.5.3"
-    mybatisPlusVersion = "3.5.3"
+    mybatisPlusGeneratorVersion = "3.5.3.1"
+    mybatisPlusVersion = "3.5.3.1"
 
     mapstructVersion = "1.5.3.Final"
 
-    druidSpringBootStarterVersion = "1.2.15"
+    druidSpringBootStarterVersion = "1.2.16"
 
     // vavr
     vavrVersin = "0.10.4"
@@ -28,21 +28,21 @@ ext {
     commonsNetVersion = "3.8.0"
 
     pdfboxVersion = "2.0.27"
-    jsoupVersion = "1.15.3"
+    jsoupVersion = "1.15.4"
     reflectionsVersion = "0.10.2"
-    libphonenumberVersion = "8.13.3"
+    libphonenumberVersion = "8.13.7"
     spatial4jVersion = "0.8"
     zxingVersion = "3.5.1"
-    hutoolVersion = "5.8.11"
-    datafakerVersion = "1.7.0"
+    hutoolVersion = "5.8.12"
+    datafakerVersion = "1.8.0"
     objenesisVersion = "3.3"
     protostuffVersion = "1.8.0"
-    easyexcelVersion = "3.1.4"
+    easyexcelVersion = "3.2.1"
     // redisson
-    redissonVersion = "3.19.1"
+    redissonVersion = "3.20.0"
     // jmh
     jmhVersion = "1.36"
-    caffeineVersion = "3.1.2"
+    caffeineVersion = "3.1.4"
     // guava
     guavaTestLibVersion = "31.1-jre"
     nimbusJoseJwtVersion = "9.25.1"
