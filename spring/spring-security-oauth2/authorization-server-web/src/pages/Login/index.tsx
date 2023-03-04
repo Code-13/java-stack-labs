@@ -9,7 +9,7 @@ import {
   UserOutlined,
   WeiboOutlined,
   WechatFilled,
-  GithubOutlined
+  GithubOutlined,
 } from '@ant-design/icons';
 import {
   LoginForm,
@@ -21,7 +21,7 @@ import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { FormattedMessage, SelectLang, useIntl, Helmet, useSearchParams } from '@umijs/max';
 import { Alert, message, Tabs } from 'antd';
 import Settings from '../../../config/defaultSettings';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { LoginResult } from '@/services/typings';
 import { getCaptcha } from '@/services/login';
 // import { flushSync } from 'react-dom';
@@ -41,18 +41,18 @@ const ActionIcons = () => {
     };
   });
 
-  const unSupport = () => {
-    message.warning('暂未支持')
-  }
+  const unSupport = useCallback(() => {
+    message.warning('暂未支持');
+  }, []);
 
   return (
     <>
-      <AlipayOutlined key="AlipayOutlined" className={langClassName} onClick={unSupport}/>
-      <TaobaoOutlined key="TaobaoOutlined" className={langClassName} onClick={unSupport}/>
-      <WeiboOutlined key="WeiboOutlined" className={langClassName} onClick={unSupport}/>
-      <WechatFilled key="WechatOutlined" className={langClassName} onClick={unSupport}/>
+      <AlipayOutlined key="AlipayOutlined" className={langClassName} onClick={unSupport} />
+      <TaobaoOutlined key="TaobaoOutlined" className={langClassName} onClick={unSupport} />
+      <WeiboOutlined key="WeiboOutlined" className={langClassName} onClick={unSupport} />
+      <WechatFilled key="WechatOutlined" className={langClassName} onClick={unSupport} />
       <a key="githubOutlined" href="/oauth2/authorization/github-idp">
-        <GithubOutlined className={langClassName}/>
+        <GithubOutlined className={langClassName} />
       </a>
     </>
   );
@@ -116,20 +116,20 @@ const Login: React.FC = () => {
 
   const intl = useIntl();
 
-    // @ts-ignore
-    const excMsg = window['excMsg'];
+  // @ts-ignore
+  const excMsg = window['excMsg'];
 
-    useEffect(() => {
-      if (excMsg) {
-        message.error('Bad credentials' === excMsg ? '账号或密码错误！' : excMsg);
-      }
-    }, [excMsg])
+  useEffect(() => {
+    if (excMsg) {
+      message.error('Bad credentials' === excMsg ? '账号或密码错误！' : excMsg);
+    }
+  }, [excMsg]);
 
   const handleSubmit = async (values: any) => {
     const loginForm = document.createElement('form');
     try {
       loginForm.method = 'POST';
-      loginForm.style.display = "none";
+      loginForm.style.display = 'none';
 
       for (const key in values) {
         if (values.hasOwnProperty(key)) {
@@ -140,12 +140,14 @@ const Login: React.FC = () => {
         }
       }
 
-      if (loginType === 'account') { // 账号登陆
+      if (loginType === 'account') {
+        // 账号登陆
         loginForm.action = '/login/account';
-      } else if (loginType === 'phone') {  // 手机验证码登陆
+      } else if (loginType === 'phone') {
+        // 手机验证码登陆
         loginForm.action = '/login/phone';
       }
-      console.log(loginForm)
+      console.log(loginForm);
       document.body.appendChild(loginForm);
       loginForm.submit();
     } catch (error) {
@@ -206,7 +208,7 @@ const Login: React.FC = () => {
             activeKey={loginType}
             onChange={(key) => {
               setSearchParams({
-                type: key
+                type: key,
               });
               setLoginType(key);
             }}
@@ -359,11 +361,11 @@ const Login: React.FC = () => {
                 ]}
                 onGetCaptcha={async (phone) => {
                   try {
-                    await getCaptcha({phone});
+                    await getCaptcha({ phone });
                     message.success('验证码已通过短信发送至您的手机，请查收！');
                   } catch (error) {
                     message.error('获取验证码错误！');
-                    throw new Error("获取验证码错误")
+                    throw new Error('获取验证码错误');
                   }
                 }}
               />
@@ -382,10 +384,14 @@ const Login: React.FC = () => {
                 float: 'right',
               }}
             >
-            <a href="/register"><FormattedMessage id="pages.login.registerAccount" defaultMessage="注册账户"/></a>
-            <span> / </span>
-            <a href="/forget"><FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码"/></a>
-          </span>
+              <a href="/register">
+                <FormattedMessage id="pages.login.registerAccount" defaultMessage="注册账户" />
+              </a>
+              <span> / </span>
+              <a href="/forget">
+                <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />
+              </a>
+            </span>
           </div>
         </LoginForm>
       </div>

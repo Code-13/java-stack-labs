@@ -33,6 +33,17 @@ spring:
       chain:
         compressed: true
 
+mybatis-plus:
+  mapper-locations: classpath*:/sql/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+  global-config:
+    db-config:
+      logic-delete-value: true
+      logic-not-delete-value: false
 
 logging:
   level:

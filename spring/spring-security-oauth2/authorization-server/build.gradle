@@ -8,6 +8,7 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     runtimeOnly 'com.h2database:h2'
+    implementation 'com.baomidou:mybatis-plus-boot-starter'
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.security:spring-security-oauth2-authorization-server'
