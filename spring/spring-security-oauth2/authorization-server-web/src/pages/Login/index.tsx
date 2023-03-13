@@ -116,14 +116,15 @@ const Login: React.FC = () => {
 
   const intl = useIntl();
 
-  // @ts-ignore
-  const excMsg = window['excMsg'];
-
-  useEffect(() => {
+  (() => {
+    // @ts-ignore
+    const excMsg = window['excMsg'];
     if (excMsg) {
       message.error('Bad credentials' === excMsg ? '账号或密码错误！' : excMsg);
+      // @ts-ignore
+      window.excMsg = undefined;
     }
-  }, [excMsg]);
+  })();
 
   const handleSubmit = async (values: any) => {
     const loginForm = document.createElement('form');

@@ -93,9 +93,12 @@ class PermitResourceSecurityConfig implements WebMvcConfigurer {
         .securityContext()
         .disable()
         .sessionManagement()
-        .disable();
-
-    http.headers().cacheControl().disable();
+        .disable()
+        .headers(
+            headers -> {
+              headers.cacheControl().disable();
+              headers.frameOptions().disable();
+            });
 
     return http.build();
   }

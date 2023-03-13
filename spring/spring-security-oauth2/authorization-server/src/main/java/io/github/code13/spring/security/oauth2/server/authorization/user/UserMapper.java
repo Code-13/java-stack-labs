@@ -15,7 +15,11 @@
 
 package io.github.code13.spring.security.oauth2.server.authorization.user;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -25,4 +29,30 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2023/3/4 16:29
  */
 @Mapper
-public interface UserMapper extends BaseMapper<User> {}
+public interface UserMapper extends BaseMapper<User> {
+
+
+  // --- Query Wrappers start ---
+
+  /** Lambda 非链式查询 */
+  default LambdaQueryWrapper<User> query() {
+    return new LambdaQueryWrapper<>();
+  }
+
+  /** lambda 链式查询 */
+  default LambdaQueryChainWrapper<User> queryChain() {
+    return new LambdaQueryChainWrapper<>(this);
+  }
+
+  /** lambda 非链式更改 */
+  default LambdaUpdateWrapper<User> update() {
+    return new LambdaUpdateWrapper<>();
+  }
+
+  /** lambda 链式更改 */
+  default LambdaUpdateChainWrapper<User> updateChain() {
+    return new LambdaUpdateChainWrapper<>(this);
+  }
+
+  // --- Query Wrappers end ---
+}

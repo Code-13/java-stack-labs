@@ -15,14 +15,16 @@
 
 package io.github.code13.spring.security.oauth2.server.authorization.config;
 
+import io.github.code13.spring.security.oauth2.server.authorization.user.MyBaitsUserDetailsService;
+import io.github.code13.spring.security.oauth2.server.authorization.user.UserMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
@@ -48,6 +50,14 @@ class SecurityCoreConfig {
   }
   // @formatter:on
 
+  @Bean
+  PasswordEncoder passwordEncoder() {
+    DelegatingPasswordEncoder delegatingPasswordEncoder =
+        ((DelegatingPasswordEncoder) PasswordEncoderFactories.createDelegatingPasswordEncoder());
+    delegatingPasswordEncoder.setDefaultPasswordEncoderForMatches(new BCryptPasswordEncoder());
+    return delegatingPasswordEncoder;
+  }
+
   /**
    * Users user details service.
    *
@@ -55,15 +65,17 @@ class SecurityCoreConfig {
    */
   // @formatter:off
   @Bean
-  UserDetailsService users() {
-    UserDetails user =
-        User.builder()
-            .username("test")
-            .password("test")
-            .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder()::encode)
-            .roles("USER")
-            .build();
-    return new InMemoryUserDetailsManager(user);
+  UserDetailsService users(UserMapper userMapper) {
+    // UserDetails user =
+    //    User.builder()
+    //        .username("test")
+    //        .password("test")
+    //        .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder()::encode)
+    //        .roles("USER")
+    //        .build();
+    // return new InMemoryUserDetailsManager(user);
+
+    return new MyBaitsUserDetailsService(userMapper);
   }
   // @formatter:on
 
