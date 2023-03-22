@@ -18,6 +18,7 @@ package io.github.code13.libs.datafaker;
 import static net.datafaker.transformations.Field.compositeField;
 import static net.datafaker.transformations.Field.field;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

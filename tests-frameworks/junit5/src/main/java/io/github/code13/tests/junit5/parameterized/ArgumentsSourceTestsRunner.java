@@ -16,6 +16,7 @@
 package io.github.code13.tests.junit5.parameterized;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.stream.Stream;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;

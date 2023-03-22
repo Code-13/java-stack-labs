@@ -52,7 +52,10 @@ class JoseConfiguration {
 
   @Bean
   JWKSource<SecurityContext> jwkSource()
-      throws KeyStoreException, IOException, JOSEException, CertificateException,
+      throws KeyStoreException,
+          IOException,
+          JOSEException,
+          CertificateException,
           NoSuchAlgorithmException {
     // 这里优化到配置
     String path = "jwt.jks";

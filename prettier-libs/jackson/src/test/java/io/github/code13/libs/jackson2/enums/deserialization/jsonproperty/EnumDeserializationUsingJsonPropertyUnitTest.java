@@ -16,6 +16,7 @@
 package io.github.code13.libs.jackson2.enums.deserialization.jsonproperty;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;

@@ -17,6 +17,7 @@ package io.github.code13.libs.cglib;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import net.sf.cglib.beans.ImmutableBean;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -52,7 +52,9 @@ class IntrospectorTest {
   @Test
   @DisplayName("使用内省替代直接使用反射可以防止破坏类的封装")
   void test1()
-      throws NoSuchFieldException, IllegalAccessException, IntrospectionException,
+      throws NoSuchFieldException,
+          IllegalAccessException,
+          IntrospectionException,
           InvocationTargetException {
 
     var person = new Person();

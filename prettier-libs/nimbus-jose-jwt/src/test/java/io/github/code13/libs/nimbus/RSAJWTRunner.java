@@ -50,7 +50,10 @@ public class RSAJWTRunner {
   //  keytool -genkey -alias jwt -keyalg RSA -keystore jwt.jks
 
   static RSAKey genRsaKey()
-      throws KeyStoreException, IOException, CertificateException, NoSuchAlgorithmException,
+      throws KeyStoreException,
+          IOException,
+          CertificateException,
+          NoSuchAlgorithmException,
           JOSEException {
     // 这里优化到配置
     String path = "jwt.jks";
@@ -67,7 +70,10 @@ public class RSAJWTRunner {
   @Test
   @DisplayName("testRsaSign")
   void testSign()
-      throws CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException,
+      throws CertificateException,
+          KeyStoreException,
+          IOException,
+          NoSuchAlgorithmException,
           JOSEException {
     RSAKey rsaKey = genRsaKey();
 
@@ -91,8 +97,12 @@ public class RSAJWTRunner {
   @Test
   @DisplayName("testParse")
   void testParse()
-      throws ParseException, CertificateException, KeyStoreException, IOException,
-          NoSuchAlgorithmException, JOSEException {
+      throws ParseException,
+          CertificateException,
+          KeyStoreException,
+          IOException,
+          NoSuchAlgorithmException,
+          JOSEException {
     String token =
         "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.aGVsbG8gd29ybGQ.Hxi7ZpzuQBeuUwgHx5nv3kIyP9U1P4mvK9YDdYN7NgIGNlWOiF4HhpYzRaMqOF8RlxCy-mTkEZ-wlSFJ64p_xfVWWVo0HMzu9hwl_d7J9cj54SRanXg3sdMxAsC3VzHxgy9ACCWAjlRBWsvbrziq-5bQi_YFR7XaVEHXr8Okk0kbonn1QvRtew6Qh3fxjdcdCf5cF9WpWPSbZlL82e1lgIQealD_RMDJmEoVl2u7WikJ1vcHx_0YlIRQrspKdkWogFZx8OywTbEWJjkMs72imM91FxA3eJMuaPn0ZYgUMdV-3svqdEkJSk_JfRGdWN0IJPzabE1vD5FvlR4MlhP8DQ";
 

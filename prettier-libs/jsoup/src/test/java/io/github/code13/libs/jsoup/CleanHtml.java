@@ -16,6 +16,7 @@
 package io.github.code13.libs.jsoup;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;
 import org.junit.jupiter.api.DisplayName;

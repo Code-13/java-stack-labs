@@ -16,6 +16,7 @@
 package io.github.code13.frameworks.mbplus.utils;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 
 /**

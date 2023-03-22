@@ -16,6 +16,7 @@
 package io.github.code13.spring.boot.jasypt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.sql.Connection;
 import javax.sql.DataSource;
 import org.jasypt.encryption.StringEncryptor;

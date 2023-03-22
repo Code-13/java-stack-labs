@@ -16,6 +16,7 @@
 package io.github.code13.libs.cglib;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import net.sf.cglib.beans.BeanCopier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

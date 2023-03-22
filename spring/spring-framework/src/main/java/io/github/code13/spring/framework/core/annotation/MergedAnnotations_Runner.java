@@ -16,6 +16,7 @@
 package io.github.code13.spring.framework.core.annotation;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;

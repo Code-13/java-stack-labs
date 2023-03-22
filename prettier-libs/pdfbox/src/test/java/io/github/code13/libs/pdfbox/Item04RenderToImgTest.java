@@ -16,6 +16,7 @@
 package io.github.code13.libs.pdfbox;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

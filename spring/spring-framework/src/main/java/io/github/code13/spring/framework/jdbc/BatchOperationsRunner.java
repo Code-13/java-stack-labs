@@ -16,6 +16,7 @@
 package io.github.code13.spring.framework.jdbc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;

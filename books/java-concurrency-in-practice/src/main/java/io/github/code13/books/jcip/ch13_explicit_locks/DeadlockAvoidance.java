@@ -16,6 +16,7 @@
 package io.github.code13.books.jcip.ch13_explicit_locks;
 
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
+
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;

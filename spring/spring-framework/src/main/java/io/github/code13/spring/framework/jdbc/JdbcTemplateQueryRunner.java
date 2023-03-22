@@ -16,6 +16,7 @@
 package io.github.code13.spring.framework.jdbc;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;

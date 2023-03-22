@@ -16,6 +16,7 @@
 package io.github.code13.libs.vavr;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import io.vavr.Function0;
 import io.vavr.Function1;
 import io.vavr.Function2;

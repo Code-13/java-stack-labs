@@ -18,6 +18,7 @@ package io.github.code13.libs.jsonpath;
 import static java.util.Collections.singletonList;
 import static org.apache.commons.lang3.StringUtils.containsAnyIgnoreCase;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.Configuration.Defaults;

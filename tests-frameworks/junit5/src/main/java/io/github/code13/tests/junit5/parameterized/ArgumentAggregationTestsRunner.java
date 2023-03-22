@@ -16,6 +16,7 @@
 package io.github.code13.tests.junit5.parameterized;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import io.github.code13.tests.junit5.Gender;
 import io.github.code13.tests.junit5.Person;
 import java.lang.annotation.ElementType;

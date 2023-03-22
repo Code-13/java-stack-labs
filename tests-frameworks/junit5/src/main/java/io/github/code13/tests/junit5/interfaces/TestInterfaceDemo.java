@@ -16,6 +16,7 @@
 package io.github.code13.tests.junit5.interfaces;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 /**

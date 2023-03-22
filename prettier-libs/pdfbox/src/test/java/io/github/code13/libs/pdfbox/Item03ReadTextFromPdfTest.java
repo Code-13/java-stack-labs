@@ -16,6 +16,7 @@
 package io.github.code13.libs.pdfbox;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.File;
 import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDDocument;

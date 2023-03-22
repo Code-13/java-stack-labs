@@ -18,6 +18,7 @@ package io.github.code13.jakartaee.beanvalidation.customer;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 import io.github.code13.jakartaee.beanvalidation.ValidationUtils;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

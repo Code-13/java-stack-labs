@@ -36,47 +36,53 @@ public class JvmStack {
     MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
     MemoryUsage heapMemoryUsage = memoryMXBean.getHeapMemoryUsage();
 
-    String info = """
+    String info =
+        """
         init: {1}\t max: {2}\t used: {3}\t committed: {4}\t use rate: {5}
         """
-        .replace("{1}",formatUse(heapMemoryUsage.getInit()))
-        .replace("{2}",formatUse(heapMemoryUsage.getMax()))
-        .replace("{3}",formatUse(heapMemoryUsage.getUsed()))
-        .replace("{4}",formatUse(heapMemoryUsage.getCommitted()))
-        .replace("{5}",(heapMemoryUsage.getUsed() * 100 / heapMemoryUsage.getCommitted()) + "%");
+            .replace("{1}", formatUse(heapMemoryUsage.getInit()))
+            .replace("{2}", formatUse(heapMemoryUsage.getMax()))
+            .replace("{3}", formatUse(heapMemoryUsage.getUsed()))
+            .replace("{4}", formatUse(heapMemoryUsage.getCommitted()))
+            .replace(
+                "{5}", (heapMemoryUsage.getUsed() * 100 / heapMemoryUsage.getCommitted()) + "%");
 
     System.out.println(info);
 
     MemoryUsage nonHeapMemoryUsage = memoryMXBean.getNonHeapMemoryUsage();
 
-     info = """
+    info =
+        """
         init: {1}\t max: {2}\t used: {3}\t committed: {4}\t use rate: {5}
         """
-        .replace("{1}",formatUse(nonHeapMemoryUsage.getInit()))
-        .replace("{2}",formatUse(nonHeapMemoryUsage.getMax()))
-        .replace("{3}",formatUse(nonHeapMemoryUsage.getUsed()))
-        .replace("{4}",formatUse(nonHeapMemoryUsage.getCommitted()))
-        .replace("{5}",(nonHeapMemoryUsage.getUsed() * 100 / nonHeapMemoryUsage.getCommitted()) + "%");
+            .replace("{1}", formatUse(nonHeapMemoryUsage.getInit()))
+            .replace("{2}", formatUse(nonHeapMemoryUsage.getMax()))
+            .replace("{3}", formatUse(nonHeapMemoryUsage.getUsed()))
+            .replace("{4}", formatUse(nonHeapMemoryUsage.getCommitted()))
+            .replace(
+                "{5}",
+                (nonHeapMemoryUsage.getUsed() * 100 / nonHeapMemoryUsage.getCommitted()) + "%");
 
-     System.out.println(info);
+    System.out.println(info);
   }
 
-  static void printGCInfo(){
-    List<GarbageCollectorMXBean> garbageCollectorMXBeans = ManagementFactory.getGarbageCollectorMXBeans();
+  static void printGCInfo() {
+    List<GarbageCollectorMXBean> garbageCollectorMXBeans =
+        ManagementFactory.getGarbageCollectorMXBeans();
     for (GarbageCollectorMXBean bean : garbageCollectorMXBeans) {
-      String info = """
+      String info =
+          """
           name: {1}\t count: {2}\t took: {3}\t pool name: {4}
           """
-          .replace("{1}",bean.getName())
-          .replace("{2}",String.valueOf(bean.getCollectionCount()))
-          .replace("{3}",String.valueOf(bean.getCollectionTime()))
-          .replace("{4}", Arrays.deepToString(bean.getMemoryPoolNames()));
+              .replace("{1}", bean.getName())
+              .replace("{2}", String.valueOf(bean.getCollectionCount()))
+              .replace("{3}", String.valueOf(bean.getCollectionTime()))
+              .replace("{4}", Arrays.deepToString(bean.getMemoryPoolNames()));
       System.out.println(info);
     }
   }
 
-  static String formatUse(long use){
+  static String formatUse(long use) {
     return (use / MB) + "MB";
   }
-
 }

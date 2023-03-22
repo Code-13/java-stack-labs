@@ -16,6 +16,7 @@
 package io.github.code13.spring.framework.core.type.classreading;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

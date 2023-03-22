@@ -16,6 +16,7 @@
 package io.github.code13.jakartaee.beanvalidation.coreapi;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import io.github.code13.jakartaee.beanvalidation.ValidationUtils;
 import java.util.Set;
 import javax.validation.ConstraintViolation;

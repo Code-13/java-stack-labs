@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.DynamicContainer.dynamicContainer;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
+
 import io.github.code13.tests.junit5.Calculator;
 import io.github.code13.tests.junit5.StringUtils;
 import java.util.Arrays;
@@ -56,21 +57,24 @@ class DynamicTestsRunner {
   @TestFactory
   Collection<DynamicTest> dynamicTestsFromCollection() {
     return Arrays.asList(
-        dynamicTest("1st dynamic test", () -> Assertions.assertTrue(StringUtils.isPalindrome("madam"))),
+        dynamicTest(
+            "1st dynamic test", () -> Assertions.assertTrue(StringUtils.isPalindrome("madam"))),
         dynamicTest("2nd dynamic test", () -> assertEquals(4, calculator.multiply(2, 2))));
   }
 
   @TestFactory
   Iterable<DynamicTest> dynamicTestsFromIterable() {
     return Arrays.asList(
-        dynamicTest("3rd dynamic test", () -> Assertions.assertTrue(StringUtils.isPalindrome("madam"))),
+        dynamicTest(
+            "3rd dynamic test", () -> Assertions.assertTrue(StringUtils.isPalindrome("madam"))),
         dynamicTest("4th dynamic test", () -> assertEquals(4, calculator.multiply(2, 2))));
   }
 
   @TestFactory
   Iterator<DynamicTest> dynamicTestsFromIterator() {
     return Arrays.asList(
-            dynamicTest("5th dynamic test", () -> Assertions.assertTrue(StringUtils.isPalindrome("madam"))),
+            dynamicTest(
+                "5th dynamic test", () -> Assertions.assertTrue(StringUtils.isPalindrome("madam"))),
             dynamicTest("6th dynamic test", () -> assertEquals(4, calculator.multiply(2, 2))))
         .iterator();
   }
@@ -78,7 +82,8 @@ class DynamicTestsRunner {
   @TestFactory
   DynamicTest[] dynamicTestsFromArray() {
     return new DynamicTest[] {
-      dynamicTest("7th dynamic test", () -> Assertions.assertTrue(StringUtils.isPalindrome("madam"))),
+      dynamicTest(
+          "7th dynamic test", () -> Assertions.assertTrue(StringUtils.isPalindrome("madam"))),
       dynamicTest("8th dynamic test", () -> assertEquals(4, calculator.multiply(2, 2)))
     };
   }
@@ -86,7 +91,8 @@ class DynamicTestsRunner {
   @TestFactory
   Stream<DynamicTest> dynamicTestsFromStream() {
     return Stream.of("racecar", "radar", "mom", "dad")
-        .map(text -> dynamicTest(text, () -> Assertions.assertTrue(StringUtils.isPalindrome(text))));
+        .map(
+            text -> dynamicTest(text, () -> Assertions.assertTrue(StringUtils.isPalindrome(text))));
   }
 
   @TestFactory
@@ -139,7 +145,8 @@ class DynamicTestsRunner {
     Function<String, String> displayNameGenerator = text -> text + " is a palindrome";
 
     // Executes tests based on the current input value.
-    ThrowingConsumer<String> testExecutor = text -> Assertions.assertTrue(StringUtils.isPalindrome(text));
+    ThrowingConsumer<String> testExecutor =
+        text -> Assertions.assertTrue(StringUtils.isPalindrome(text));
 
     // Returns a stream of dynamic tests.
     return DynamicTest.stream(inputStream, displayNameGenerator, testExecutor);
@@ -177,7 +184,8 @@ class DynamicTestsRunner {
 
   @TestFactory
   DynamicNode dynamicNodeSingleTest() {
-    return dynamicTest("'pop' is a palindrome", () -> Assertions.assertTrue(StringUtils.isPalindrome("pop")));
+    return dynamicTest(
+        "'pop' is a palindrome", () -> Assertions.assertTrue(StringUtils.isPalindrome("pop")));
   }
 
   @TestFactory
@@ -185,6 +193,9 @@ class DynamicTestsRunner {
     return dynamicContainer(
         "palindromes",
         Stream.of("racecar", "radar", "mom", "dad")
-            .map(text -> dynamicTest(text, () -> Assertions.assertTrue(StringUtils.isPalindrome(text)))));
+            .map(
+                text ->
+                    dynamicTest(
+                        text, () -> Assertions.assertTrue(StringUtils.isPalindrome(text)))));
   }
 }

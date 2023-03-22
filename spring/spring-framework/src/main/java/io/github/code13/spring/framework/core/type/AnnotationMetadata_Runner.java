@@ -16,6 +16,7 @@
 package io.github.code13.spring.framework.core.type;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.annotation.Order;

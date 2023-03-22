@@ -17,6 +17,7 @@ package io.github.code13.libs.apache.httpclient5;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import com.jayway.jsonpath.JsonPath;
 import java.io.IOException;
 import java.net.URI;

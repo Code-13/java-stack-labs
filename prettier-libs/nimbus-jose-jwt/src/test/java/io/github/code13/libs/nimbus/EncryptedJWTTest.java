@@ -16,6 +16,7 @@
 package io.github.code13.libs.nimbus;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.nimbusds.jose.EncryptionMethod;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWEAlgorithm;
