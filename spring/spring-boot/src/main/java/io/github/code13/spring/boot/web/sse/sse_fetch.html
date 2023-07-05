@@ -1,0 +1,106 @@
+<!--
+  ~ Copyright 2022-present the original author or authors.
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~          http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>SseEmitter</title>
+  <!--  <script src="https://cdn.tailwindcss.com"></script>-->
+</head>
+
+<body id="body">
+<button onclick="closeSse()">关闭连接</button>
+<div id="message"></div>
+</body>
+
+<script>
+  (async () => {
+    const res = await fetch('http://localhost:8080/spring/boot/sse/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': '111111'
+      }
+    });
+
+    if (!res.ok) {
+      return
+    }
+
+    const decoder = new TextDecoder();
+    const reader = res.body.getReader();
+
+    let responseText = ''
+    while (true) {
+      const content = await reader?.read();
+      console.log('content', content);
+
+      // 没有返回结果结束
+      if (!content) {
+        break;
+      }
+
+      // done 已完成
+      if (content.done) {
+        break;
+      }
+
+      // 没有值
+      if (!content.value) {
+        break;
+      }
+
+      const text = decoder.decode(content.value, {stream: true});
+      const subText1 = subTextData(text);
+      console.log(subText1)
+      responseText += subText1;
+
+      setMessageInnerHTML(responseText)
+    }
+
+    // setMessageInnerHTML(responseText)
+  })()
+
+  const subText = (content) => {
+    let index1 = content.indexOf('{');
+    let index2 = content.lastIndexOf('}');
+    return content.substring(index1 + 1, index2);
+  };
+
+  const subTextData = (content) => {
+    if (content.includes("data:")) {
+      return content.split(":")[1];
+    }
+    return content;
+  };
+
+  // 将消息显示在网页上
+  function setMessageInnerHTML(innerHTML) {
+    let ele = document.getElementById('message');
+    ele.remove()
+
+    ele = document.createElement("div");
+    ele.id = "message";
+
+    const bodyEle = document.getElementById("body");
+    bodyEle.appendChild(ele)
+
+    ele.innerHTML += innerHTML + '<br/>';
+  }
+</script>
+
+</html>
