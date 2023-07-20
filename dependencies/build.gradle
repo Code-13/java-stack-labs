@@ -28,6 +28,7 @@ dependencies {
         api "oorg.mapstruct:mapstruct-processor:$mapstructVersion"
 
         api "com.alibaba:druid-spring-boot-starter:$druidSpringBootStarterVersion"
+        api "com.alibaba:druid:$druidSpringBootStarterVersion"
 
         api "io.vavr:vavr:$vavrVersin"
         api "io.vavr:vavr-jackson:$vavrJacksonVersin"

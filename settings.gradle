@@ -77,6 +77,8 @@ include 'prettier-libs:apache-httpclient5'
 findProject(':prettier-libs:apache-httpclient5')?.name = 'apache-httpclient5'
 include 'prettier-libs:ip2region'
 findProject(':prettier-libs:ip2region')?.name = 'ip2region'
+include 'prettier-libs:alibaba-druid'
+findProject(':prettier-libs:alibaba-druid')?.name = 'alibaba-druid'
 
 // jvm
 include 'jvm'
@@ -165,4 +167,3 @@ include 'jakartaee:jakarta-bean-validation'
 findProject(':jakartaee:jakarta-bean-validation')?.name = 'jakarta-bean-validation'
 
 include 'design-pattern'
-
