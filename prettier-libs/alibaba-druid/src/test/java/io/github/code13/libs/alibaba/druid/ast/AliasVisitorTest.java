@@ -37,9 +37,9 @@ import org.junit.jupiter.api.Test;
 class AliasVisitorTest {
 
   public static class CustomerMySqlASTVisitorAdapter extends MySqlASTVisitorAdapter {
-    private final Map<String, SQLTableSource> ALIAS_MAP = new HashMap<String, SQLTableSource>();
+    private final Map<String, SQLTableSource> ALIAS_MAP = new HashMap<>();
 
-    private final Map<String, SQLExpr> ALIAS_COLUMN_MAP = new HashMap<String, SQLExpr>();
+    private final Map<String, SQLExpr> ALIAS_COLUMN_MAP = new HashMap<>();
 
     public boolean visit(SQLExprTableSource x) {
       String alias = x.getAlias();

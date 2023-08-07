@@ -23,10 +23,16 @@ import com.alibaba.druid.sql.ast.expr.SQLIdentifierExpr;
 import com.alibaba.druid.sql.ast.expr.SQLPropertyExpr;
 import com.alibaba.druid.sql.ast.statement.SQLDeleteStatement;
 import com.alibaba.druid.sql.ast.statement.SQLInsertStatement;
+import com.alibaba.druid.sql.ast.statement.SQLSelect;
+import com.alibaba.druid.sql.ast.statement.SQLSelectItem;
+import com.alibaba.druid.sql.ast.statement.SQLSelectQuery;
+import com.alibaba.druid.sql.ast.statement.SQLSelectQueryBlock;
 import com.alibaba.druid.sql.ast.statement.SQLSelectStatement;
+import com.alibaba.druid.sql.ast.statement.SQLTableSource;
 import com.alibaba.druid.sql.ast.statement.SQLUpdateSetItem;
 import com.alibaba.druid.sql.ast.statement.SQLUpdateStatement;
 import java.util.List;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -66,6 +72,28 @@ class SqlStatementTest {
     System.out.println(
         SQLUtils.parseSingleMysqlStatement("delete from users where id = 1")
             instanceof SQLDeleteStatement);
+  }
+
+  @Test
+  @DisplayName("sqlSelectStatement")
+  void sqlSelectStatement() {
+    SQLStatement sqlStatement =
+        SQLUtils.parseSingleMysqlStatement("select * from user where name = '唐僧' and age = 18");
+
+    SQLSelectStatement sqlSelectStatement = Utils.cast(sqlStatement, SQLSelectStatement.class);
+    System.out.println(sqlSelectStatement);
+
+    SQLSelect select = sqlSelectStatement.getSelect();
+    System.out.println(select);
+
+    SQLSelectQuery query = select.getQuery();
+    SQLSelectQueryBlock selectQueryBlock = Utils.cast(query, SQLSelectQueryBlock.class);
+
+    List<SQLSelectItem> selectList = selectQueryBlock.getSelectList();
+    SQLTableSource from = selectQueryBlock.getFrom();
+
+    System.out.println(sqlSelectStatement.getChildren());
+
   }
 
   @Test
