@@ -25,6 +25,8 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:1.1.0")
         classpath("com.github.node-gradle:gradle-node-plugin:3.5.1")
+        classpath("io.freefair.gradle:lombok-plugin:8.3")
+        classpath("org.checkerframework:checkerframework-gradle-plugin:0.6.33")
     }
 
 }

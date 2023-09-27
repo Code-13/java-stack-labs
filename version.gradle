@@ -2,7 +2,7 @@ ext {
     springBootVersion = "$springBootVersion"
     springCloudVersion = "$springCloudVersion"
     springCloudAlibabaVersion = "$springCloudAlibabaVersion"
-    springSecurityOauth2AuthorizationServerVersion = "0.4.1"
+    springSecurityOauth2AuthorizationServerVersion = "0.4.3"
 
     checkerQualVersion = "3.31.0"
 

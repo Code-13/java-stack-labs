@@ -22,6 +22,7 @@ import com.alibaba.druid.sql.ast.expr.SQLBinaryOpExpr;
 import com.alibaba.druid.sql.ast.expr.SQLIdentifierExpr;
 import com.alibaba.druid.sql.ast.expr.SQLPropertyExpr;
 import com.alibaba.druid.sql.ast.statement.SQLDeleteStatement;
+import com.alibaba.druid.sql.ast.statement.SQLExprTableSource;
 import com.alibaba.druid.sql.ast.statement.SQLInsertStatement;
 import com.alibaba.druid.sql.ast.statement.SQLSelect;
 import com.alibaba.druid.sql.ast.statement.SQLSelectItem;
@@ -92,8 +93,11 @@ class SqlStatementTest {
     List<SQLSelectItem> selectList = selectQueryBlock.getSelectList();
     SQLTableSource from = selectQueryBlock.getFrom();
 
-    System.out.println(sqlSelectStatement.getChildren());
+    SQLExprTableSource sqlExprTableSource = (SQLExprTableSource) from;
 
+    SQLExpr expr = sqlExprTableSource.getExpr();
+
+    System.out.println(sqlSelectStatement.getChildren());
   }
 
   @Test

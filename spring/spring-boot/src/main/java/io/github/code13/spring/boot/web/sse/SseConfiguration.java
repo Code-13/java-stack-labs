@@ -15,12 +15,12 @@
 
 package io.github.code13.spring.boot.web.sse;
 
+import java.nio.charset.StandardCharsets;
 import javax.servlet.Filter;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 
 /**
@@ -29,10 +29,10 @@ import org.springframework.util.StringUtils;
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @since 2023/7/4 12:20
  */
-@Configuration
+// @Configuration
 public class SseConfiguration {
 
-  @Bean
+  // @Bean
   public FilterRegistrationBean<Filter> sseAuthFilter() {
     FilterRegistrationBean<Filter> bean = new FilterRegistrationBean<>();
     bean.setFilter(
@@ -40,6 +40,8 @@ public class SseConfiguration {
           HttpServletRequest servletRequest = (HttpServletRequest) request;
           String authorization = servletRequest.getHeader(HttpHeaders.AUTHORIZATION);
           if (!StringUtils.hasText(authorization)) {
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
             response.getWriter().write("缺少授权");
             return;
           }

@@ -79,6 +79,8 @@ include 'prettier-libs:ip2region'
 findProject(':prettier-libs:ip2region')?.name = 'ip2region'
 include 'prettier-libs:alibaba-druid'
 findProject(':prettier-libs:alibaba-druid')?.name = 'alibaba-druid'
+include 'prettier-libs:apache-poi'
+findProject(':prettier-libs:apache-poi')?.name = 'apache-poi'
 
 // jvm
 include 'jvm'
