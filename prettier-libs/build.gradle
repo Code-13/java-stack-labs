@@ -14,13 +14,4 @@
  *     limitations under the License.
  */
 
-group 'io.github.code13.libs'
-
-configure(subprojects) {
-    group 'io.github.code13.libs'
-
-    dependencies {
-        //implementation 'org.apache.commons:commons-lang3'
-    }
-
-}
+group("io.github.code13.libs")

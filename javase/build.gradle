@@ -14,16 +14,16 @@
  *     limitations under the License.
  */
 
-group 'io.github.code13.javase'
+group("io.github.code13.javase")
 
 
 configure(subprojects) {
-    group 'io.github.code13.javase'
+    group("io.github.code13.javase")
 
     dependencies {
-        implementation 'org.apache.commons:commons-lang3'
-        implementation 'org.junit.jupiter:junit-jupiter'
-        implementation 'org.hamcrest:hamcrest'
+        implementation("org.apache.commons:commons-lang3")
+        implementation("org.junit.jupiter:junit-jupiter")
+        implementation("org.hamcrest:hamcrest")
     }
 
 }

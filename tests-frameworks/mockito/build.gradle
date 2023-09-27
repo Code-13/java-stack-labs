@@ -1,4 +1,4 @@
 dependencies {
-    implementation 'org.mockito:mockito-core'
-    implementation 'org.junit.jupiter:junit-jupiter'
+    implementation("org.mockito:mockito-core")
+    implementation("org.junit.jupiter:junit-jupiter")
 }

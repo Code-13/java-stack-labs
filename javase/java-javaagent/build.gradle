@@ -14,25 +14,25 @@
  *     limitations under the License.
  */
 
-def HelloWorldPremainClass = 'io.github.code13.javase.agent.hello_world.HelloAgent'
-def MonitorPremainClass = 'io.github.code13.javase.agent.demo02_method_monitor.MonitorAgent'
-def ByteBuddyMonitorPremainClass = 'io.github.code13.javase.agent.demo03_bytebuddy_monitor.ByteBuddyMonitorAgent'
-def JvmAgentPremainClass = 'io.github.code13.javase.agent.demo04_jvm.JvmStackAgent'
-def TrackAgentPremainClass = 'io.github.code13.javase.agent.demo05_threadlocal_track.TrackAgent'
+def HelloWorldPremainClass = "io.github.code13.javase.agent.hello_world.HelloAgent"
+def MonitorPremainClass = "io.github.code13.javase.agent.demo02_method_monitor.MonitorAgent"
+def ByteBuddyMonitorPremainClass = "io.github.code13.javase.agent.demo03_bytebuddy_monitor.ByteBuddyMonitorAgent"
+def JvmAgentPremainClass = "io.github.code13.javase.agent.demo04_jvm.JvmStackAgent"
+def TrackAgentPremainClass = "io.github.code13.javase.agent.demo05_threadlocal_track.TrackAgent"
 jar {
     manifest {
         attributes(
-                'Premain-Class': TrackAgentPremainClass,
-                'Can-Redefine-Classes': true
+                "Premain-Class": TrackAgentPremainClass,
+                "Can-Redefine-Classes": true
         )
     }
 }
 
 dependencies {
     // https://mvnrepository.com/artifact/org.javassist/javassist
-    implementation 'org.javassist:javassist:3.28.0-GA'
+    implementation "org.javassist:javassist:3.28.0-GA"
     // https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy
     // implementation 'net.bytebuddy:byte-buddy:1.12.10'
-    implementation 'net.bytebuddy:byte-buddy'
-    implementation 'net.bytebuddy:byte-buddy-agent'
+    implementation "net.bytebuddy:byte-buddy"
+    implementation "net.bytebuddy:byte-buddy-agent"
 }
