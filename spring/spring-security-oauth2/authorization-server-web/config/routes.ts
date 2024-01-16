@@ -18,6 +18,12 @@ export default [
     component: './Login',
   },
   {
+    name: 'consent',
+    path: '/oauth2/consent',
+    layout: false,
+    component: './Consent',
+  },
+  {
     path: '/account',
     name: 'account',
     // icon: 'smile',
