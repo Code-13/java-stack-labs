@@ -27,6 +27,6 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
 
-processResources {
-    dependsOn(":spring:spring-security-oauth2:authorization-server-web:buildWeb")
+tasks.withType<ProcessResources> {
+    dependsOn(":spring:spring-security-oauth2:authorization-server-web:buildWebWithoutBuild")
 }

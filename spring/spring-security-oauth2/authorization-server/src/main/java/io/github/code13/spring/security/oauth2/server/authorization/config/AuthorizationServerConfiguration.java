@@ -28,7 +28,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.core.userdetails.User;
@@ -95,7 +94,15 @@ class AuthorizationServerConfiguration {
         .apply(authorizationServerConfigurer)
         .authorizationEndpoint(
             authorizationEndpoint -> authorizationEndpoint.consentPage("/oauth2/consent"))
-        .oidc(Customizer.withDefaults()) // Enable OIDC
+        .oidc(
+            oidc ->
+                oidc.providerConfigurationEndpoint(
+                    oidcProvider ->
+                        oidcProvider.providerConfigurationCustomizer(
+                            builder ->
+                                builder
+                                    .grantType(AuthorizationGrantTypes.PASSWORD.getValue())
+                                    .grantType(AuthorizationGrantTypes.SMS.getValue()))))
         .and()
         .exceptionHandling(
             exceptions ->
@@ -212,7 +219,7 @@ class AuthorizationServerConfiguration {
                 TokenSettings.builder().accessTokenFormat(OAuth2TokenFormat.REFERENCE).build())
             .clientSettings(
                 ClientSettings.builder()
-                    .requireAuthorizationConsent(true)
+                    .requireAuthorizationConsent(false)
                     .requireProofKey(true) // 仅支持PKCE
                     .build())
             .build();

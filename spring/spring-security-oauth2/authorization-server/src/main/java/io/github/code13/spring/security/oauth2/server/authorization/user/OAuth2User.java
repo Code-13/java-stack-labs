@@ -15,10 +15,19 @@
 
 package io.github.code13.spring.security.oauth2.server.authorization.user;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.Assert;
 
 /**
  * OAuth2User.
@@ -48,7 +57,7 @@ public class OAuth2User implements UserDetails, CredentialsContainer {
   /** 是否被禁用,禁用的用户不能身份验证 */
   private final boolean enabled;
 
-  private final Collection<? extends GrantedAuthority> authorities;
+  private final Set<GrantedAuthority> authorities;
 
   private OAuth2User(Builder builder) {
     id = builder.id;
@@ -59,7 +68,7 @@ public class OAuth2User implements UserDetails, CredentialsContainer {
     accountNonLocked = builder.accountNonLocked;
     credentialsNonExpired = builder.credentialsNonExpired;
     enabled = builder.enabled;
-    authorities = builder.authorities;
+    authorities = Collections.unmodifiableSet(sortAuthorities(builder.authorities));
   }
 
   @Override
@@ -108,6 +117,39 @@ public class OAuth2User implements UserDetails, CredentialsContainer {
   @Override
   public void eraseCredentials() {
     password = null;
+  }
+
+  private static SortedSet<GrantedAuthority> sortAuthorities(
+      Collection<? extends GrantedAuthority> authorities) {
+    Assert.notNull(authorities, "Cannot pass a null GrantedAuthority collection");
+    // Ensure array iteration order is predictable (as per
+    // UserDetails.getAuthorities() contract and SEC-717)
+    SortedSet<GrantedAuthority> sortedAuthorities = new TreeSet<>(new AuthorityComparator());
+    for (GrantedAuthority grantedAuthority : authorities) {
+      Assert.notNull(grantedAuthority, "GrantedAuthority list cannot contain any null elements");
+      sortedAuthorities.add(grantedAuthority);
+    }
+    return sortedAuthorities;
+  }
+
+  private static class AuthorityComparator implements Comparator<GrantedAuthority>, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
+
+    @Override
+    public int compare(GrantedAuthority g1, GrantedAuthority g2) {
+      // Neither should ever be null as each entry is checked before adding it to
+      // the set. If the authority is null, it is a custom authority and should
+      // precede others.
+      if (g2.getAuthority() == null) {
+        return -1;
+      }
+      if (g1.getAuthority() == null) {
+        return 1;
+      }
+      return g1.getAuthority().compareTo(g2.getAuthority());
+    }
   }
 
   // ==============================

@@ -17,6 +17,7 @@ package io.github.code13.spring.security.oauth2.server.authorization.extension.j
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import io.github.code13.spring.security.oauth2.server.authorization.user.OAuth2User;
 import java.io.Serial;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 
@@ -46,5 +47,6 @@ public class OAuth2AuthorizationServerExtensionJackson2Module extends SimpleModu
   @Override
   public void setupModule(SetupContext context) {
     SecurityJackson2Modules.enableDefaultTyping(context.getOwner());
+    context.setMixInAnnotations(OAuth2User.class, OAuth2UserMixin.class);
   }
 }
