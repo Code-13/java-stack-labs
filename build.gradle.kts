@@ -57,20 +57,20 @@ configure(subprojects.filter { project -> project != project(":dependencies") })
         withJavadocJar()
     }
 
+    val processResources = tasks.withType(ProcessResources::class.java) {
+        from("src/main/java") {
+            include("**/*.xml", "**/*.json", "**/*.yml", "**/*.yaml")
+        }
+    }
+
     tasks.withType(JavaCompile::class.java).configureEach {
         options.encoding = "UTF-8"
         options.compilerArgs.add("-parameters")
         options.compilerArgs.add("-Xlint:unchecked")
         options.compilerArgs.add("-Xlint:deprecation")
-        options.forkOptions.jvmArgs?.add("-J--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED")
+        options.forkOptions.jvmArgs?.add("--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED")
         options.forkOptions.jvmArgs?.add("--add-opens=java.base/java.lang=ALL-UNNAMED")
-        dependsOn(ProcessResources::class.java)
-    }
-
-    tasks.withType(ProcessResources::class.java) {
-        from("src/main/java") {
-            include("**/*.xml", "**/*.json", "**/*.yml", "**/*.yaml")
-        }
+        dependsOn(processResources)
     }
 
     tasks.withType(Test::class.java) {
