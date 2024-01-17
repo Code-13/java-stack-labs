@@ -10,9 +10,12 @@ dependencies {
     //implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     runtimeOnly("com.h2database:h2")
     implementation("com.baomidou:mybatis-plus-boot-starter")
+    // https://mvnrepository.com/artifact/org.mybatis/mybatis-spring
+    implementation("org.mybatis:mybatis-spring:3.0.3")
 
     implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.security:spring-security-oauth2-authorization-server")
+    //implementation("org.springframework.security:spring-security-oauth2-authorization-server")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-authorization-server")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
     // see https://github.com/spring-projects/spring-authorization-server/issues/601

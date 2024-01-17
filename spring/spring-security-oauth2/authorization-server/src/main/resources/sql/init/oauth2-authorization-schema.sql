@@ -45,5 +45,13 @@ CREATE TABLE oauth2_authorization
     refresh_token_issued_at       timestamp     DEFAULT NULL,
     refresh_token_expires_at      timestamp     DEFAULT NULL,
     refresh_token_metadata        text          DEFAULT NULL,
+    user_code_value               text          DEFAULT NULL,
+    user_code_issued_at           timestamp     DEFAULT NULL,
+    user_code_expires_at          timestamp     DEFAULT NULL,
+    user_code_metadata            text          DEFAULT NULL,
+    device_code_value             text          DEFAULT NULL,
+    device_code_issued_at         timestamp     DEFAULT NULL,
+    device_code_expires_at        timestamp     DEFAULT NULL,
+    device_code_metadata          text          DEFAULT NULL,
     PRIMARY KEY (id)
 );

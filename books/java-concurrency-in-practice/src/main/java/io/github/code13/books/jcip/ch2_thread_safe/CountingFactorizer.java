@@ -16,15 +16,15 @@
 package io.github.code13.books.jcip.ch2_thread_safe;
 
 import io.github.code13.books.jcip.ThreadSafe;
+import jakarta.servlet.GenericServlet;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import java.io.IOException;
 import java.io.Serial;
 import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.servlet.GenericServlet;
-import javax.servlet.Servlet;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 
 /**
  * CountingFactorizer.

@@ -16,7 +16,7 @@
 package io.github.code13.spring.security.oauth2.resource.server.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

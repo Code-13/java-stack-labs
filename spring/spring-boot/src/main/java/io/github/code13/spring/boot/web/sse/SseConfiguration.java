@@ -15,9 +15,9 @@
 
 package io.github.code13.spring.boot.web.sse;
 
+import jakarta.servlet.Filter;
+import jakarta.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
-import javax.servlet.Filter;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

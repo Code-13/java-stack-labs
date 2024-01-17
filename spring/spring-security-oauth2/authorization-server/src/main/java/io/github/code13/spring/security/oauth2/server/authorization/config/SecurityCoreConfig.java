@@ -20,6 +20,7 @@ import io.github.code13.spring.security.oauth2.server.authorization.user.UserMap
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -44,10 +45,11 @@ class SecurityCoreConfig {
         .authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
         .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login/account"));
 
-    http.csrf().disable();
+    http.csrf(AbstractHttpConfigurer::disable);
 
     return http.build();
   }
+
   // @formatter:on
 
   @Bean

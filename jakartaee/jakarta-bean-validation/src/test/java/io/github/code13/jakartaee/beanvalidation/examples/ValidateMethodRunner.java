@@ -17,11 +17,11 @@ package io.github.code13.jakartaee.beanvalidation.examples;
 
 import io.github.code13.jakartaee.beanvalidation.ValidationUtils;
 import io.github.code13.jakartaee.beanvalidation.examples.ValidateBeanRunner.Person;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import java.lang.reflect.Method;
 import java.util.Set;
-import javax.validation.ConstraintViolation;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

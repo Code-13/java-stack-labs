@@ -16,10 +16,10 @@
 package io.github.code13.jakartaee.beanvalidation.examples;
 
 import io.github.code13.jakartaee.beanvalidation.ValidationUtils;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import java.util.Set;
-import javax.validation.ConstraintViolation;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

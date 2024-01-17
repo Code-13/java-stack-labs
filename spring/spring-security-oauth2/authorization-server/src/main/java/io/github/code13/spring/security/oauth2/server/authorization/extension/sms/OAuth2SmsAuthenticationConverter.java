@@ -19,9 +19,9 @@ import io.github.code13.spring.security.oauth2.server.authorization.extension.Au
 import io.github.code13.spring.security.oauth2.server.authorization.extension.OAuth2EndpointUtils;
 import io.github.code13.spring.security.oauth2.server.authorization.extension.OAuth2ParameterNamesExtension;
 import io.github.code13.spring.security.oauth2.server.authorization.extension.OAuth2ResourceOwnerAuthenticationConverter;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.Set;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.util.MultiValueMap;

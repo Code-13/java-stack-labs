@@ -17,12 +17,12 @@ package io.github.code13.spring.security.extension.web;
 
 import io.github.code13.spring.security.extension.token.JwtUtils;
 import io.github.code13.spring.security.extension.token.TokenResult;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Map;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;

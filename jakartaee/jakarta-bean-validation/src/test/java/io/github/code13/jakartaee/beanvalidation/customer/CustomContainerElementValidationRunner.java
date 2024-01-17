@@ -16,14 +16,14 @@
 package io.github.code13.jakartaee.beanvalidation.customer;
 
 import io.github.code13.jakartaee.beanvalidation.ValidationUtils;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.executable.ExecutableValidator;
+import jakarta.validation.valueextraction.ExtractedValue;
+import jakarta.validation.valueextraction.ValueExtractor;
 import java.io.Serializable;
 import java.lang.reflect.Method;
-import javax.validation.Valid;
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotNull;
-import javax.validation.executable.ExecutableValidator;
-import javax.validation.valueextraction.ExtractedValue;
-import javax.validation.valueextraction.ValueExtractor;
 import lombok.Data;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

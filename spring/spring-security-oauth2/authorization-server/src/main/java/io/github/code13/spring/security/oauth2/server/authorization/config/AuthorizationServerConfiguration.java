@@ -28,8 +28,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
@@ -91,41 +91,48 @@ class AuthorizationServerConfiguration {
     http.securityMatcher(endpointsMatcher)
         .authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
         .csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
-        .apply(authorizationServerConfigurer)
-        .authorizationEndpoint(
-            authorizationEndpoint -> authorizationEndpoint.consentPage("/oauth2/consent"))
-        .oidc(
-            oidc ->
-                oidc.providerConfigurationEndpoint(
-                    oidcProvider ->
-                        oidcProvider.providerConfigurationCustomizer(
-                            builder ->
-                                builder
-                                    .grantType(AuthorizationGrantTypes.PASSWORD.getValue())
-                                    .grantType(AuthorizationGrantTypes.SMS.getValue()))))
-        .and()
+        .with(
+            authorizationServerConfigurer,
+            authorizationServer ->
+                authorizationServer
+                    .authorizationEndpoint(
+                        authorizationEndpoint ->
+                            authorizationEndpoint.consentPage("/oauth2/consent"))
+                    .oidc(
+                        oidc ->
+                            oidc.providerConfigurationEndpoint(
+                                oidcProvider ->
+                                    oidcProvider.providerConfigurationCustomizer(
+                                        builder ->
+                                            builder
+                                                .grantType(
+                                                    AuthorizationGrantTypes.PASSWORD.getValue())
+                                                .grantType(
+                                                    AuthorizationGrantTypes.SMS.getValue())))))
         .exceptionHandling(
             exceptions ->
                 exceptions.authenticationEntryPoint(
                     new LoginUrlAuthenticationEntryPoint("/login")));
 
-    http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+    http.oauth2ResourceServer(resourceServer -> resourceServer.jwt(Customizer.withDefaults()));
 
     // 注入自定义的授权类型
-    http.apply(authorizationServerExtensionConfigurer)
-        .sms( // 配置 SMS
-            sms ->
-                sms.smsService((phone, code) -> true)
-                    .smsUserDetailsService(
-                        phone ->
-                            User.builder()
-                                .username("sms-user")
-                                .password("sms")
-                                .passwordEncoder(
-                                    PasswordEncoderFactories.createDelegatingPasswordEncoder()
-                                        ::encode)
-                                .roles("USER")
-                                .build()));
+    http.with(
+        authorizationServerExtensionConfigurer,
+        authorizationServerExtension ->
+            authorizationServerExtension.sms( // 配置 SMS
+                sms ->
+                    sms.smsService((phone, code) -> true)
+                        .smsUserDetailsService(
+                            phone ->
+                                User.builder()
+                                    .username("sms-user")
+                                    .password("sms")
+                                    .passwordEncoder(
+                                        PasswordEncoderFactories.createDelegatingPasswordEncoder()
+                                            ::encode)
+                                    .roles("USER")
+                                    .build())));
 
     return http.build();
   }

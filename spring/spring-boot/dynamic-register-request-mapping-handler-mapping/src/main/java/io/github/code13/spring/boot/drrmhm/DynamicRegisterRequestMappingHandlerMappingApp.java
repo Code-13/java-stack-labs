@@ -15,9 +15,9 @@
 
 package io.github.code13.spring.boot.drrmhm;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Objects;
 import java.util.UUID;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;

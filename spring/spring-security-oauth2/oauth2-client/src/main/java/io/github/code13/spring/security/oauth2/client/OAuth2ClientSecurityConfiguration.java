@@ -18,7 +18,9 @@ package io.github.code13.spring.security.oauth2.client;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
@@ -42,15 +44,13 @@ public class OAuth2ClientSecurityConfiguration {
   @Bean
   SecurityFilterChain oauth2ClientSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
     httpSecurity
-        .csrf()
-        .disable()
-        .cors()
-        .and()
-        .authorizeRequests(
-            registry -> registry.antMatchers(whiteList.toArray(new String[0])).permitAll())
-        .authorizeRequests(registry -> registry.anyRequest().authenticated())
+        .csrf(AbstractHttpConfigurer::disable)
+        .cors(AbstractHttpConfigurer::disable)
+        .authorizeHttpRequests(
+            registry -> registry.requestMatchers(whiteList.toArray(new String[0])).permitAll())
+        .authorizeHttpRequests(registry -> registry.anyRequest().authenticated())
         // oauth2.0 login
-        .oauth2Login();
+        .oauth2Login(Customizer.withDefaults());
 
     return httpSecurity.build();
   }

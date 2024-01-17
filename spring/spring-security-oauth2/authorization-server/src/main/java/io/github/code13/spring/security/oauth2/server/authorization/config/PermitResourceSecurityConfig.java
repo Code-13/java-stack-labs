@@ -27,6 +27,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.CacheControl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.CacheControlConfig;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
+import org.springframework.security.config.annotation.web.configurers.RequestCacheConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
@@ -88,16 +92,13 @@ class PermitResourceSecurityConfig implements WebMvcConfigurer {
     http.securityMatcher(permitMatcher)
         .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
         .csrf(csrf -> csrf.ignoringRequestMatchers(permitMatcher))
-        .requestCache()
-        .disable()
-        .securityContext()
-        .disable()
-        .sessionManagement()
-        .disable()
+        .requestCache(RequestCacheConfigurer::disable)
+        .securityContext(AbstractHttpConfigurer::disable)
+        .sessionManagement(AbstractHttpConfigurer::disable)
         .headers(
             headers -> {
-              headers.cacheControl().disable();
-              headers.frameOptions().disable();
+              headers.cacheControl(CacheControlConfig::disable);
+              headers.frameOptions(FrameOptionsConfig::disable);
             });
 
     return http.build();

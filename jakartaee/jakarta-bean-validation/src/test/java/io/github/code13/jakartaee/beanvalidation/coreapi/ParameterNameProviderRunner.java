@@ -15,8 +15,8 @@
 
 package io.github.code13.jakartaee.beanvalidation.coreapi;
 
+import jakarta.validation.ParameterNameProvider;
 import java.util.Arrays;
-import javax.validation.ParameterNameProvider;
 import org.hibernate.validator.internal.engine.DefaultParameterNameProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

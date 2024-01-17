@@ -12,5 +12,5 @@ dependencies {
 
     implementation("org.junit.jupiter:junit-jupiter")
 
-    compileOnly("javax.servlet:javax.servlet-api")
+    compileOnly("jakarta.servlet:jakarta.servlet-api")
 }

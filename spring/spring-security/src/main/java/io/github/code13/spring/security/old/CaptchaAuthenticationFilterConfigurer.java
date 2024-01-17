@@ -19,9 +19,9 @@ import io.github.code13.spring.security.extension.authentication.captcha.Captcha
 import io.github.code13.spring.security.extension.authentication.captcha.CaptchaService;
 import io.github.code13.spring.security.extension.authentication.captcha.CaptchaUserDetailsService;
 import io.github.code13.spring.security.extension.web.CaptchaAuthenticationFilter;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Collections;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;

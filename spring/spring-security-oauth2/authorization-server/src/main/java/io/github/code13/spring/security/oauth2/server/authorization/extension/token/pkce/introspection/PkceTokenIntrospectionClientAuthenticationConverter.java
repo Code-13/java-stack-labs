@@ -16,8 +16,8 @@
 package io.github.code13.spring.security.oauth2.server.authorization.extension.token.pkce.introspection;
 
 import io.github.code13.spring.security.oauth2.server.authorization.extension.OAuth2EndpointUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;

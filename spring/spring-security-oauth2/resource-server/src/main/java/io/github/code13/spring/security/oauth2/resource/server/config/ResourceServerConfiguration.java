@@ -15,7 +15,7 @@
 
 package io.github.code13.spring.security.oauth2.resource.server.config;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +23,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManagerResolver;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
@@ -48,17 +49,16 @@ class ResourceServerConfiguration {
   @Bean
   @Order(Ordered.HIGHEST_PRECEDENCE)
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http.authorizeRequests(
+    http.authorizeHttpRequests(
             authorizeRequests ->
                 authorizeRequests
-                    .antMatchers(properties.getUrls().toArray(new String[0]))
+                    .requestMatchers(properties.getUrls().toArray(new String[0]))
                     .permitAll())
-        .authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
+        .authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
         .oauth2ResourceServer(
             // Supporting both JWT and Opaque Token
             oauth2 -> oauth2.authenticationManagerResolver(authenticationManagerResolver))
-        .csrf()
-        .disable();
+        .csrf(AbstractHttpConfigurer::disable);
 
     return http.build();
   }

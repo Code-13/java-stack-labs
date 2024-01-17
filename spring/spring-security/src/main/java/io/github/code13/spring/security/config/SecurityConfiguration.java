@@ -17,8 +17,8 @@ package io.github.code13.spring.security.config;
 
 import io.github.code13.spring.security.ResponseData;
 import io.github.code13.spring.security.old.CaptchaAuthenticationFilterConfigurer;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -28,6 +28,8 @@ import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.RequestCacheConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -67,11 +69,10 @@ public class SecurityConfiguration {
       MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter)
       throws Exception {
 
-    http.csrf()
-        .disable()
+    http.csrf(AbstractHttpConfigurer::disable)
         // 出去白名单中的，其余全部拦截
         .authorizeRequests()
-        .antMatchers(WHITELIST.toArray(String[]::new))
+        .requestMatchers(WHITELIST.toArray(String[]::new))
         .permitAll()
         .and()
         .authorizeRequests()
@@ -79,41 +80,46 @@ public class SecurityConfiguration {
         .authenticated()
         .and()
         // 应用 Captcha 的配置
-        .apply(new CaptchaAuthenticationFilterConfigurer<>())
-        .captchaService((phone, rawCode) -> true) // 此处自己去自定义
-        .captchaUserDetailsService(
-            phone -> userDetailsService.loadUserByUsername("code13")) // 此处应该自定义用户信息
-        .successHandler(
-            (request, response, authentication) -> {
-              // 这里把认证信息以JSON形式返回
-              ServletServerHttpResponse servletServerHttpResponse =
-                  new ServletServerHttpResponse(response);
-              mappingJackson2HttpMessageConverter.write(
-                  authentication, MediaType.APPLICATION_JSON, servletServerHttpResponse);
-            })
-        .failureHandler(
-            (request, response, exception) -> {
-              // 这里把认证信息以JSON形式返回
-              response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-              ServletServerHttpResponse servletServerHttpResponse =
-                  new ServletServerHttpResponse(response);
-              mappingJackson2HttpMessageConverter.write(
-                  ResponseData.of(HttpStatus.UNAUTHORIZED, request.getRequestURI()),
-                  MediaType.APPLICATION_JSON,
-                  servletServerHttpResponse);
-            })
-        .and()
-        .exceptionHandling() //
-        .authenticationEntryPoint(
-            (request, response, authException) -> {
-              response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-              ServletServerHttpResponse servletServerHttpResponse =
-                  new ServletServerHttpResponse(response);
-              mappingJackson2HttpMessageConverter.write(
-                  ResponseData.of(HttpStatus.UNAUTHORIZED, request.getRequestURI()),
-                  MediaType.APPLICATION_JSON,
-                  servletServerHttpResponse);
-            });
+        .with(
+            new CaptchaAuthenticationFilterConfigurer<>(),
+            captcha ->
+                captcha
+                    .captchaService((phone, rawCode) -> true) // 此处自己去自定义
+                    .captchaUserDetailsService(
+                        phone -> userDetailsService.loadUserByUsername("code13")) // 此处应该自定义用户信息
+                    .successHandler(
+                        (request, response, authentication) -> {
+                          // 这里把认证信息以JSON形式返回
+                          ServletServerHttpResponse servletServerHttpResponse =
+                              new ServletServerHttpResponse(response);
+                          mappingJackson2HttpMessageConverter.write(
+                              authentication,
+                              MediaType.APPLICATION_JSON,
+                              servletServerHttpResponse);
+                        })
+                    .failureHandler(
+                        (request, response, exception) -> {
+                          // 这里把认证信息以JSON形式返回
+                          response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                          ServletServerHttpResponse servletServerHttpResponse =
+                              new ServletServerHttpResponse(response);
+                          mappingJackson2HttpMessageConverter.write(
+                              ResponseData.of(HttpStatus.UNAUTHORIZED, request.getRequestURI()),
+                              MediaType.APPLICATION_JSON,
+                              servletServerHttpResponse);
+                        }))
+        .exceptionHandling(
+            exceptionHandling ->
+                exceptionHandling.authenticationEntryPoint(
+                    (request, response, authException) -> {
+                      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                      ServletServerHttpResponse servletServerHttpResponse =
+                          new ServletServerHttpResponse(response);
+                      mappingJackson2HttpMessageConverter.write(
+                          ResponseData.of(HttpStatus.UNAUTHORIZED, request.getRequestURI()),
+                          MediaType.APPLICATION_JSON,
+                          servletServerHttpResponse);
+                    }));
 
     return http.build();
   }
@@ -122,24 +128,25 @@ public class SecurityConfiguration {
   SecurityFilterChain defaultSecurityChain(HttpSecurity http, UserDetailsService userDetailsService)
       throws Exception {
 
-    http.csrf()
-        .disable()
+    http.csrf(AbstractHttpConfigurer::disable)
         // 出去白名单中的，其余全部拦截
-        .authorizeRequests()
-        .antMatchers(WHITELIST.toArray(String[]::new))
-        .permitAll()
-        .and()
-        .authorizeRequests()
-        .anyRequest()
-        .authenticated()
-        .and()
+        .authorizeHttpRequests(
+            authorizeHttpRequests ->
+                authorizeHttpRequests
+                    .requestMatchers(WHITELIST.toArray(String[]::new))
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
         // 应用 Captcha 的配置
-        .apply(
+        .with(
             new io.github.code13.spring.security.extension.configurers
-                .CaptchaAuthenticationFilterConfigurer<>())
-        .captchaService((phone, rawCode) -> true) // 此处自己去自定义
-        .captchaUserDetailsService(
-            phone -> userDetailsService.loadUserByUsername("code13")); // 此处应该自定义用户信息
+                .CaptchaAuthenticationFilterConfigurer<>(),
+            captcha ->
+                captcha
+                    .captchaService((phone, rawCode) -> true) // 此处自己去自定义
+                    .captchaUserDetailsService(
+                        phone -> userDetailsService.loadUserByUsername("code13")) // 此处应该自定义用户信息
+            );
 
     return http.build();
   }
@@ -150,15 +157,11 @@ public class SecurityConfiguration {
   @Bean
   @Order(0)
   SecurityFilterChain resources(HttpSecurity http) throws Exception {
-    http.requestMatchers(matchers -> matchers.antMatchers("/h2-console/**"))
+    http.securityMatchers(matchers -> matchers.requestMatchers("/h2-console/**"))
         .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
-        .requestCache()
-        .disable()
-        .securityContext()
-        .disable()
-        .sessionManagement()
-        .disable();
-
+        .requestCache(RequestCacheConfigurer::disable)
+        .securityContext(AbstractHttpConfigurer::disable)
+        .sessionManagement(AbstractHttpConfigurer::disable);
     return http.build();
   }
 }

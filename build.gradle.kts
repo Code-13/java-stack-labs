@@ -22,10 +22,10 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${properties["springBootVersion"]}")
-        classpath("io.spring.gradle:dependency-management-plugin:1.1.0")
-        classpath("com.github.node-gradle:gradle-node-plugin:3.5.1")
-        classpath("io.freefair.gradle:lombok-plugin:8.3")
-        classpath("org.checkerframework:checkerframework-gradle-plugin:0.6.33")
+        classpath("io.spring.gradle:dependency-management-plugin:1.1.4")
+        classpath("com.github.node-gradle:gradle-node-plugin:7.0.1")
+        classpath("io.freefair.gradle:lombok-plugin:8.4")
+        classpath("org.checkerframework:checkerframework-gradle-plugin:0.6.37")
     }
 }
 

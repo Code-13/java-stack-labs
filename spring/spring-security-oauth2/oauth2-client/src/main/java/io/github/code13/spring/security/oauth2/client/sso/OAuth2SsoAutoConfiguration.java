@@ -23,6 +23,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.Ordered;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -53,36 +54,38 @@ class OAuth2SsoAutoConfiguration {
       HttpSecurity http, OAuth2SsoProperties oAuth2SsoProperties) throws Exception {
 
     if (!oAuth2SsoProperties.isEnable()) {
-      return http.csrf()
-          .disable()
-          .authorizeRequests(registry -> registry.anyRequest().permitAll())
+      return http.csrf(AbstractHttpConfigurer::disable)
+          .authorizeHttpRequests(registry -> registry.anyRequest().permitAll())
           .build();
     }
 
-    return http.csrf()
-        .disable()
-        .cors()
-        .disable()
-        .authorizeRequests(
+    return http.csrf(AbstractHttpConfigurer::disable)
+        .cors(AbstractHttpConfigurer::disable)
+        .authorizeHttpRequests(
             registry ->
                 registry
-                    .antMatchers(oAuth2SsoProperties.getWhiteList().toArray(new String[0]))
+                    .requestMatchers(oAuth2SsoProperties.getWhiteList().toArray(new String[0]))
                     .permitAll())
-        .authorizeRequests(registry -> registry.anyRequest().authenticated())
-        .oauth2Login()
-        .userInfoEndpoint(
-            userInfoEndpointConfig -> {
-              // 此处可以配置 userInfoService
-            })
-        .successHandler(
-            (request, response, authentication) -> {
-              String redirectUri =
-                  (String)
-                      request.getSession().getAttribute(oAuth2SsoProperties.getRedirectUriKey());
-              request.getSession().removeAttribute(oAuth2SsoProperties.getRedirectUriKey());
-              response.sendRedirect(redirectUri);
-            })
-        .and()
+        .authorizeHttpRequests(registry -> registry.anyRequest().authenticated())
+        .oauth2Login(
+            oauth2Login ->
+                oauth2Login
+                    .userInfoEndpoint(
+                        userInfoEndpointConfig -> {
+                          // 此处可以配置 userInfoService
+                        })
+                    .successHandler(
+                        (request, response, authentication) -> {
+                          String redirectUri =
+                              (String)
+                                  request
+                                      .getSession()
+                                      .getAttribute(oAuth2SsoProperties.getRedirectUriKey());
+                          request
+                              .getSession()
+                              .removeAttribute(oAuth2SsoProperties.getRedirectUriKey());
+                          response.sendRedirect(redirectUri);
+                        }))
         .build();
   }
 

@@ -16,8 +16,8 @@
 package io.github.code13.jakartaee.beanvalidation.coreapi;
 
 import io.github.code13.jakartaee.beanvalidation.ValidationUtils;
-import javax.validation.Validator;
-import javax.validation.ValidatorContext;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorContext;
 import org.hibernate.validator.internal.engine.DefaultClockProvider;
 import org.hibernate.validator.internal.engine.DefaultParameterNameProvider;
 import org.hibernate.validator.internal.engine.ValidatorContextImpl;
