@@ -14,7 +14,16 @@
  *     limitations under the License.
  */
 
-dependencies {
-    // https://mvnrepository.com/artifact/com.squareup/javapoet
-    implementation "com.squareup:javapoet:1.13.0"
+group = "io.github.code13.javase"
+
+
+configure(subprojects) {
+    group = "io.github.code13.javase"
+
+    dependencies {
+        implementation("org.apache.commons:commons-lang3")
+        implementation("org.junit.jupiter:junit-jupiter")
+        implementation("org.hamcrest:hamcrest")
+    }
+
 }

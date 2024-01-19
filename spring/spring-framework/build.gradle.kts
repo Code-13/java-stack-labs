@@ -1,4 +1,4 @@
-group("io.github.code13.spring")
+group = "io.github.code13.spring"
 
 dependencies {
     implementation("org.springframework:spring-core")

@@ -70,18 +70,15 @@ public class SecurityConfiguration {
       throws Exception {
 
     http.csrf(AbstractHttpConfigurer::disable)
-        // 出去白名单中的，其余全部拦截
-        .authorizeRequests()
-        .requestMatchers(WHITELIST.toArray(String[]::new))
-        .permitAll()
-        .and()
-        .authorizeRequests()
-        .anyRequest()
-        .authenticated()
-        .and()
-        // 应用 Captcha 的配置
+        .authorizeHttpRequests(
+            request ->
+                request
+                    .requestMatchers(WHITELIST.toArray(String[]::new))
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
         .with(
-            new CaptchaAuthenticationFilterConfigurer<>(),
+            new CaptchaAuthenticationFilterConfigurer<>(), // 应用 Captcha 的配置
             captcha ->
                 captcha
                     .captchaService((phone, rawCode) -> true) // 此处自己去自定义

@@ -14,4 +14,4 @@
  *     limitations under the License.
  */
 
-group("io.github.code13.libs")
+group = "io.github.code13.libs"

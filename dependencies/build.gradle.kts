@@ -7,13 +7,9 @@ javaPlatform {
 }
 
 dependencies {
-    api(platform("org.springframework.boot:spring-boot-dependencies:${properties["springBootVersion"]}"))
-    api(platform("org.springframework.cloud:spring-cloud-dependencies:${properties["springCloudVersion"]}"))
+    api(platform("org.springframework.boot:spring-boot-dependencies:3.2.1"))
+    api(platform("org.springframework.cloud:spring-cloud-dependencies:2023.0.0"))
     constraints {
-        //api("org.springframework.security:spring-security-oauth2-authorization-server:1.2.1")
-
-        //api("org.checkerframework:checker-qual:3.31.0")
-
         api("com.baomidou:mybatis-plus-generator:3.5.5")
         api("com.baomidou:mybatis-plus-boot-starter:3.5.5")
         api("com.baomidou:mybatis-plus-core:3.5.5")

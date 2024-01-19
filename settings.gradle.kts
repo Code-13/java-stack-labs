@@ -14,6 +14,14 @@
  *     limitations under the License.
  */
 
+pluginManagement {
+    repositories {
+        maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
 rootProject.name = "java-stack-labs"
 
 include("dependencies")

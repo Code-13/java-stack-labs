@@ -16,26 +16,38 @@
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-buildscript {
-    repositories {
-        gradlePluginPortal()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${properties["springBootVersion"]}")
-        classpath("io.spring.gradle:dependency-management-plugin:1.1.4")
-        classpath("com.github.node-gradle:gradle-node-plugin:7.0.1")
-        classpath("io.freefair.gradle:lombok-plugin:8.4")
-        classpath("org.checkerframework:checkerframework-gradle-plugin:0.6.37")
-    }
-}
-
 plugins {
     `kotlin-dsl`
+    id("org.springframework.boot") version "3.2.1" apply false
+    id("io.spring.dependency-management") version "1.1.4" apply false
+    id("com.github.node-gradle.node") version "7.0.1" apply false
+    id("io.freefair.lombok") version "8.4" apply false
+    id("org.checkerframework") version "0.6.37" apply false
 }
 
 allprojects {
-    group = "${properties["GROUPID"]}"
-    version = "${properties["VERSION"]}"
+    group = "io.github.code13"
+    version = "1.0-SNAPSHOT"
+
+    repositories {
+        mavenLocal()
+        maven {
+            url = uri("https://maven.aliyun.com/repository/public");
+        }
+        maven {
+            url = uri("https://maven.aliyun.com/repository/spring");
+        }
+        maven {
+            url = uri("https://maven.aliyun.com/repository/spring-plugin");
+        }
+        maven {
+            url = uri("https://repo.spring.io/release");
+        }
+        maven {
+            url = uri("https://repo.spring.io/milestone");
+        }
+        mavenCentral()
+    }
 }
 
 configure(subprojects.filter { project -> project != project(":dependencies") }) {
@@ -50,6 +62,8 @@ configure(subprojects.filter { project -> project != project(":dependencies") })
     apply(plugin = "org.checkerframework")
 
     configure<JavaPluginExtension> {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(17))
         }
@@ -75,6 +89,7 @@ configure(subprojects.filter { project -> project != project(":dependencies") })
 
     tasks.withType(Test::class.java) {
         useJUnitPlatform()
+        testLogging.showExceptions = true
     }
 
     tasks.withType(Javadoc::class.java) {
@@ -108,24 +123,10 @@ configure(subprojects.filter { project -> project != project(":dependencies") })
         }
     }
 
-    repositories {
-        mavenLocal()
-        maven {
-            url = uri("https://maven.aliyun.com/repository/public");
+    configurations {
+        "implementation" {
+            resolutionStrategy.failOnVersionConflict()
         }
-        maven {
-            url = uri("https://maven.aliyun.com/repository/spring");
-        }
-        maven {
-            url = uri("https://maven.aliyun.com/repository/spring-plugin");
-        }
-        maven {
-            url = uri("https://repo.spring.io/release");
-        }
-        maven {
-            url = uri("https://repo.spring.io/milestone");
-        }
-        mavenCentral()
     }
 
     dependencies {
