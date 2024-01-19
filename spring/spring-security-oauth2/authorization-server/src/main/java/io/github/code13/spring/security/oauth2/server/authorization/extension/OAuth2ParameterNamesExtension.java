@@ -16,6 +16,7 @@
 package io.github.code13.spring.security.oauth2.server.authorization.extension;
 
 import io.github.code13.spring.security.oauth2.server.authorization.extension.OAuth2ParameterNamesExtension.SealedOAuth2ParameterNamesExtension;
+import io.github.code13.spring.security.oauth2.server.authorization.extension.sms.OAuth2SmsConstants;
 
 /**
  * OAuth2ParameterNamesExtension.
@@ -25,9 +26,9 @@ import io.github.code13.spring.security.oauth2.server.authorization.extension.OA
  */
 public sealed interface OAuth2ParameterNamesExtension permits SealedOAuth2ParameterNamesExtension {
 
-  String SMS_PHONE_PARAMETER_NAME = "phone";
+  String SMS_PHONE_PARAMETER_NAME = OAuth2SmsConstants.SMS_PHONE_PARAMETER_NAME;
 
-  String SMS_CODE_PARAMETER_NAME = "code";
+  String SMS_CODE_PARAMETER_NAME = OAuth2SmsConstants.SMS_CODE_PARAMETER_NAME;
 
   final class SealedOAuth2ParameterNamesExtension implements OAuth2ParameterNamesExtension {
     private SealedOAuth2ParameterNamesExtension() {

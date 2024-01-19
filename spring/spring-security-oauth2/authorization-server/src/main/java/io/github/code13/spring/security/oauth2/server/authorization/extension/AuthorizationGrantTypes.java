@@ -15,6 +15,8 @@
 
 package io.github.code13.spring.security.oauth2.server.authorization.extension;
 
+import static io.github.code13.spring.security.oauth2.server.authorization.extension.sms.OAuth2SmsConstants.GRANT_TYPE_SMS_CODE;
+
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 
 /**
@@ -32,9 +34,10 @@ public final class AuthorizationGrantTypes {
   @Deprecated(forRemoval = false)
   public static final AuthorizationGrantType IMPLICIT = new AuthorizationGrantType("implicit");
 
+  @Deprecated(forRemoval = false)
   public static final AuthorizationGrantType PASSWORD = new AuthorizationGrantType("password");
 
-  public static final AuthorizationGrantType SMS = new AuthorizationGrantType("sms");
+  public static final AuthorizationGrantType SMS = new AuthorizationGrantType(GRANT_TYPE_SMS_CODE);
 
   private AuthorizationGrantTypes() {
     // no instance
