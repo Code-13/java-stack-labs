@@ -24,6 +24,7 @@ import java.nio.file.Path;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.MediaTypeFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +45,7 @@ public class ContentDispositionController {
     Path file = Files.createTempFile("下载-down test ", ".txt");
     Files.writeString(file, "asdfghjklqwertyuiopzxcvbnm");
 
-    response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE);
+    response.setHeader(HttpHeaders.CONTENT_TYPE, getMediaType(file).toString());
     response.setHeader(
         HttpHeaders.CONTENT_DISPOSITION, buildContentDisposition("下载-down test .txt"));
 
@@ -57,8 +58,14 @@ public class ContentDispositionController {
 
   private String buildContentDisposition(String fileName) {
     return ContentDisposition.attachment()
+        .filename(fileName)
         .filename(fileName, StandardCharsets.UTF_8)
         .build()
         .toString();
+  }
+
+  private static MediaType getMediaType(Path file) {
+    return MediaTypeFactory.getMediaType(file.getFileName().toString())
+        .orElse(MediaType.APPLICATION_OCTET_STREAM);
   }
 }

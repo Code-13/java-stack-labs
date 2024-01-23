@@ -1,0 +1,15 @@
+
+###
+GET http://localhost:8080/spring/boot/content-disposition
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+
+client.test("Response content-type is json", function() {
+  client.log(response.headers.valueOf("Content-Disposition"))
+  const type = response.contentType.mimeType;
+  client.assert(type === "text/plain", "Expected 'text/plain' but received '" + type + "'");
+});
+%}
