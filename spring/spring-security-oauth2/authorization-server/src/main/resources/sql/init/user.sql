@@ -15,14 +15,14 @@
 
 CREATE TABLE "sys_user"
 (
-    "id"                      int8 NOT NULL primary key,
+    "id"                      varchar(255) NOT NULL primary key,
     "username"                varchar(255),
     "password"                varchar(255),
     "phone"                   varchar(255),
-    "account_non_expired"     bool NOT NULL DEFAULT true,
-    "account_non_locked"      bool NOT NULL DEFAULT true,
-    "credentials_non_expired" bool NOT NULL DEFAULT true,
-    "enabled"                 bool NOT NULL DEFAULT true,
+    "account_non_expired"     bool         NOT NULL DEFAULT true,
+    "account_non_locked"      bool         NOT NULL DEFAULT true,
+    "credentials_non_expired" bool         NOT NULL DEFAULT true,
+    "enabled"                 bool         NOT NULL DEFAULT true,
     "version"                 int8,
     "created_user"            varchar(255),
     "created_time"            timestamp(6),
@@ -33,5 +33,5 @@ CREATE TABLE "sys_user"
 INSERT INTO "sys_user" ("id", "username", "password", "phone", "account_non_expired",
                         "account_non_locked", "credentials_non_expired", "enabled", "version",
                         "created_user", "created_time", "updated_user", "updated_time")
-VALUES (1, 'test', '{bcrypt}$2a$10$JwwZfaTk1iNcDffEiRMu3enJi593Mb1exdi.eZ7c83iawNKU1h6aG',
+VALUES ("1", 'test', '{bcrypt}$2a$10$JwwZfaTk1iNcDffEiRMu3enJi593Mb1exdi.eZ7c83iawNKU1h6aG',
         '18866668888', 't', 't', 't', 't', NULL, NULL, NULL, NULL, NULL);

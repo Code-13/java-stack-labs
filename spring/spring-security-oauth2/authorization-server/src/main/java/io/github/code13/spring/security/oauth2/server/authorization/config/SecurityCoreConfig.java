@@ -37,20 +37,21 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity(debug = true)
 class SecurityCoreConfig {
 
-  // @formatter:off
   @Bean
   SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(
-            authorizeRequests -> authorizeRequests.requestMatchers("/login").permitAll())
-        .authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
+            authorizeRequests ->
+                authorizeRequests
+                    .requestMatchers("/login")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
         .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login/account"));
 
     http.csrf(AbstractHttpConfigurer::disable);
 
     return http.build();
   }
-
-  // @formatter:on
 
   @Bean
   PasswordEncoder passwordEncoder() {
@@ -65,20 +66,8 @@ class SecurityCoreConfig {
    *
    * @return the user details service
    */
-  // @formatter:off
   @Bean
   UserDetailsService users(UserMapper userMapper) {
-    // UserDetails user =
-    //    User.builder()
-    //        .username("test")
-    //        .password("test")
-    //        .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder()::encode)
-    //        .roles("USER")
-    //        .build();
-    // return new InMemoryUserDetailsManager(user);
-
     return new MyBaitsUserDetailsService(userMapper);
   }
-  // @formatter:on
-
 }
