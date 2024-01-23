@@ -14,3 +14,9 @@ dependencies {
 
     compileOnly("jakarta.servlet:jakarta.servlet-api")
 }
+
+tasks.withType<ProcessResources>() {
+    from("src/main/java") {
+        include("**/*.sql")
+    }
+}

@@ -31,8 +31,8 @@ class JdbcInternalUtils {
     return new EmbeddedDatabaseBuilder()
         .generateUniqueName(true)
         .setType(EmbeddedDatabaseType.H2)
-        .addScript("classpath:jdbc/schema.sql")
-        .addScript("classpath:jdbc/test-data.sql")
+        .addScript("classpath:io/github/code13/spring/framework/jdbc/schema.sql")
+        .addScript("classpath:io/github/code13/spring/framework/jdbc/test-data.sql")
         .build();
   }
 
