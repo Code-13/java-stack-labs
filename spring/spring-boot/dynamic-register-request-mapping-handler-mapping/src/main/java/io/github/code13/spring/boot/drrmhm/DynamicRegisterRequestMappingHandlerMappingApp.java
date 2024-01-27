@@ -18,12 +18,13 @@ package io.github.code13.spring.boot.drrmhm;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Objects;
 import java.util.UUID;
+import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,13 +51,16 @@ class DynamicRegisterRequestMappingHandlerMappingApp {
     this.applicationContext = applicationContext;
   }
 
+  private static final String REQUEST_MAPPING_HANDLER_MAPPING_BEAN_NAME =
+      "requestMappingHandlerMapping";
+
   private final ApplicationContext applicationContext;
 
-  @GetMapping("/spring/boot/request-mapping/register")
+  @PostMapping("/spring/boot/request-mapping/register")
   public Object registerMapping(@RequestParam(required = false, defaultValue = "") String path) {
 
     RequestMappingHandlerMapping handlerMapping =
-        applicationContext.getBean(RequestMappingHandlerMapping.class);
+        getRequestMappingHandlerMapping(applicationContext);
 
     String registerPath = StringUtils.hasText(path) ? path : genDynamicPath();
 
@@ -77,7 +81,7 @@ class DynamicRegisterRequestMappingHandlerMappingApp {
   public Object send(HttpServletRequest request) {
 
     RequestMappingHandlerMapping handlerMapping =
-        applicationContext.getBean(RequestMappingHandlerMapping.class);
+        getRequestMappingHandlerMapping(applicationContext);
 
     RequestMappingInfo requestMappingInfo = getRequestMappingInfo(request.getRequestURI());
 
@@ -87,11 +91,27 @@ class DynamicRegisterRequestMappingHandlerMappingApp {
   }
 
   private RequestMappingInfo getRequestMappingInfo(String path) {
-    return RequestMappingInfo.paths(path).methods(RequestMethod.GET).build();
+    return RequestMappingInfo.paths(path).methods(RequestMethod.POST).params("code").build();
   }
 
   private String genDynamicPath() {
     String prefix = "/validate/code/";
     return prefix + UUID.randomUUID().toString().replace("-", "");
+  }
+
+  private RequestMappingHandlerMapping getRequestMappingHandlerMapping(
+      ApplicationContext applicationContext) {
+
+    RequestMappingHandlerMapping requestMappingHandlerMapping;
+
+    try {
+      requestMappingHandlerMapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
+    } catch (NoUniqueBeanDefinitionException e) {
+      requestMappingHandlerMapping =
+          applicationContext.getBean(
+              REQUEST_MAPPING_HANDLER_MAPPING_BEAN_NAME, RequestMappingHandlerMapping.class);
+    }
+
+    return requestMappingHandlerMapping;
   }
 }
