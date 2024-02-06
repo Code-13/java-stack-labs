@@ -3,6 +3,3 @@ POST http://localhost:8080/spring/boot/request-mapping/register
 
 ###
 POST http://localhost:8080/validate/code/2fe8d9385c064c49b9693c77bf2c65b6?code=1234
-
-###
-POST http://localhost:8080/spring/boot/key

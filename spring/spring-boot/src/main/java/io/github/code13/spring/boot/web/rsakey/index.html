@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+      "jsEncrypt": "https://cdn.jsdelivr.net/npm/jsencrypt@3.3.2/+esm",
+      "nodeForge": "https://cdn.jsdelivr.net/npm/node-forge@1.3.1/+esm"
+    }
+  }
+
+  </script>
+
+  <script type="module">
+    import forge from 'nodeForge';
+
+    console.log(forge)
+
+    export function Base64DecodeUrl(str) {
+      str = (str + '===').slice(0, str.length + (str.length % 4));
+      return str.replace(/-/g, '+').replace(/_/g, '/');
+    }
+
+    //RSA设置公钥
+    export function rsa_setPublicKey(publicEncryKey) {
+      return '-----BEGIN PUBLIC KEY-----\n' + publicEncryKey + '\n-----END PUBLIC KEY-----';
+    }
+
+    //RSA设置私钥
+    export function rsa_setPrivateKey(privateEncryKey) {
+      return '-----BEGIN PRIVATE KEY-----\n' + privateEncryKey + '\n-----END PRIVATE KEY-----';
+    }
+
+    // 公钥加密密钥 的方法
+    export function rsa_encrypt(proclaimedText, publicKeyBase64) {
+      const publicKey = forge.pki.publicKeyFromPem(rsa_setPublicKey(publicKeyBase64))
+      const encrypted = publicKey.encrypt(proclaimedText, 'RSA-OAEP', {
+        md: forge.md.sha256.create(),
+        mgf1: {
+          md: forge.md.sha1.create()
+        }
+      })
+      console.log('密文：', encrypted) // 虽然乱码，但可以直接发给后端解密
+      const rsaCipherText = forge.util.encode64(encrypted);
+      console.log('base64:', rsaCipherText)
+      return rsaCipherText;
+    }
+
+    // 私钥解密密钥 的方法
+    export function rsa_decrypt(rsaCipherText, privateKeyBase64) {
+      var privateKey = forge.pki.privateKeyFromPem(atob(privateKeyAll));
+      var rsaCipherTextAll = forge.util.binary.base64.decode(rsaCipherText);
+      var decrypted = privateKey.decrypt(rsaCipherTextAll, 'RSA-OAEP', {
+        md: forge.md.sha256.create(),
+        mgf1: {
+          md: forge.md.sha1.create()
+        }
+      })
+      console.log(decrypted)
+      var proclaimedText = forge.util.decodeUtf8(decrypted)
+      return proclaimedText
+    }
+
+    fetch("http://localhost:8080/spring/boot/key", {method: "POST"})
+    .then(value => value.json())
+    .then(value => {
+      const index = value.index;
+      const pk = value.key;
+      const v = "123456";
+
+      const v1 = rsa_encrypt(v, pk);
+
+      fetch(`http://localhost:8080/spring/boot/key/decrypt?index=${index}&encryptString=${v1}`,
+          {method: "POST"}).then(value1 => value1.text())
+      .then(value1 => {
+        console.log(value1)
+      })
+    })
+  </script>
+</head>
+<body>
+
+</body>
+</html>

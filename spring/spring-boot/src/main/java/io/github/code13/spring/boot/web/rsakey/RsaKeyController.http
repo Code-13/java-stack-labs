@@ -1,0 +1,5 @@
+###
+POST http://localhost:8080/spring/boot/key
+
+###
+POST http://localhost:8080/spring/boot/keys
