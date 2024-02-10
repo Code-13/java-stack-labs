@@ -16,7 +16,11 @@ dependencies {
     implementation("com.mysql:mysql-connector-j")
     implementation("org.apache.commons:commons-lang3")
 
-    implementation("org.junit.jupiter:junit-jupiter")
+    // https://mvnrepository.com/artifact/com.github.stuxuhai/jpinyin
+    implementation("com.github.stuxuhai:jpinyin:1.1.8")
+
+    implementation("org.apache.httpcomponents.client5:httpclient5")
+    implementation("org.apache.httpcomponents.client5:httpclient5-fluent")
 
     // slf4j2 log4j2
     implementation("org.slf4j:slf4j-api")
@@ -25,6 +29,8 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-core")
 
     compileOnly("jakarta.servlet:jakarta.servlet-api")
+
+    implementation("org.junit.jupiter:junit-jupiter")
 }
 
 tasks.withType<ProcessResources>() {

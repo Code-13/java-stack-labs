@@ -18,9 +18,9 @@ import java.time.format.DateTimeFormatter
 
 plugins {
     `kotlin-dsl`
-    id("org.springframework.boot") version "3.2.1" apply false
+    id("org.springframework.boot") version "3.2.2" apply false
     id("io.spring.dependency-management") version "1.1.4" apply false
-    id("com.github.node-gradle.node") version "7.0.1" apply false
+    id("com.github.node-gradle.node") version "7.0.2" apply false
     id("io.freefair.lombok") version "8.4" apply false
     id("org.checkerframework") version "0.6.37" apply false
 }
@@ -139,4 +139,8 @@ configure(subprojects.filter { project -> project != project(":dependencies") })
         "testRuntimeOnly"("org.junit.jupiter:junit-jupiter-engine")
     }
 
+}
+
+tasks.wrapper {
+    distributionType = Wrapper.DistributionType.ALL
 }
