@@ -71,13 +71,13 @@ configure(subprojects.filter { project -> project != project(":dependencies") })
         withJavadocJar()
     }
 
-    val processResources = tasks.withType(ProcessResources::class.java) {
+    val processResources = tasks.withType<ProcessResources>() {
         from("src/main/java") {
             include("**/*.xml", "**/*.json", "**/*.yml", "**/*.yaml")
         }
     }
 
-    tasks.withType(JavaCompile::class.java).configureEach {
+    tasks.withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
         options.compilerArgs.add("-parameters")
         options.compilerArgs.add("-Xlint:unchecked")
@@ -87,12 +87,12 @@ configure(subprojects.filter { project -> project != project(":dependencies") })
         dependsOn(processResources)
     }
 
-    tasks.withType(Test::class.java) {
+    tasks.withType<Test>() {
         useJUnitPlatform()
         testLogging.showExceptions = true
     }
 
-    tasks.withType(Javadoc::class.java) {
+    tasks.withType<Javadoc>() {
         afterEvaluate {
             options {
                 encoding("UTF-8")
@@ -101,7 +101,7 @@ configure(subprojects.filter { project -> project != project(":dependencies") })
         }
     }
 
-    tasks.withType(Jar::class.java) {
+    tasks.withType<Jar>() {
         into("META-INF/") {
             from(rootProject.file("LICENSE"))
         }
