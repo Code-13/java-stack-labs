@@ -1,0 +1,30 @@
+server:
+  port: 9002
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        secure: true
+spring:
+  application:
+    name: spring-data
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:spring-data-embedded;MODE=MySQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
+  h2:
+    console:
+      enabled: true
+      settings:
+        trace: true
+        web-allow-others: true
+      path: /h2-console
+  sql:
+    init:
+      schema-locations: classpath:sql/ddl.sql
+      data-locations: classpath:sql/dml.sql
+      mode: embedded
+  jpa:
+    show-sql: true
+    database: h2
+    hibernate:
+      ddl-auto: none
