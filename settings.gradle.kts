@@ -122,6 +122,8 @@ include("prettier-frameworks:mybatis-plus")
 findProject(":prettier-frameworks:mybatis-plus")?.name = "mybatis-plus"
 include("prettier-frameworks:open-feign")
 findProject(":prettier-frameworks:open-feign")?.name = "open-feign"
+include("prettier-frameworks:easy-query")
+findProject(":prettier-frameworks:easy-query")?.name = "easy-query"
 
 // spring
 include("spring")

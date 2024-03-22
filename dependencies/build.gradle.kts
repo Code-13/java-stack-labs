@@ -17,6 +17,10 @@ dependencies {
         api("com.baomidou:mybatis-plus-extension:3.5.5")
         api("com.baomidou:mybatis-plus-annotation:3.5.5")
 
+        api("com.easy-query:sql-mysql:1.10.36")
+        api("com.easy-query:sql-api-proxy:1.10.36")
+        api("com.easy-query:sql-processor:1.10.36")
+
         api("org.mapstruct:mapstruct:1.5.5.Final")
         api("oorg.mapstruct:mapstruct-processor:1.5.5.Final")
 
