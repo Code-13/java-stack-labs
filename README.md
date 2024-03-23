@@ -3,7 +3,7 @@
 ## Dependencies
 
 - Java17
-- Gradle 7.6
+- Gradle 8.6
 
 ## Modules
 
@@ -34,6 +34,8 @@
 ### libs
 
 ### Spring
+
+- SpringBoot3
 
 ### tests-frameworks
 
