@@ -8,5 +8,9 @@ GET http://{{host}}:{{port}}/spring-data/user/1
 Accept: application/json
 
 ###
+GET http://{{host}}:{{port}}/spring-data/user/page
+Accept: application/json
+
+###
 GET http://{{host}}:{{port}}/spring-data/user/querydsl/1
 Accept: application/json

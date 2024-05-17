@@ -16,6 +16,8 @@
 package io.github.code13.spring.data;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +48,11 @@ public class SpringDataController {
   @GetMapping("/user/{id}")
   public User findById(@PathVariable String id) {
     return userRepository.getUserById(id);
+  }
+
+  @GetMapping("/user/page")
+  public Page<User> findPage(Pageable pageable) {
+    return userRepository.findAll(pageable);
   }
 
   @GetMapping("/user/querydsl/{id}")
