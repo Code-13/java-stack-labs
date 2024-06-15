@@ -27,6 +27,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -41,7 +42,8 @@ import org.junit.jupiter.api.Test;
  */
 public class IgnoreNullFields {
 
-  static class IgnoreNullFieldsOnTheClassOrFieldTest {
+  @Nested
+  class IgnoreNullFieldsOnTheClassOrFieldTest {
 
     /*
      * Jackson allow us to control this behavior at either the class level:
@@ -84,7 +86,8 @@ public class IgnoreNullFields {
   }
 
   /** Jackson also allows us to configure this behavior globally on the ObjectMapper. */
-  static class IgnoreNullFieldsGloballyTest {
+  @Nested
+  class IgnoreNullFieldsGloballyTest {
 
     @NoArgsConstructor
     @Getter

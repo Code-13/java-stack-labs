@@ -31,6 +31,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -49,7 +50,8 @@ public class IgnoreProperties {
    * We can ignore specific fields at the class level, using the @JsonIgnoreProperties annotation
    * and specifying the fields by name
    */
-  static class IgnoreFieldsAtTheClassLevelTest {
+  @Nested
+  class IgnoreFieldsAtTheClassLevelTest {
 
     @NoArgsConstructor
     @Getter
@@ -73,7 +75,8 @@ public class IgnoreProperties {
   }
 
   /** We can also ignore a field directly via the @JsonIgnore annotation directly on the field */
-  static class IgnoreFieldAtTheFieldLevelTest {
+  @Nested
+  class IgnoreFieldAtTheFieldLevelTest {
 
     @NoArgsConstructor
     @Getter
@@ -98,7 +101,8 @@ public class IgnoreProperties {
    * Finally, we can ignore all fields of a specified type, using the @JsonIgnoreType annotation. If
    * we control the type, then we can annotate the class directly.
    */
-  static class IgnoreAllFieldsByTypeTest {
+  @Nested
+  class IgnoreAllFieldsByTypeTest {
 
     @NoArgsConstructor
     @Getter
@@ -132,7 +136,8 @@ public class IgnoreProperties {
   }
 
   /** we can also use filters to ignore specific fields in Jackson. */
-  static class IgnoreFieldsUsingFiltersTest {
+  @Nested
+  class IgnoreFieldsUsingFiltersTest {
 
     /** First, we need to define the filter on the Java object */
     @JsonFilter("myFilter")

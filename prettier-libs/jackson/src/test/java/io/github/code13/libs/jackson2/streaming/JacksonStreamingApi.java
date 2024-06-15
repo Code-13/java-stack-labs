@@ -28,6 +28,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -39,7 +40,8 @@ import org.junit.jupiter.api.Test;
 public class JacksonStreamingApi {
 
   /** We can write JSON content directly to the OutputStream by using a JsonGenerator class. */
-  static class WritingToJSONTest {
+  @Nested
+  class WritingToJSONTest {
 
     @Test
     @DisplayName("givenJsonGenerator_whenAppendJsonToIt_thenGenerateJson")
@@ -73,12 +75,15 @@ public class JacksonStreamingApi {
    * When we get a JSON String as an input, and we want to extract specific fields from it, a
    * JsonParser class can be used:
    */
-  static class ParsingJSONTest {
+  @Nested
+  class ParsingJSONTest {
 
     @Test
     @DisplayName("givenJson_whenReadItUsingStreamAPI_thenShouldCreateProperJsonObject")
     void givenJson_whenReadItUsingStreamAPI_thenShouldCreateProperJsonObject() throws IOException {
-      String json = "{\"name\":\"Tom\",\"age\":25,\"address\":[\"Poland\",\"5th avenue\"]}";
+      String json =
+          """
+          {"name":"Tom","age":25,"address":["Poland","5th avenue"]}""";
       JsonFactory jsonFactory = new JsonFactory();
 
       String parsedName = null;

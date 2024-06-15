@@ -10,5 +10,5 @@ dependencies {
     compileOnly("com.nimbusds:oauth2-oidc-sdk:9.35")
     implementation("org.springframework.security:spring-security-oauth2-jose")
 
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.2.5")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.3.0")
 }

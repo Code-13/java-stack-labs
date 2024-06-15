@@ -40,6 +40,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -60,7 +61,8 @@ import org.junit.jupiter.api.Test;
 public class GeneralAnnotations {
 
   /** 我们可以添加 {@link JsonProperty} 注解来表示 JSON 中的属性名称。 */
-  static class JsonPropertyTest {
+  @Nested
+  class JsonPropertyTest {
 
     static class MyBean {
       public int id;
@@ -99,7 +101,8 @@ public class GeneralAnnotations {
   }
 
   /** The {@link JsonFormat} annotation specifies a format when serializing Date/Time values. */
-  static class JsonFormatTest {
+  @Nested
+  class JsonFormatTest {
 
     static class EventWithFormat {
       public String name;
@@ -131,7 +134,8 @@ public class GeneralAnnotations {
   }
 
   /** {@link JsonUnwrapped} 定义了在序列化反序列化时应该展开扁平化的值。 */
-  static class JsonUnwrappedTest {
+  @Nested
+  class JsonUnwrappedTest {
 
     static class UnwrappedUser {
       public int id;
@@ -169,7 +173,8 @@ public class GeneralAnnotations {
   }
 
   /** {@link JsonView} 指示将在其中包含属性以进行序列化反序列化的视图。 */
-  static class JsonViewTest {
+  @Nested
+  class JsonViewTest {
 
     static class Views {
       public static class Public {}
@@ -211,7 +216,8 @@ public class GeneralAnnotations {
   }
 
   /** {@link JsonManagedReference} 和 {@link JsonBackReference} 注释可以处理父子关系并绕过循环。 */
-  static class JsonManagedReferenceAndJsonBackReferenceTest {
+  @Nested
+  class JsonManagedReferenceAndJsonBackReferenceTest {
 
     static class ItemWithRef {
       public int id;
@@ -264,7 +270,8 @@ public class GeneralAnnotations {
   }
 
   /** {@link JsonIdentityInfo} 表示在序列化反序列化值时应该使用对象标识，例如在处理无限递归类型的问题时。 */
-  static class JsonIdentityInfoTest {
+  @Nested
+  class JsonIdentityInfoTest {
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     static class ItemWithIdentity {
@@ -317,7 +324,8 @@ public class GeneralAnnotations {
   }
 
   /** {@link JsonFilter} 注解指定在序列化期间使用的过滤器。 */
-  static class JsonFilterTest {
+  @Nested
+  class JsonFilterTest {
 
     @JsonFilter("myFilter")
     static class BeanWithFilter {

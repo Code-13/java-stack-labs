@@ -35,7 +35,9 @@ class ImmutableObjectDeserializationTest {
   @Test
   @DisplayName("whenPublicConstructorIsUsed_thenObjectIsDeserialized")
   void whenPublicConstructorIsUsed_thenObjectIsDeserialized() throws JsonProcessingException {
-    String json = "{\"name\":\"Frank\",\"id\":5000}";
+    String json =
+        """
+        {"name":"Frank","id":5000}""";
 
     Employee employee = new ObjectMapper().readValue(json, Employee.class);
 
@@ -46,7 +48,9 @@ class ImmutableObjectDeserializationTest {
   @Test
   @DisplayName("whenBuilderIsUsedAndFieldIsNull_thenObjectIsDeserialized")
   void whenBuilderIsUsedAndFieldIsNull_thenObjectIsDeserialized() throws JsonProcessingException {
-    String json = "{\"name\":\"Frank\"}";
+    String json =
+        """
+        {"name":"Frank"}""";
 
     Person person = new ObjectMapper().readValue(json, Person.class);
 
@@ -58,7 +62,9 @@ class ImmutableObjectDeserializationTest {
   @DisplayName("whenBuilderIsUsedAndAllFieldsPresent_thenObjectIsDeserialized")
   void whenBuilderIsUsedAndAllFieldsPresent_thenObjectIsDeserialized()
       throws JsonProcessingException {
-    String json = "{\"name\":\"Frank\",\"age\":50}";
+    String json =
+        """
+        {"name":"Frank","age":50}""";
 
     Person person = new ObjectMapper().readValue(json, Person.class);
 

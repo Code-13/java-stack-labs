@@ -53,7 +53,9 @@ public class UnmarshallingJSONWithUnknownProperties {
   @DisplayName("givenNotAllFieldsHaveValuesInJson_whenDeserializingAJsonToAClass_thenCorrect")
   void givenNotAllFieldsHaveValuesInJson_whenDeserializingAJsonToAClass_thenCorrect()
       throws JsonProcessingException {
-    String jsonAsString = "{\"stringValue\":\"a\",\"booleanValue\":true}";
+    String jsonAsString =
+        """
+        {"stringValue":"a","booleanValue":true}""";
     ObjectMapper mapper = new ObjectMapper();
 
     MyDto readValue = mapper.readValue(jsonAsString, MyDto.class);
@@ -70,7 +72,8 @@ public class UnmarshallingJSONWithUnknownProperties {
         UnrecognizedPropertyException.class,
         () -> {
           String jsonAsString =
-              "{\"stringValue\":\"a\",\"intValue\":1,\"booleanValue\":true,\"stringValue2\":\"something\"}";
+              """
+                  {"stringValue":"a","intValue":1,"booleanValue":true,"stringValue2":"something"}""";
           ObjectMapper mapper = new ObjectMapper();
 
           MyDto readValue = mapper.readValue(jsonAsString, MyDto.class);
@@ -87,11 +90,12 @@ public class UnmarshallingJSONWithUnknownProperties {
       "givenJsonHasUnknownValuesButJacksonIsIgnoringUnknownFields_whenDeserializing_thenCorrect")
   void givenJsonHasUnknownValuesButJacksonIsIgnoringUnknownFields_whenDeserializing_thenCorrect()
       throws JsonProcessingException {
-    String jsonAsString = // @formatter:off
-        "{\"stringValue\":\"a\","
-            + "\"intValue\":1,"
-            + "\"booleanValue\":true,"
-            + "\"stringValue2\":\"something\"}"; // @formatter:on
+    String jsonAsString =
+        """
+            {"stringValue":"a",
+            "intValue":1,
+            "booleanValue":true,
+            "stringValue2":"something"}""";
 
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -118,11 +122,12 @@ public class UnmarshallingJSONWithUnknownProperties {
   @DisplayName("givenJsonHasUnknownValuesButIgnoredOnClass_whenDeserializing_thenCorrect")
   void givenJsonHasUnknownValuesButIgnoredOnClass_whenDeserializing_thenCorrect()
       throws JsonProcessingException {
-    String jsonAsString = // @formatter:off
-        "{\"stringValue\":\"a\","
-            + "\"intValue\":1,"
-            + "\"booleanValue\":true,"
-            + "\"stringValue2\":\"something\"}"; // @formatter:on
+    String jsonAsString =
+        """
+            {"stringValue":"a",
+            "intValue":1,
+            "booleanValue":true,
+            "stringValue2":"something"}""";
 
     ObjectMapper mapper = new ObjectMapper();
 

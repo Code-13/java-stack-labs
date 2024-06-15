@@ -38,6 +38,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -52,6 +53,7 @@ import org.junit.jupiter.api.Test;
  * @see com.fasterxml.jackson.annotation.JsonValue
  * @see com.fasterxml.jackson.annotation.JsonRootName
  * @see com.fasterxml.jackson.databind.annotation.JsonSerialize
+ * @see com.fasterxml.jackson.annotation.JsonAlias
  * @author <a href="https://github.com/Code-13/">code13</a>
  * @date 2022/5/31 22:10
  */
@@ -59,8 +61,9 @@ import org.junit.jupiter.api.Test;
 public class SerializationAnnotations {
 
   /** {@link JsonAnyGetter} 注解允许灵活地使用 Map 字段作为标准属性。 */
+  @Nested
   @DisplayName("Test for JsonAnyGetter")
-  static class JsonAnyGetterTest {
+  class JsonAnyGetterTest {
 
     @Test
     @DisplayName("whenSerializingUsingJsonAnyGetter_thenCorrect")
@@ -102,7 +105,8 @@ public class SerializationAnnotations {
    * {@link JsonGetter} 注解是 {@link com.fasterxml.jackson.annotation.JsonProperty}
    * 注解的替代品，它将方法标记为getter 方法。
    */
-  static class JsonGetterTest {
+  @Nested
+  class JsonGetterTest {
 
     @Test
     @DisplayName("whenSerializingUsingJsonGetter_thenCorrect")
@@ -132,7 +136,8 @@ public class SerializationAnnotations {
   }
 
   /** 我们可以使用 {@link JsonPropertyOrder} 注解来指定序列化属性的顺序。 */
-  static class JsonPropertyOrderTest {
+  @Nested
+  class JsonPropertyOrderTest {
 
     @Test
     void whenSerializingUsingJsonPropertyOrder_thenCorrect() throws JsonProcessingException {
@@ -172,7 +177,8 @@ public class SerializationAnnotations {
   }
 
   /** {@link JsonRawValue} 注释可以指示 Jackson 完全按原样序列化属性。 */
-  static class JsonRawValueTest {
+  @Nested
+  class JsonRawValueTest {
 
     @Test
     @DisplayName("whenSerializingUsingJsonRawValue_thenCorrect")
@@ -200,7 +206,8 @@ public class SerializationAnnotations {
   }
 
   /** {@link JsonValue} 表示库将用于序列化整个实例的单个方法。 */
-  static class JsonValueTest {
+  @Nested
+  class JsonValueTest {
 
     @Test
     @DisplayName("whenSerializingUsingJsonValue_thenCorrect")
@@ -234,7 +241,8 @@ public class SerializationAnnotations {
   }
 
   /** 如果启用了包装，则使用 {@link JsonRootName} 注释来指定要使用的根包装器的名称。 */
-  static class JsonRootNameTest {
+  @Nested
+  class JsonRootNameTest {
 
     @Test
     @DisplayName("whenSerializingUsingJsonRootName_thenCorrect")
@@ -280,7 +288,8 @@ public class SerializationAnnotations {
   }
 
   /** {@link JsonSerialize} indicates a custom serializer to use when marshalling the entity. */
-  static class JsonSerializeTest {
+  @Nested
+  class JsonSerializeTest {
 
     @Test
     @DisplayName("whenSerializingUsingJsonSerialize_thenCorrect")

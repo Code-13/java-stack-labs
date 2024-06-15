@@ -40,6 +40,7 @@ import java.time.temporal.TemporalAccessor;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -62,10 +63,13 @@ public class DeserializationAnnotations {
    * We can use the {@link JsonCreator} annotation to tune the constructor/factory used in
    * deserialization.
    */
-  static class JsonCreatorTest {
+  @Nested
+  class JsonCreatorTest {
 
     /** deserialize the following JSON */
-    static final String json = "{ \"id\":1, \"theName\":\"My bean\" }";
+    static final String json =
+        """
+        { "id":1, "theName":"My bean" }""";
 
     /**
      * However, there is no theName field in our target entity, there is only a name field. Now we
@@ -121,10 +125,13 @@ public class DeserializationAnnotations {
   }
 
   /** {@link JacksonInject} 表示属性将被注入而不是从 JSON 数据中获取其值。 */
-  static class JsonInjectTest {
+  @Nested
+  class JsonInjectTest {
 
     /** deserialize the following JSON */
-    static final String json = "{ \"name\":\"My bean\" }";
+    static final String json =
+        """
+        { "name":"My bean" }""";
 
     /** we use @JacksonInject to inject the property id: */
     static class BeanWithInject {
@@ -147,9 +154,12 @@ public class DeserializationAnnotations {
   }
 
   /** {@link JsonAnySetter} 允许我们灵活地使用 Map 作为标准属性。在反序列化时，来自 JSON 的属性将简单地添加到 map 中。 */
-  static class JsonAnySetterTest {
+  @Nested
+  class JsonAnySetterTest {
     /** deserialize the following JSON */
-    static final String json = "{ \"name\":\"My bean\", \"attr2\":\"val2\", \"attr1\":\"val1\" }";
+    static final String json =
+        """
+        { "name":"My bean", "attr2":"val2", "attr1":"val1" }""";
 
     static class ExtendableBean {
       public String name;
@@ -175,9 +185,12 @@ public class DeserializationAnnotations {
    * {@link JsonSetter} 是 @JsonProperty 的替代方法，将方法标记为 setter 方法。 当我们需要读取一些 JSON
    * 数据但目标实体类与该数据不完全匹配时，这非常有用，因此我们需要调整该过程以使其适合。
    */
-  static class JsonSetterTest {
+  @Nested
+  class JsonSetterTest {
     /** deserialize the following JSON */
-    static final String json = "{\"id\":1,\"name\":\"My bean\"}";
+    static final String json =
+        """
+        {"id":1,"name":"My bean"}""";
 
     static class MyBean {
       public int id;
@@ -199,9 +212,12 @@ public class DeserializationAnnotations {
   }
 
   /** {@link JsonDeserialize} 表示使用自定义反序列化器。 */
-  static class JsonDeserializeTest {
+  @Nested
+  class JsonDeserializeTest {
     /** deserialize the following JSON */
-    static final String json = "{\"name\":\"party\",\"eventDate\":\"2014-12-20 02:30:00\"}";
+    static final String json =
+        """
+        {"name":"party","eventDate":"2014-12-20 02:30:00"}""";
 
     static class EventWithDeserializer {
       public String name;
@@ -264,9 +280,12 @@ public class DeserializationAnnotations {
   }
 
   /** {@link JsonAlias} 在反序列化期间为属性定义一个或多个替代名称。 */
-  static class JsonAliasTest {
+  @Nested
+  class JsonAliasTest {
     /** deserialize the following JSON */
-    static final String json = "{\"fName\": \"John\", \"lastName\": \"Green\"}";
+    static final String json =
+        """
+        {"fName": "John", "lastName": "Green"}""";
 
     static class AliasBean {
       @JsonAlias({"fName", "f_name"})

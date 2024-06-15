@@ -59,7 +59,9 @@ public class ReadingAndWritingUsingObjectMapper {
   @Test
   @DisplayName("testJsonToJavaObject")
   void testJsonToJavaObject() throws JsonProcessingException {
-    String json = "{ \"color\" : \"Black\", \"type\" : \"BMW\" }";
+    String json =
+        """
+        { "color" : "Black", "type" : "BMW" }""";
 
     Car car = new ObjectMapper().readValue(json, Car.class);
 
@@ -70,7 +72,9 @@ public class ReadingAndWritingUsingObjectMapper {
   @Test
   @DisplayName("whenReadJsonToJsonNode_thanCorrect")
   void whenReadJsonToJsonNode_thanCorrect() throws JsonProcessingException {
-    String json = "{ \"color\" : \"Black\", \"type\" : \"FIAT\" }";
+    String json =
+        """
+        { "color" : "Black", "type" : "FIAT" }""";
 
     JsonNode jsonNode = new ObjectMapper().readTree(json);
 
@@ -82,7 +86,8 @@ public class ReadingAndWritingUsingObjectMapper {
   @DisplayName("whenReadJsonToList_thanCorrect")
   void whenReadJsonToList_thanCorrect() throws JsonProcessingException {
     final String json =
-        "[{ \"color\" : \"Black\", \"type\" : \"BMW\" }, { \"color\" : \"Red\", \"type\" : \"BMW\" }]";
+        """
+            [{ "color" : "Black", "type" : "BMW" }, { "color" : "Red", "type" : "BMW" }]""";
 
     List<Car> cars = new ObjectMapper().readValue(json, new TypeReference<List<Car>>() {});
 
@@ -95,7 +100,9 @@ public class ReadingAndWritingUsingObjectMapper {
   @Test
   @DisplayName("whenReadJsonToMap_thanCorrect")
   void whenReadJsonToMap_thanCorrect() throws JsonProcessingException {
-    String json = "{ \"color\" : \"Black\", \"type\" : \"BMW\" }";
+    String json =
+        """
+        { "color" : "Black", "type" : "BMW" }""";
 
     Map<String, String> map =
         new ObjectMapper().readValue(json, new TypeReference<Map<String, String>>() {});

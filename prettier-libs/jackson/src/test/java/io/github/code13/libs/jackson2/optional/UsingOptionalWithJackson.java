@@ -86,7 +86,9 @@ public class UsingOptionalWithJackson {
   @Test
   @DisplayName("givenNullField_whenDeserializingIntoOptional_thenIsEmpty")
   void givenNullField_whenDeserializingIntoOptional_thenIsEmpty() throws JsonProcessingException {
-    String book = "{ \"title\": \"Oliver Twist\", \"subTitle\": null }";
+    String book =
+        """
+        { "title": "Oliver Twist", "subTitle": null }""";
 
     Book result = objectMapper.readValue(book, Book.class);
 

@@ -2,8 +2,8 @@
 
 ## Dependencies
 
-- Java17
-- Gradle 8.6
+- Java21
+- Gradle 8.7
 
 ## Modules
 

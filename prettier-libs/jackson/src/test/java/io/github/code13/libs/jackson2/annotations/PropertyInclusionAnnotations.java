@@ -30,6 +30,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.code13.libs.jackson2.annotations.PropertyInclusionAnnotations.JsonIgnoreTypeTest.User.Name;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -50,7 +51,8 @@ import org.junit.jupiter.api.Test;
 public class PropertyInclusionAnnotations {
 
   /** {@link JsonIgnoreProperties} 是一个类级别的注释，用于标记 Jackson 将忽略的属性或属性列表。 */
-  static class JsonIgnorePropertiesTest {
+  @Nested
+  class JsonIgnorePropertiesTest {
 
     @JsonIgnoreProperties({"id"})
     static class BeanWithIgnore {
@@ -75,7 +77,8 @@ public class PropertyInclusionAnnotations {
   }
 
   /** {@link JsonIgnore} 注解用于标记要在字段级别忽略的属性。 */
-  static class JsonIgnoreTest {
+  @Nested
+  class JsonIgnoreTest {
 
     static class BeanWithIgnore {
       @JsonIgnore public int id;
@@ -100,7 +103,8 @@ public class PropertyInclusionAnnotations {
   }
 
   /** {@link JsonIgnoreType} 标记要忽略的带注释类型的所有属性。 */
-  static class JsonIgnoreTypeTest {
+  @Nested
+  class JsonIgnoreTypeTest {
 
     static class User {
       public int id;
@@ -138,7 +142,8 @@ public class PropertyInclusionAnnotations {
   }
 
   /** We can use {@link JsonInclude} to exclude properties with empty/null/default values. */
-  static class JsonIncludeTest {
+  @Nested
+  class JsonIncludeTest {
 
     @JsonInclude(Include.NON_NULL)
     static class MyBean {
@@ -164,7 +169,8 @@ public class PropertyInclusionAnnotations {
   }
 
   /** {@link JsonAutoDetect} 可以覆盖哪些属性可见哪些不可见的默认语义。 */
-  static class JsonAutoDetectTest {
+  @Nested
+  class JsonAutoDetectTest {
 
     @JsonAutoDetect(fieldVisibility = Visibility.ANY)
     static class PrivateBean {

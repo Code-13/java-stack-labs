@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter
 
 plugins {
     `kotlin-dsl`
-    id("org.springframework.boot") version "3.2.5" apply false
+    id("org.springframework.boot") version "3.3.0" apply false
     id("io.spring.dependency-management") version "1.1.4" apply false
     id("com.github.node-gradle.node") version "7.0.2" apply false
     id("io.freefair.lombok") version "8.4" apply false
@@ -62,10 +62,10 @@ configure(subprojects.filter { project -> project != project(":dependencies") })
     apply(plugin = "org.checkerframework")
 
     configure<JavaPluginExtension> {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(17))
+            languageVersion.set(JavaLanguageVersion.of(21))
         }
         withSourcesJar()
         withJavadocJar()
