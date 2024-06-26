@@ -93,7 +93,7 @@ public class JacksonStreamingApi {
 
       try (JsonParser parser = jsonFactory.createParser(json)) {
         while (parser.nextToken() != JsonToken.END_OBJECT) {
-          String fieldName = parser.getCurrentName();
+          String fieldName = parser.currentName();
 
           if ("name".equals(fieldName)) {
             parser.nextToken();

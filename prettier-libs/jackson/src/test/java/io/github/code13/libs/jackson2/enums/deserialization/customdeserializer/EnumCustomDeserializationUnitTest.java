@@ -35,7 +35,9 @@ class EnumCustomDeserializationUnitTest {
   void givenEnumWithCustomDeserializer_whenDeserializingJson_thenCorrectRepresentation()
       throws JsonProcessingException {
 
-    String json = "{\"distance\": {\"unit\":\"miles\",\"meters\":1609.34}}";
+    String json =
+        """
+        {"distance": {"unit":"miles","meters":1609.34}}""";
 
     City city = new ObjectMapper().readValue(json, City.class);
     assertEquals(Distance.MILE, city.getDistance());
