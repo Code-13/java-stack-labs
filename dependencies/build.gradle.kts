@@ -7,7 +7,7 @@ javaPlatform {
 }
 
 dependencies {
-    api(platform("org.springframework.boot:spring-boot-dependencies:3.3.0"))
+    api(platform("org.springframework.boot:spring-boot-dependencies:3.3.1"))
     api(platform("org.springframework.cloud:spring-cloud-dependencies:2023.0.2"))
     constraints {
         api("com.baomidou:mybatis-plus-generator:3.5.6")

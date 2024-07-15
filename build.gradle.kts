@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter
 
 plugins {
     `kotlin-dsl`
-    id("org.springframework.boot") version "3.3.0" apply false
+    id("org.springframework.boot") version "3.3.1" apply false
     id("io.spring.dependency-management") version "1.1.4" apply false
     id("com.github.node-gradle.node") version "7.0.2" apply false
     id("io.freefair.lombok") version "8.4" apply false
