@@ -26,6 +26,7 @@ import java.time.temporal.TemporalQueries;
 import java.time.temporal.TemporalQuery;
 import java.time.temporal.TemporalUnit;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -38,8 +39,9 @@ import org.junit.jupiter.api.Test;
 @DisplayName("TemporalQuery 可用于检索来自基于时间的对象的信息")
 class TemporalQueryTest {
 
+  @Nested
   @DisplayName("预定义的查询")
-  static class Predefined {
+  class Predefined {
 
     @Test
     @DisplayName("precision")
@@ -54,8 +56,9 @@ class TemporalQueryTest {
     }
   }
 
+  @Nested
   @DisplayName("自定义的查询")
-  static class Custom {
+  class Custom {
 
     @Test
     @DisplayName("查询一个日子是否是家人重要的日子")

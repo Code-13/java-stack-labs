@@ -30,6 +30,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -38,8 +39,21 @@ import org.junit.jupiter.api.Test;
  */
 class ZoneAndOffsetTest {
 
+  @Nested
   @DisplayName("ZoneId: 指定时区标识符并提供 Instant 和 LocalDateTime 之间转换的规则。")
-  static class ZoneIdTest {
+  class ZoneIdTest {
+
+    @Test
+    @DisplayName("default")
+    void defaultZoneId() {
+      System.out.println("ZoneId.systemDefault() = " + ZoneId.systemDefault());
+    }
+
+    @Test
+    @DisplayName("consById")
+    void consById() {
+      System.out.println("ZoneId.of(\"Asia/Shanghai\") = " + ZoneId.of("Asia/Shanghai"));
+    }
 
     @Test
     @DisplayName("ZoneId")
@@ -77,15 +91,16 @@ class ZoneAndOffsetTest {
    * 该软件根据地理位置对自己的日期和时间计算规则进行建模，或者将时间戳存储在仅跟踪格林威治/ UTC 时间的绝对偏移量的数据库中， 则可能需要使用 OffsetDateTime。另外，XML
    * 和其他网络格式将日期时间传输定义为 OffsetDateTime 或 OffsetTime。
    */
+  @Nested
   @DisplayName("java.time.ZonedDateTime")
-  static class ZonedDateTimeTest {
+  class ZonedDateTimeTest {
     // 实际上，结合了 LocalDateTime 与类 了 zoneid 类。它用于表示具有时区（地区/城市，如欧洲/巴黎）的完整日期（年，月，日）和时间（小时，分钟，秒，纳秒）。
 
     @Test
     @DisplayName("ZonedDateTime 示例")
     void test1() {
       // DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy  hh:mm a");
-      DateTimeFormatter format = DateTimeFormatter.ofPattern("YYYY-MM-dd  HH:mm:ss");
+      DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd  HH:mm:ss");
 
       // Leaving from San Francisco on July 20, 2013, at 7:30 p.m.
       // 2013-07-20  19:30:00
@@ -129,8 +144,9 @@ class ZoneAndOffsetTest {
    * 结合了 LocalDateTime 与类 ZoneOffset 类。 它用于表示格林威治/ UTC 时间的偏移量 （+/-小时：分钟，例如 +06：00
    * 或-）的整个日期（年，月，日）和时间（小时，分钟，秒，纳秒）08:00）。
    */
+  @Nested
   @DisplayName("java.time.OffsetDateTime")
-  static class OffsetDateTimeTest {
+  class OffsetDateTimeTest {
 
     @Test
     @DisplayName("OffsetDateTime")
@@ -150,8 +166,9 @@ class ZoneAndOffsetTest {
   /**
    * 结合 LocalDateTime 与类 ZoneOffset 类。它用于表示格林威治/ UTC 时间偏移 （+/-小时：分钟，例如+06：00或-08：00）的时间（小时，分钟，秒，纳秒）。
    */
+  @Nested
   @DisplayName("java.time.OffsetTime")
-  static class OffsetTime {
+  class OffsetTime {
 
     @Test
     @DisplayName("OffsetTime 示例")

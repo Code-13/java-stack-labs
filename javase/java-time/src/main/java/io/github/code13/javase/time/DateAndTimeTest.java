@@ -21,6 +21,7 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.time.ZoneId;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -30,8 +31,9 @@ import org.junit.jupiter.api.Test;
 @DisplayName("日期和时间类 / Date and Time")
 class DateAndTimeTest {
 
+  @Nested
   @DisplayName("java.time.LocalTime")
-  static class LocalTimeTest {
+  class LocalTimeTest {
 
     @Test
     @DisplayName("此类对于表示基于人的时间（如电影时间）或本地图书馆的开始和结束时间很有用,在 LocalTime 类不存储时区或夏令时信息")
@@ -50,8 +52,9 @@ class DateAndTimeTest {
    * LocalDate 和 LocalTime 的组合。 本类可以用来表示一个特定的事件，例如 2013 年 8 月 17 日下午 1:10 开始的美洲杯挑战者系列赛第一场路易威登杯决赛。
    * 请注意，这意味着下午 1:10 在当地时间。要包含时区，您必须使用 ZonedDateTime 或 OffsetDateTime，如 时区和偏移类中所述
    */
+  @Nested
   @DisplayName("java.time.LocalDateTime")
-  static class LocalDateTimeTest {
+  class LocalDateTimeTest {
 
     @Test
     @DisplayName("LocalDateTime 示例")

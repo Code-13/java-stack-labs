@@ -22,6 +22,7 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.IsoFields;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -53,8 +54,9 @@ class TemporalTest {
    * TemporalAccessor.isSupported（TemporalField） 方法来确定时态是否支持特定的字段。 下面这行代码返回 false，表明 LocalDate 不支持
    * ChronoField.CLOCK_HOUR_OF_DAY 字段的单位由。
    */
+  @Nested
   @DisplayName("java.")
-  static class ChronoFieldTest {
+  class ChronoFieldTest {
 
     @Test
     @DisplayName("isSupported")
@@ -81,8 +83,9 @@ class TemporalTest {
     }
   }
 
+  @Nested
   @DisplayName("ChronoUnit")
-  static class ChronoUnitTest {
+  class ChronoUnitTest {
 
     @Test
     @DisplayName("supported")

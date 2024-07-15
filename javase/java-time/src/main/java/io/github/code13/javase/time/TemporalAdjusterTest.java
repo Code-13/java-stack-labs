@@ -21,6 +21,7 @@ import java.time.Month;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -32,8 +33,9 @@ import org.junit.jupiter.api.Test;
 class TemporalAdjusterTest {
 
   /** TemporalAdjuster 接口，在 java.time.temporal 包，提供了具有时间价值并返回调整值的方法。 调节器可以用于任何基于时间/ Temporal 的类型。 */
+  @Nested
   @DisplayName("预定义的 TemporalAdjuster")
-  static class Predefined {
+  class Predefined {
 
     /**
      * TemporalAdjusters 类（注意是复数）提供了一组时间调节器，比如查找月的第一天或最后一天预定义的调节器，
@@ -65,8 +67,9 @@ class TemporalAdjusterTest {
     }
   }
 
+  @Nested
   @DisplayName("自定义 TemporalAdjuster")
-  static class Custom {
+  class Custom {
 
     @Test
     @DisplayName("自定义一个调结器：每月 15 号发工资，但是你是 15 号后入职的，那么就月底最后一天发，如果遇到周 6 周日，则推前到周 5")

@@ -25,6 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.TemporalAdjusters;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -39,8 +40,9 @@ import org.junit.jupiter.api.Test;
 class DateTest {
 
   /** 一个 LocalDate 代表 年月日的 ISO 日历，表示没有时间的日期是有用的。 您可以使用 LocalDate 跟踪重大事件， 例如出生日期或结婚日期。 */
+  @Nested
   @DisplayName("LocalDate")
-  static class LocalDateTest {
+  class LocalDateTest {
 
     @Test
     @DisplayName("以下示例使用 of 和 with 方法来创建 LocalDate 的实例")
@@ -77,8 +79,9 @@ class DateTest {
     }
   }
 
+  @Nested
   @DisplayName("YearMonth 类代表一个特定的一年中的月份")
-  static class YearMonthTest {
+  class YearMonthTest {
 
     @Test
     @DisplayName("使用 YearMonth.lengthOfMonth() 方法 返回该时间月有多少天")
@@ -96,8 +99,9 @@ class DateTest {
     }
   }
 
+  @Nested
   @DisplayName("某月的一天")
-  static class MonthDayTest {
+  class MonthDayTest {
 
     @Test
     @DisplayName("使用 MonthDay.isValidYear 方法来确定 2 月 29 日是否对 2010 年有效")
@@ -111,8 +115,9 @@ class DateTest {
     }
   }
 
+  @Nested
   @DisplayName("Year: 代表一年")
-  static class YearTest {
+  class YearTest {
 
     @Test
     @DisplayName("判断是否是闰年")

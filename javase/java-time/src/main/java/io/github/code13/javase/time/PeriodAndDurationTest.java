@@ -22,6 +22,7 @@ import java.time.Month;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -41,8 +42,9 @@ class PeriodAndDurationTest {
    * 在测量机器时间的情况下，Duration 最合适，例如使用 Instant 对象的代码。 Duration 对象以秒或纳秒度量， 不使用基于 Date
    * 的结构，如年、月和日，尽管类提供了转换为天数、小时和分钟的方法。 一个 Duration 可以有一个负值， 如果它是在开始点之前发生的端点创建的。
    */
+  @Nested
   @DisplayName("java.time.Duration")
-  static class DurationTest {
+  class DurationTest {
 
     @Test
     @DisplayName("Duration 示例")
@@ -71,8 +73,9 @@ class PeriodAndDurationTest {
    * 要用基于日期的值（年、月、日）来定义大量的时间，使用周期类。 周期类提供了各种 get 方法， 例如 getMonths， getDays 和
    * getYears，这样您就可以从周期中提取出时间的数量。
    */
+  @Nested
   @DisplayName("Period 示例")
-  static class PeriodTest {
+  class PeriodTest {
 
     @Test
     @DisplayName("报告了你的年龄，假设你是在 1960 年 1 月 1 日出生的")
