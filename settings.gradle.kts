@@ -37,6 +37,8 @@ include("javase:java-nio")
 include("javase:java-reflect")
 include("javase:java-spi")
 include("javase:java-time")
+include("javase:java-jdbc")
+findProject(":javase:java-jdbc")?.name = "java-jdbc"
 
 include("javase:jdk-new-api-features")
 findProject(":javase:jdk-new-api-features")?.name = "jdk-new-api-features"
